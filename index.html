@@ -1,0 +1,2617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XONOMO.SITE | Premium Utility Hub</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+  <style>
+    /* ══════════════════════════════════════
+       ROOT & RESET
+    ══════════════════════════════════════ */
+    :root {
+      --bg:        #080c18;
+      --bg2:       #0d1220;
+      --glass:     rgba(16, 24, 46, 0.78);
+      --glass2:    rgba(12, 18, 36, 0.9);
+      --border:    rgba(255,255,255,0.08);
+      --border2:   rgba(99,102,241,0.35);
+      --ind:       #6366f1;
+      --ind2:      #818cf8;
+      --pur:       #a855f7;
+      --cyn:       #22d3ee;
+      --grn:       #10b981;
+      --amb:       #f59e0b;
+      --ros:       #f43f5e;
+      --txt:       #f1f5f9;
+      --sub:       #94a3b8;
+      --dim:       #475569;
+      --r:         22px;
+      --ri:        12px;
+      --blur:      blur(28px);
+      --t:         0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--txt);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; }
+    button { font-family: inherit; }
+
+    /* ══════════════════════════════════════
+       ANIMATED BG
+    ══════════════════════════════════════ */
+    #scene {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); opacity: 0.45;
+      animation: orbFloat 22s ease-in-out infinite alternate;
+    }
+    .orb1 { width: 52vw; height: 52vw; top: -18%; left: -12%;
+      background: radial-gradient(circle, #3730a3 0%, transparent 70%);
+      animation-duration: 20s; }
+    .orb2 { width: 46vw; height: 46vw; bottom: -15%; right: -10%;
+      background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+      animation-duration: 26s; animation-direction: alternate-reverse; }
+    .orb3 { width: 32vw; height: 32vw; top: 35%; left: 50%;
+      background: radial-gradient(circle, #0891b2 0%, transparent 70%);
+      animation-duration: 18s; opacity: 0.25; }
+    @keyframes orbFloat {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(4vw, 5vh) scale(1.12); }
+    }
+
+    /* subtle grid overlay */
+    #scene::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(99,102,241,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,102,241,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ══════════════════════════════════════
+       LAYOUT WRAPPER
+    ══════════════════════════════════════ */
+    .wrap { position: relative; z-index: 1; }
+
+    /* ══════════════════════════════════════
+       HOME PAGE
+    ══════════════════════════════════════ */
+    #home {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* HEADER */
+    .site-header {
+      text-align: center;
+      padding: 72px 0 52px;
+    }
+    .header-kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--ind); background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.25); border-radius: 30px;
+      padding: 5px 14px; margin-bottom: 22px;
+    }
+    .header-kicker::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--ind); animation: pkPulse 2s infinite;
+    }
+    @keyframes pkPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.5); }
+      50%      { box-shadow: 0 0 0 5px transparent; }
+    }
+    .site-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 800; letter-spacing: -0.04em; line-height: 1;
+      margin-bottom: 18px;
+    }
+    .site-title .t1 {
+      background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 30%, #c084fc 65%, #f0abfc 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .site-title .t2 { color: rgba(255,255,255,0.18); }
+    .site-tagline {
+      font-size: 1rem; color: var(--sub); max-width: 420px;
+      margin: 0 auto 0; line-height: 1.7;
+    }
+
+    /* CARD GRID */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr));
+      gap: 18px;
+      margin-top: 42px;
+    }
+
+    /* HOME CARD */
+    .hcard {
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 34px 28px;
+      cursor: pointer;
+      transition: var(--t);
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+    .hcard::before {
+      content: ''; position: absolute;
+      inset: 0; border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    /* Accent bar on left */
+    .hcard::after {
+      content: ''; position: absolute;
+      left: 0; top: 20%; bottom: 20%;
+      width: 3px; border-radius: 0 3px 3px 0;
+      background: linear-gradient(180deg, var(--card-color,#6366f1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .hcard:hover {
+      transform: translateY(-6px);
+      border-color: var(--border2);
+      box-shadow: 0 24px 56px rgba(0,0,0,0.45), 0 0 0 1px rgba(99,102,241,0.1);
+    }
+    .hcard:hover::after { opacity: 1; }
+    .hcard:active { transform: translateY(-2px); }
+
+    .hcard-icon {
+      width: 52px; height: 52px;
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.45rem;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .hcard-icon.c1 { background: linear-gradient(135deg,#4338ca,#6366f1); --card-color:#6366f1; }
+    .hcard-icon.c2 { background: linear-gradient(135deg,#0e7490,#22d3ee); --card-color:#22d3ee; }
+    .hcard-icon.c3 { background: linear-gradient(135deg,#065f46,#10b981); --card-color:#10b981; }
+    .hcard-icon.c4 { background: linear-gradient(135deg,#9d174d,#f43f5e); --card-color:#f43f5e; }
+    .hcard-icon.c5 { background: linear-gradient(135deg,#78350f,#f59e0b); --card-color:#f59e0b; }
+    .hcard-icon.c6 { background: linear-gradient(135deg,#1e1b4b,#4f46e5); --card-color:#818cf8; }
+
+    .hcard[data-color="ind"]  { --card-color: #6366f1; }
+    .hcard[data-color="cyn"]  { --card-color: #22d3ee; }
+    .hcard[data-color="grn"]  { --card-color: #10b981; }
+    .hcard[data-color="ros"]  { --card-color: #f43f5e; }
+    .hcard[data-color="amb"]  { --card-color: #f59e0b; }
+
+    .hcard-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      border-radius: 20px; padding: 3px 9px; margin-bottom: 14px;
+    }
+    .hcard-badge.live {
+      color: var(--grn); background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.22);
+    }
+    .hcard-badge.live::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--grn); animation: pkPulse 2s infinite;
+    }
+    .hcard-badge.soon {
+      color: var(--amb); background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.2);
+    }
+
+    .hcard-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; color: var(--txt);
+    }
+    .hcard-desc { font-size: 0.85rem; color: var(--sub); line-height: 1.6; }
+
+    .hcard.locked { opacity: 0.45; cursor: not-allowed; }
+    .hcard.locked:hover { transform: none; border-color: var(--border); box-shadow: none; }
+
+    /* ══════════════════════════════════════
+       TOOL PANEL (FULL SCREEN OVERLAY)
+    ══════════════════════════════════════ */
+    .panel {
+      display: none;
+      position: fixed; inset: 0;
+      background: var(--bg);
+      z-index: 999;
+      overflow-y: auto;
+      padding: 32px 20px 60px;
+      animation: panelIn 0.35s cubic-bezier(0.4,0,0.2,1) both;
+    }
+    .panel.active { display: block; }
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* Back button */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--sub); border-radius: 10px;
+      padding: 9px 16px; font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; transition: var(--t);
+      margin-bottom: 28px;
+    }
+    .back-btn:hover { background: rgba(255,255,255,0.09); color: var(--txt); border-color: var(--ind); }
+
+    /* Panel Card */
+    .pcard {
+      background: var(--glass);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pcard::before {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      background: linear-gradient(140deg, rgba(255,255,255,0.03) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* Panel Header */
+    .phead {
+      display: flex; align-items: flex-start; gap: 16px;
+      margin-bottom: 30px; padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .phead-icon {
+      width: 50px; height: 50px; border-radius: 15px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .phead-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.35rem; font-weight: 700; line-height: 1.2;
+    }
+    .phead-sub { font-size: 0.8rem; color: var(--sub); margin-top: 4px; }
+
+    /* Live indicator in panel */
+    .panel-live {
+      margin-left: auto; flex-shrink: 0;
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.63rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--grn); background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.22); border-radius: 20px;
+      padding: 3px 9px;
+    }
+    .panel-live::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--grn); animation: pkPulse 2s infinite;
+    }
+    .panel-live.err { color: var(--ros); background: rgba(244,63,94,0.1); border-color: rgba(244,63,94,0.22); }
+    .panel-live.err::before { background: var(--ros); animation: none; }
+
+    /* ══════════════════════════════════════
+       FORM ELEMENTS
+    ══════════════════════════════════════ */
+    .field { margin-bottom: 16px; }
+    .lbl {
+      display: block; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--sub); margin-bottom: 7px;
+    }
+    input[type=number], input[type=url], input[type=text] {
+      width: 100%;
+      background: rgba(8,12,28,0.7);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--ri);
+      color: var(--txt); padding: 13px 15px;
+      font-family: inherit; font-size: 0.93rem;
+      transition: var(--t); outline: none;
+    }
+    input:focus {
+      border-color: var(--ind);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+      background: rgba(8,12,28,0.95);
+    }
+    input::placeholder { color: var(--dim); }
+
+    /* Grid for 2-col inputs */
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .row3 { display: grid; grid-template-columns: 160px 1fr; gap: 12px; }
+
+    /* ══════════════════════════════════════
+       SELECT2 DARK THEME
+    ══════════════════════════════════════ */
+    .select2-container { width: 100% !important; }
+    .select2-container--default .select2-selection--single {
+      background: rgba(8,12,28,0.7) !important;
+      border: 1px solid rgba(255,255,255,0.1) !important;
+      border-radius: var(--ri) !important;
+      height: 48px !important;
+      display: flex; align-items: center;
+      transition: var(--t);
+    }
+    .select2-container--default.select2-container--focus .select2-selection--single,
+    .select2-container--default.select2-container--open .select2-selection--single {
+      border-color: var(--ind) !important;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15) !important;
+      outline: none !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+      color: var(--txt) !important; padding-left: 14px !important;
+      line-height: 48px !important; font-family: 'DM Sans', sans-serif !important;
+      font-size: 0.9rem;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__placeholder { color: var(--dim) !important; }
+    .select2-container--default .select2-selection--single .select2-selection__arrow { height: 46px !important; right: 10px !important; }
+    .select2-container--default .select2-selection--single .select2-selection__arrow b {
+      border-color: var(--sub) transparent transparent transparent !important;
+    }
+    .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+      border-color: transparent transparent var(--ind) transparent !important;
+    }
+    .select2-dropdown {
+      background: rgba(8,12,28,0.98) !important;
+      border: 1px solid rgba(99,102,241,0.3) !important;
+      border-radius: 16px !important;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 24px 56px rgba(0,0,0,0.6) !important;
+      overflow: hidden;
+    }
+    .select2-container--default .select2-search--dropdown .select2-search__field {
+      background: rgba(20,28,52,0.95) !important;
+      border: 1px solid rgba(255,255,255,0.1) !important;
+      border-radius: 10px !important; color: var(--txt) !important;
+      font-family: 'DM Sans', sans-serif; padding: 9px 12px;
+      margin: 8px; width: calc(100% - 16px); outline: none;
+    }
+    .select2-container--default .select2-search--dropdown .select2-search__field:focus {
+      border-color: var(--ind) !important;
+    }
+    .select2-container--default .select2-results__option {
+      color: var(--sub) !important; font-family: 'DM Sans', sans-serif;
+      font-size: 0.87rem; padding: 10px 15px !important;
+    }
+    .select2-container--default .select2-results__option--highlighted {
+      background: rgba(99,102,241,0.2) !important; color: var(--txt) !important;
+    }
+    .select2-container--default .select2-results__option[aria-selected=true] {
+      background: rgba(99,102,241,0.3) !important; color: #a5b4fc !important;
+    }
+    .select2-results__options { max-height: 240px; }
+
+    /* ══════════════════════════════════════
+       TABS (crypto mode)
+    ══════════════════════════════════════ */
+    .tabs {
+      display: flex; gap: 4px;
+      background: rgba(8,12,28,0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px; padding: 4px;
+      margin-bottom: 22px;
+    }
+    .tab-btn {
+      flex: 1; padding: 9px 6px; border-radius: 10px;
+      border: none; background: transparent;
+      color: var(--dim); font-family: inherit;
+      font-size: 0.77rem; font-weight: 600;
+      cursor: pointer; transition: var(--t); letter-spacing: 0.02em;
+    }
+    .tab-btn.on {
+      background: linear-gradient(135deg,#0e7490,#22d3ee);
+      color: #fff; box-shadow: 0 4px 14px rgba(34,211,238,0.25);
+    }
+    .tab-btn:hover:not(.on) { color: var(--sub); background: rgba(255,255,255,0.04); }
+
+    /* ══════════════════════════════════════
+       SWAP BUTTON
+    ══════════════════════════════════════ */
+    .swap-row {
+      display: flex; align-items: center;
+      justify-content: center; margin: 8px 0;
+    }
+    .swap-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.3);
+      color: var(--ind); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; transition: var(--t);
+    }
+    .swap-btn:hover { background: rgba(99,102,241,0.25); transform: rotate(180deg); }
+
+    /* ══════════════════════════════════════
+       ACTION BUTTONS
+    ══════════════════════════════════════ */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border: none; border-radius: var(--ri);
+      font-family: inherit; font-size: 0.88rem; font-weight: 700;
+      padding: 14px 22px; cursor: pointer;
+      transition: var(--t); width: 100%; margin-top: 20px;
+      letter-spacing: 0.02em;
+    }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; filter: none !important; }
+    .btn-ind {
+      background: linear-gradient(135deg, #4338ca, #6366f1, #818cf8);
+      color: #fff; box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+    }
+    .btn-ind:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99,102,241,0.45); filter: brightness(1.08); }
+    .btn-cyn {
+      background: linear-gradient(135deg, #0e7490, #06b6d4, #22d3ee);
+      color: #fff; box-shadow: 0 4px 20px rgba(34,211,238,0.2);
+    }
+    .btn-cyn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(34,211,238,0.38); }
+    .btn-grn {
+      background: linear-gradient(135deg, #065f46, #059669, #10b981);
+      color: #fff; box-shadow: 0 4px 20px rgba(16,185,129,0.22);
+    }
+    .btn-grn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(16,185,129,0.4); }
+    .btn-ros {
+      background: linear-gradient(135deg, #9f1239, #e11d48, #f43f5e);
+      color: #fff; box-shadow: 0 4px 20px rgba(244,63,94,0.22);
+    }
+    .btn-ros:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(244,63,94,0.38); }
+
+    /* ══════════════════════════════════════
+       RESULT BOXES
+    ══════════════════════════════════════ */
+    .result {
+      display: none;
+      background: rgba(6,10,22,0.7);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 16px; padding: 22px 20px;
+      margin-top: 18px;
+      animation: fadeUp 0.3s ease both;
+    }
+    .result.show { display: block; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .result-main {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.7rem; font-weight: 700;
+      color: var(--cyn); word-break: break-all; line-height: 1.2;
+    }
+    .result-sub { font-size: 0.8rem; color: var(--sub); margin-top: 6px; }
+    .result-rate { font-family: 'Space Mono', monospace; font-size: 0.76rem; color: var(--dim); margin-top: 4px; }
+
+    /* ══════════════════════════════════════
+       ANONYMITY CHECKER
+    ══════════════════════════════════════ */
+    .anon-hero {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 32px 20px 24px; text-align: center;
+    }
+    .gauge-wrap {
+      position: relative; width: 180px; height: 180px; margin-bottom: 18px;
+    }
+    .gauge-svg { width: 180px; height: 180px; transform: rotate(-90deg); }
+    .gauge-bg { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 12; }
+    .gauge-fill {
+      fill: none; stroke-width: 12; stroke-linecap: round;
+      stroke-dasharray: 502; stroke-dashoffset: 502;
+      transition: stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1), stroke 0.5s;
+    }
+    .gauge-score {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .gauge-number {
+      font-family: 'Syne', sans-serif; font-size: 2.6rem; font-weight: 800; line-height: 1;
+      background: linear-gradient(135deg,#818cf8,#c084fc);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .gauge-label { font-size: 0.68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--sub); margin-top: 3px; }
+    .anon-status-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 6px 18px; border-radius: 30px; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px;
+      border: 1px solid;
+    }
+    .badge-safe   { background: rgba(16,185,129,0.12); color: #10b981; border-color: rgba(16,185,129,0.3); }
+    .badge-warn   { background: rgba(245,158,11,0.12); color: #f59e0b; border-color: rgba(245,158,11,0.3); }
+    .badge-danger { background: rgba(244,63,94,0.12);  color: #f43f5e; border-color: rgba(244,63,94,0.3); }
+    .anon-subtitle { font-size: 0.82rem; color: var(--sub); }
+
+    .anon-checks {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin: 16px 0;
+    }
+    @media(max-width: 480px) { .anon-checks { grid-template-columns: 1fr; } }
+    .check-item {
+      background: rgba(12,18,36,0.7); border: 1px solid var(--border);
+      border-radius: 14px; padding: 14px 16px;
+      display: flex; align-items: flex-start; gap: 12px;
+      transition: border-color 0.3s;
+    }
+    .check-item.pass  { border-color: rgba(16,185,129,0.25); }
+    .check-item.fail  { border-color: rgba(244,63,94,0.35); }
+    .check-item.warn  { border-color: rgba(245,158,11,0.3); }
+    .check-icon {
+      width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    }
+    .check-item.pass .check-icon { background: rgba(16,185,129,0.15); }
+    .check-item.fail .check-icon { background: rgba(244,63,94,0.15); }
+    .check-item.warn .check-icon { background: rgba(245,158,11,0.15); }
+    .check-body { flex: 1; min-width: 0; }
+    .check-name { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--sub); margin-bottom: 3px; }
+    .check-val  { font-size: 0.88rem; font-weight: 600; color: var(--txt); word-break: break-word; line-height: 1.4; }
+    .check-val.mismatch { color: #f43f5e; }
+    .check-deduct { font-size: 0.7rem; color: var(--sub); margin-top: 2px; }
+    .check-deduct.red { color: #f43f5e; font-weight: 600; }
+    .check-deduct.grn { color: #10b981; font-weight: 600; }
+
+    .anon-details {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+      gap: 10px; margin-top: 10px;
+    }
+    .adet {
+      background: rgba(12,18,36,0.7); border: 1px solid var(--border);
+      border-radius: 13px; padding: 12px 14px;
+    }
+    .adet-k { font-size: 0.65rem; color: var(--dim); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+    .adet-v { font-size: 0.85rem; font-weight: 600; word-break: break-all; color: var(--txt); }
+    .adet-v.highlight { color: var(--cyn); font-family: 'Space Mono', monospace; font-size: 0.8rem; }
+    .adet-v.warn-val { color: #f59e0b; }
+
+    .anon-section-title {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--ind2); margin: 20px 0 10px; display: flex; align-items: center; gap: 8px;
+    }
+    .anon-section-title::after {
+      content: ''; flex: 1; height: 1px; background: rgba(99,102,241,0.15);
+    }
+
+    /* URL result row */
+    .url-result-row {
+      display: flex; align-items: center; gap: 10px;
+      flex-wrap: wrap;
+    }
+    .url-result-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.88rem; color: var(--cyn);
+      flex: 1; word-break: break-all;
+    }
+    .copy-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      width: auto; padding: 9px 16px; font-size: 0.8rem;
+      background: rgba(99,102,241,0.15);
+      border: 1px solid rgba(99,102,241,0.3);
+      color: var(--ind2); border-radius: 10px;
+      font-family: inherit; font-weight: 700;
+      cursor: pointer; transition: var(--t);
+      flex-shrink: 0; margin-top: 0;
+    }
+    .copy-btn:hover { background: rgba(99,102,241,0.28); }
+    .copy-btn.copied { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.3); color: var(--grn); }
+
+    /* ══════════════════════════════════════
+       MESSAGES
+    ══════════════════════════════════════ */
+    .msg {
+      display: none; border-radius: 13px;
+      padding: 12px 15px; font-size: 0.84rem; font-weight: 500;
+      margin-top: 13px; align-items: flex-start; gap: 9px;
+    }
+    .msg.show { display: flex; }
+    .msg.err { background: rgba(244,63,94,0.09); border: 1px solid rgba(244,63,94,0.22); color: #fda4af; }
+    .msg.ok  { background: rgba(16,185,129,0.09); border: 1px solid rgba(16,185,129,0.22); color: #6ee7b7; }
+    .msg-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ══════════════════════════════════════
+       IP GRID
+    ══════════════════════════════════════ */
+    .ip-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px;
+    }
+    .ip-cell {
+      background: rgba(8,12,28,0.6);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; padding: 13px 14px;
+    }
+    .ip-key { font-size: 0.67rem; color: var(--dim); letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 5px; }
+    .ip-val { font-size: 0.87rem; font-weight: 600; word-break: break-all; }
+
+    /* ══════════════════════════════════════
+       SPINNER
+    ══════════════════════════════════════ */
+    .spin {
+      display: inline-block;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.22);
+      border-top-color: #fff; border-radius: 50%;
+      animation: doSpin 0.65s linear infinite;
+    }
+    @keyframes doSpin { to { transform: rotate(360deg); } }
+
+    /* ══════════════════════════════════════
+       TOAST
+    ══════════════════════════════════════ */
+    #toast {
+      position: fixed; bottom: 26px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: rgba(16,185,129,0.95); color: #fff;
+      padding: 10px 22px; border-radius: 30px;
+      font-size: 0.82rem; font-weight: 700;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      z-index: 99999; pointer-events: none;
+      display: flex; align-items: center; gap: 7px;
+      transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    .site-footer {
+      text-align: center; padding: 32px 20px;
+      color: var(--dim); font-size: 0.78rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: 48px;
+    }
+
+    /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .hcard { animation: cardIn 0.5s ease both; }
+    .hcard:nth-child(1) { animation-delay: 0.05s; }
+    .hcard:nth-child(2) { animation-delay: 0.1s; }
+    .hcard:nth-child(3) { animation-delay: 0.15s; }
+    .hcard:nth-child(4) { animation-delay: 0.2s; }
+    .hcard:nth-child(5) { animation-delay: 0.25s; }
+    .hcard:nth-child(6) { animation-delay: 0.30s; }
+    .hcard:nth-child(7) { animation-delay: 0.35s; }
+
+    .hcard[data-color="pur"]  { --card-color: #a855f7; }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media (max-width: 600px) {
+      .pcard { padding: 22px 16px; }
+      .row2 { grid-template-columns: 1fr; }
+      .row3 { grid-template-columns: 1fr; }
+      .result-main { font-size: 1.35rem; }
+      .ip-grid { grid-template-columns: 1fr; }
+      .site-title { font-size: 2.8rem; }
+    }
+
+    /* ══════════════════════════════════════
+       TEMP EMAIL STYLES
+    ══════════════════════════════════════ */
+    .email-addr-box {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      background: rgba(12,18,36,0.85); border: 1px solid rgba(34,211,238,0.3);
+      border-radius: 14px; padding: 14px 18px; margin-bottom: 18px;
+    }
+    .email-addr-text {
+      font-family: 'Space Mono', monospace; font-size: 0.95rem;
+      color: var(--cyn); flex: 1; word-break: break-all; font-weight: 600;
+    }
+    .inbox-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .inbox-item {
+      background: rgba(12,18,36,0.75); border: 1px solid var(--border);
+      border-radius: 12px; padding: 13px 16px; cursor: pointer;
+      transition: var(--t); display: flex; gap: 12px; align-items: flex-start;
+    }
+    .inbox-item:hover { border-color: rgba(99,102,241,0.4); background: rgba(16,24,46,0.9); transform: translateX(3px); }
+    .inbox-item.unread { border-left: 3px solid var(--ind); }
+    .inbox-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ind); flex-shrink: 0; margin-top: 5px; }
+    .inbox-dot.read { background: transparent; border: 1px solid var(--dim); }
+    .inbox-meta { flex: 1; min-width: 0; }
+    .inbox-from { font-size: 0.85rem; font-weight: 700; color: var(--txt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .inbox-subj { font-size: 0.8rem; color: var(--sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .inbox-time { font-size: 0.7rem; color: var(--dim); flex-shrink: 0; margin-top: 2px; }
+    .inbox-empty { text-align: center; padding: 36px 20px; color: var(--dim); font-size: 0.85rem; }
+    .inbox-empty .ie-icon { font-size: 2.2rem; margin-bottom: 10px; }
+    .mail-modal {
+      position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); padding: 16px;
+    }
+    .mail-modal-inner {
+      background: var(--bg2); border: 1px solid var(--border2);
+      border-radius: var(--r); width: 100%; max-width: 700px;
+      max-height: 85vh; display: flex; flex-direction: column;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    }
+    .mail-modal-head {
+      padding: 18px 22px; border-bottom: 1px solid var(--border);
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .mail-modal-close {
+      margin-left: auto; background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border); border-radius: 8px;
+      color: var(--sub); cursor: pointer; padding: 4px 10px; font-size: 1rem;
+      flex-shrink: 0; transition: var(--t);
+    }
+    .mail-modal-close:hover { background: rgba(244,63,94,0.15); color: var(--ros); }
+    .mail-modal-body {
+      padding: 20px 22px; overflow-y: auto; flex: 1;
+      font-size: 0.85rem; line-height: 1.7; color: var(--sub);
+    }
+    .mail-modal-body iframe { width: 100%; min-height: 300px; border: none; border-radius: 10px; background: white; }
+    .email-status-bar {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
+      font-size: 0.72rem; color: var(--sub);
+    }
+    .pulse-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--grn);
+      animation: pkPulse 2s infinite;
+    }
+
+    /* ══════════════════════════════════════
+       SPEED TEST STYLES
+    ══════════════════════════════════════ */
+    .speed-gauge-wrap {
+      display: flex; justify-content: center; align-items: center; gap: 32px;
+      flex-wrap: wrap; margin: 24px 0;
+    }
+    .speed-dial {
+      text-align: center; position: relative;
+    }
+    .speed-dial svg { display: block; }
+    .speed-arc-bg  { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 10; stroke-linecap: round; }
+    .speed-arc-fill { fill: none; stroke-width: 10; stroke-linecap: round;
+      stroke-dasharray: 283; stroke-dashoffset: 283;
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.4,0,0.2,1), stroke 0.4s; }
+    .speed-num {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .speed-val { font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 800; line-height: 1; }
+    .speed-unit { font-size: 0.62rem; color: var(--sub); letter-spacing: .1em; text-transform: uppercase; }
+    .speed-label { font-size: 0.72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--sub); margin-top: 8px; }
+    .speed-stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px;
+    }
+    .speed-stat {
+      background: rgba(12,18,36,0.75); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px; text-align: center;
+    }
+    .speed-stat-val { font-family: 'Space Mono', monospace; font-size: 1rem; font-weight: 700; color: var(--txt); }
+    .speed-stat-key { font-size: 0.65rem; color: var(--dim); letter-spacing: .1em; text-transform: uppercase; margin-top: 3px; }
+    .speed-bar-wrap { margin: 6px 0 2px; height: 4px; background: rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
+    .speed-bar { height: 100%; border-radius: 4px; width: 0; transition: width 0.6s ease; }
+    .speed-log { font-size: 0.75rem; color: var(--sub); line-height: 1.8; margin-top: 10px; font-family: 'Space Mono', monospace; }
+    .speed-test-btn {
+      background: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(168,85,247,0.3));
+      border: 1px solid rgba(129,140,248,0.4); color: #c7d2fe;
+    }
+    .speed-test-btn:hover { background: linear-gradient(135deg, rgba(99,102,241,0.5), rgba(168,85,247,0.5)); }
+
+  </style>
+</head>
+<body>
+
+<div id="scene">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<!-- Toast -->
+<div id="toast">✓ Copied!</div>
+
+<div class="wrap">
+
+  <!-- HOME PAGE -->
+  <div id="home">
+    <header class="site-header">
+      <div class="header-kicker">Premium Utility Suite</div>
+      <h1 class="site-title">
+        <span class="t1">XONOMO</span><span class="t2">.SITE</span>
+      </h1>
+      <p class="site-tagline">Anonymity checker, temporary email, internet speed test, IP intelligence & smart URL tools — all in one place.</p>
+    </header>
+
+    <div class="card-grid">
+
+      <!-- 1. Anonymity Checker — full width -->
+      <div class="hcard" onclick="openPanel('p-anon')" data-color="ind" style="--card-color:#818cf8; grid-column: 1 / -1;">
+        <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+          <div class="hcard-icon c6" style="flex-shrink:0;">🕵️</div>
+          <div style="flex:1;min-width:200px;">
+            <div class="hcard-badge live" style="background:rgba(129,140,248,0.15);color:#818cf8;border-color:rgba(129,140,248,0.3);">New · Live Check</div>
+            <div class="hcard-title" style="font-size:1.15rem;">Anonymity & IP Checker</div>
+            <div class="hcard-desc">Whoer-style anonymity score — detects VPN/proxy, Tor, timezone mismatch, blacklist status & browser fingerprint. Get your privacy score out of 100%.</div>
+          </div>
+          <div style="text-align:center;flex-shrink:0;">
+            <div style="font-family:'Space Mono',monospace;font-size:2rem;font-weight:700;background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">100%</div>
+            <div style="font-size:0.7rem;color:var(--sub);letter-spacing:.1em;text-transform:uppercase;">Max Score</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Temp Email -->
+      <div class="hcard" onclick="openPanel('p-email')" data-color="cyn">
+        <div class="hcard-icon c2">📧</div>
+        <div class="hcard-badge live">Mail.tm Powered</div>
+        <div class="hcard-title">Temporary Email</div>
+        <div class="hcard-desc">Instant disposable inbox — auto-generated email address, real-time inbox polling, read full messages. No signup needed.</div>
+      </div>
+
+      <!-- 3. Speed Test -->
+      <div class="hcard" onclick="openPanel('p-speed')" data-color="grn">
+        <div class="hcard-icon c3">⚡</div>
+        <div class="hcard-badge live">Real-time</div>
+        <div class="hcard-title">Internet Speed Test</div>
+        <div class="hcard-desc">Test your download & upload speed, ping and jitter instantly from your browser. No plugins needed.</div>
+      </div>
+
+      <!-- 5. URL Shortener -->
+      <div class="hcard" onclick="openPanel('p-url')" data-color="amb">
+        <div class="hcard-icon c5">🔗</div>
+        <div class="hcard-badge live">CleanURI Powered</div>
+        <div class="hcard-title">XONOMO Link Shortener</div>
+        <div class="hcard-desc">Transform any long URL into a clean, shareable short link via CleanURI API. Instant, no account needed.</div>
+      </div>
+
+      <!-- 6. Video Downloader — full width -->
+      <div class="hcard" onclick="openPanel('p-video')" data-color="pur" style="--card-color:#a855f7; grid-column: 1 / -1;">
+        <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+          <div class="hcard-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7);flex-shrink:0;">📥</div>
+          <div style="flex:1;min-width:200px;">
+            <div class="hcard-badge live" style="background:rgba(168,85,247,0.15);color:#c084fc;border-color:rgba(168,85,247,0.3);">Cobalt Powered · Multi-Platform</div>
+            <div class="hcard-title" style="font-size:1.15rem;">Video Downloader</div>
+            <div class="hcard-desc">Download videos from YouTube, Instagram, TikTok, Twitter/X, Reddit, Vimeo & more. Choose quality, audio-only mode, and more — powered by Cobalt API.</div>
+          </div>
+          <div style="text-align:center;flex-shrink:0;">
+            <div style="font-family:'Space Mono',monospace;font-size:1.6rem;font-weight:700;background:linear-gradient(135deg,#c084fc,#f0abfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">4K</div>
+            <div style="font-size:0.7rem;color:var(--sub);letter-spacing:.1em;text-transform:uppercase;">Max Quality</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="site-footer">
+      <p>© 2025 XONOMO.SITE &nbsp;·&nbsp; Powered by Mail.tm · ipapi.co · CleanURI · Cobalt · Cloudflare Workers</p>
+    </footer>
+  </div>
+
+  <div id="p-anon" class="panel">
+    <div class="panel-inner">
+      <button class="back-btn" onclick="closePanel('p-anon')">← Dashboard</button>
+      <div class="pcard">
+        <div class="phead">
+          <div class="phead-icon" style="background:linear-gradient(135deg,#1e1b4b,#4f46e5)">🕵️</div>
+          <div>
+            <div class="phead-title">Anonymity Checker</div>
+            <div class="phead-sub">Privacy Score · VPN · Tor · Timezone · Fingerprint</div>
+          </div>
+        </div>
+
+        <p style="font-size:.85rem;color:var(--sub);line-height:1.65;margin-bottom:22px;">
+          Analyze your connection's anonymity level. Checks for VPN/proxy, Tor exit nodes, timezone mismatches, language inconsistencies, and blacklist status.
+        </p>
+
+        <button class="btn" id="anon-scan-btn" style="background:linear-gradient(135deg,rgba(79,70,229,0.3),rgba(168,85,247,0.3));border:1px solid rgba(129,140,248,0.4);color:#c7d2fe;">🔍 Analyze My Anonymity</button>
+
+        <div id="anon-loading" style="display:none;text-align:center;padding:30px 0;color:var(--sub);font-size:.85rem;">
+          <div style="font-size:1.5rem;margin-bottom:8px;animation:spin 1s linear infinite;display:inline-block;">⚙️</div><br>Analyzing your connection…
+        </div>
+
+        <div id="anon-result" style="display:none;">
+          <!-- Gauge -->
+          <div class="anon-hero">
+            <div class="gauge-wrap">
+              <svg class="gauge-svg" viewBox="0 0 180 180">
+                <circle class="gauge-bg" cx="90" cy="90" r="80"/>
+                <circle class="gauge-fill" id="gauge-circle" cx="90" cy="90" r="80"/>
+              </svg>
+              <div class="gauge-score">
+                <div class="gauge-number" id="gauge-num">0%</div>
+                <div class="gauge-label">Anonymity</div>
+              </div>
+            </div>
+            <div class="anon-status-badge" id="anon-badge">—</div>
+            <div class="anon-subtitle" id="anon-subtitle">Scanning…</div>
+          </div>
+
+          <!-- Check Cards -->
+          <div class="anon-section-title">Security Checks</div>
+          <div class="anon-checks">
+            <div class="check-item" id="chk-vpn">
+              <div class="check-icon">🔒</div>
+              <div class="check-body">
+                <div class="check-name">VPN / Proxy / Hosting</div>
+                <div class="check-val" id="chk-vpn-val">—</div>
+                <div class="check-deduct" id="chk-vpn-pts">−50% if detected</div>
+              </div>
+            </div>
+            <div class="check-item" id="chk-tor">
+              <div class="check-icon">🧅</div>
+              <div class="check-body">
+                <div class="check-name">Tor / Blacklist</div>
+                <div class="check-val" id="chk-tor-val">—</div>
+                <div class="check-deduct" id="chk-tor-pts">−30% if detected</div>
+              </div>
+            </div>
+            <div class="check-item" id="chk-tz">
+              <div class="check-icon">🕐</div>
+              <div class="check-body">
+                <div class="check-name">Timezone Match</div>
+                <div class="check-val" id="chk-tz-val">—</div>
+                <div class="check-deduct" id="chk-tz-pts">−10% if mismatch</div>
+              </div>
+            </div>
+            <div class="check-item" id="chk-lang">
+              <div class="check-icon">🌐</div>
+              <div class="check-body">
+                <div class="check-name">Language Match</div>
+                <div class="check-val" id="chk-lang-val">—</div>
+                <div class="check-deduct" id="chk-lang-pts">−10% if mismatch</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Details -->
+          <div class="anon-section-title">Connection Details</div>
+          <div class="anon-details" id="anon-details"></div>
+
+          <!-- Browser Info -->
+          <div class="anon-section-title">Browser Fingerprint</div>
+          <div class="anon-details" id="anon-browser"></div>
+        </div>
+
+        <div class="msg err" id="anon-err"><span class="msg-icon">⚠</span><span id="anon-err-txt">Could not fetch IP data.</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- PANEL: TEMPORARY EMAIL             -->
+  <!-- ═══════════════════════════════════ -->
+  <div id="p-email" class="panel">
+    <div class="panel-inner">
+      <button class="back-btn" onclick="closePanel('p-email')">← Dashboard</button>
+      <div class="pcard">
+        <div class="phead">
+          <div class="phead-icon" style="background:linear-gradient(135deg,#0e7490,#22d3ee)">📧</div>
+          <div>
+            <div class="phead-title">Temporary Email</div>
+            <div class="phead-sub">Mail.tm · Auto-Generated · Real-time Inbox</div>
+          </div>
+        </div>
+
+        <p style="font-size:.85rem;color:var(--sub);line-height:1.65;margin-bottom:18px;">
+          Your disposable email address is auto-created. Use it to receive emails without revealing your real address. Inbox auto-refreshes every 8 seconds.
+        </p>
+
+        <!-- Email Address Box -->
+        <div id="email-loading" style="text-align:center;padding:22px 0;color:var(--sub);font-size:.85rem;">
+          <div style="font-size:1.5rem;margin-bottom:8px;display:inline-block;animation:doSpin 1s linear infinite;">⚙️</div><br>
+          Creating your temporary address…
+        </div>
+
+        <div id="email-ready" style="display:none;">
+          <div class="email-status-bar">
+            <span class="pulse-dot"></span>
+            <span id="email-status-txt">Inbox active — polling every 8s</span>
+            <span style="margin-left:auto;font-family:'Space Mono',monospace;" id="email-poll-timer">—</span>
+          </div>
+
+          <div class="email-addr-box">
+            <span class="email-addr-text" id="email-address">—</span>
+            <button class="copy-btn" id="email-copy-btn">📋 Copy</button>
+            <button class="copy-btn" id="email-refresh-btn" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3);color:var(--grn);">🔄 New</button>
+          </div>
+
+          <!-- Inbox -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <div style="font-size:0.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ind2);">
+              📬 Inbox <span id="email-count" style="background:rgba(99,102,241,0.2);border-radius:20px;padding:1px 8px;margin-left:4px;">0</span>
+            </div>
+            <button onclick="emailRefreshInbox()" style="font-size:0.72rem;color:var(--sub);background:none;border:none;cursor:pointer;padding:4px 8px;">↻ Refresh</button>
+          </div>
+
+          <div class="inbox-list" id="email-inbox">
+            <div class="inbox-empty">
+              <div class="ie-icon">📭</div>
+              <div>Waiting for emails…</div>
+              <div style="font-size:0.72rem;margin-top:4px;color:var(--dim);">Send something to your address above</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg err" id="email-err"><span class="msg-icon">⚠</span><span id="email-err-txt">Error.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mail View Modal -->
+  <div class="mail-modal" id="mail-modal" style="display:none;" onclick="if(event.target===this)closeMail()">
+    <div class="mail-modal-inner">
+      <div class="mail-modal-head">
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:0.75rem;color:var(--sub);margin-bottom:2px;" id="modal-from">From: —</div>
+          <div style="font-size:0.95rem;font-weight:700;color:var(--txt);" id="modal-subject">—</div>
+          <div style="font-size:0.7rem;color:var(--dim);margin-top:2px;" id="modal-date">—</div>
+        </div>
+        <button class="mail-modal-close" onclick="closeMail()">✕</button>
+      </div>
+      <div class="mail-modal-body" id="modal-body">Loading…</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- PANEL: INTERNET SPEED TEST         -->
+  <!-- ═══════════════════════════════════ -->
+  <div id="p-speed" class="panel">
+    <div class="panel-inner">
+      <button class="back-btn" onclick="closePanel('p-speed')">← Dashboard</button>
+      <div class="pcard">
+        <div class="phead">
+          <div class="phead-icon" style="background:linear-gradient(135deg,#065f46,#10b981)">⚡</div>
+          <div>
+            <div class="phead-title">Internet Speed Test</div>
+            <div class="phead-sub">Download · Upload · Ping · Jitter</div>
+          </div>
+        </div>
+
+        <p style="font-size:.85rem;color:var(--sub);line-height:1.65;margin-bottom:20px;">
+          Measure your real internet speed directly in the browser. Tests download, upload, ping and jitter using multiple CDN endpoints.
+        </p>
+
+        <button class="btn speed-test-btn" id="speed-btn">▶ Start Speed Test</button>
+
+        <div id="speed-result" style="display:none;margin-top:20px;">
+          <!-- Gauges -->
+          <div class="speed-gauge-wrap">
+            <!-- Download gauge -->
+            <div class="speed-dial">
+              <svg width="130" height="130" viewBox="0 0 100 100" style="transform:rotate(-225deg);">
+                <circle class="speed-arc-bg" cx="50" cy="50" r="45" stroke-dasharray="212" stroke-dashoffset="0"/>
+                <circle class="speed-arc-fill" id="dl-arc" cx="50" cy="50" r="45" stroke="#22d3ee" stroke-dasharray="212" stroke-dashoffset="212"/>
+              </svg>
+              <div class="speed-num">
+                <span class="speed-val" id="dl-val" style="color:#22d3ee;">—</span>
+                <span class="speed-unit">Mbps</span>
+              </div>
+              <div class="speed-label">Download</div>
+            </div>
+            <!-- Upload gauge -->
+            <div class="speed-dial">
+              <svg width="130" height="130" viewBox="0 0 100 100" style="transform:rotate(-225deg);">
+                <circle class="speed-arc-bg" cx="50" cy="50" r="45" stroke-dasharray="212" stroke-dashoffset="0"/>
+                <circle class="speed-arc-fill" id="ul-arc" cx="50" cy="50" r="45" stroke="#10b981" stroke-dasharray="212" stroke-dashoffset="212"/>
+              </svg>
+              <div class="speed-num">
+                <span class="speed-val" id="ul-val" style="color:#10b981;">—</span>
+                <span class="speed-unit">Mbps</span>
+              </div>
+              <div class="speed-label">Upload</div>
+            </div>
+          </div>
+
+          <!-- Stats row -->
+          <div class="speed-stats-row">
+            <div class="speed-stat">
+              <div class="speed-stat-val" id="ping-val">—</div>
+              <div class="speed-stat-key">Ping (ms)</div>
+            </div>
+            <div class="speed-stat">
+              <div class="speed-stat-val" id="jitter-val">—</div>
+              <div class="speed-stat-key">Jitter (ms)</div>
+            </div>
+            <div class="speed-stat">
+              <div class="speed-stat-val" id="server-val">—</div>
+              <div class="speed-stat-key">Server</div>
+            </div>
+          </div>
+
+          <!-- Progress bars -->
+          <div style="margin-top:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--sub);margin-bottom:4px;">
+              <span>Download progress</span><span id="dl-pct">0%</span>
+            </div>
+            <div class="speed-bar-wrap"><div class="speed-bar" id="dl-bar" style="background:var(--cyn);"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--sub);margin-bottom:4px;margin-top:10px;">
+              <span>Upload progress</span><span id="ul-pct">0%</span>
+            </div>
+            <div class="speed-bar-wrap"><div class="speed-bar" id="ul-bar" style="background:var(--grn);"></div></div>
+          </div>
+
+          <!-- Live log -->
+          <div class="speed-log" id="speed-log"></div>
+        </div>
+
+        <div class="msg err" id="speed-err"><span class="msg-icon">⚠</span><span id="speed-err-txt">Test failed.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="p-url" class="panel">
+    <div class="panel-inner">
+      <button class="back-btn" onclick="closePanel('p-url')">← Dashboard</button>
+      <div class="pcard">
+        <div class="phead">
+          <div class="phead-icon" style="background:linear-gradient(135deg,#9d174d,#f43f5e)">🔗</div>
+          <div>
+            <div class="phead-title">XONOMO Link Shortener</div>
+            <div class="phead-sub">CleanURI API · Instant · No Account Needed</div>
+          </div>
+        </div>
+
+        <p style="font-size:.85rem;color:var(--sub);line-height:1.65;margin-bottom:22px;">
+          Paste any long URL below and get a clean, shareable short link powered by CleanURI. The request is proxied via Cloudflare Worker to avoid CORS issues.
+        </p>
+
+        <!-- Input -->
+        <div class="field">
+          <label class="lbl">Long URL</label>
+          <input type="url" id="url-input" placeholder="https://your-very-long-url.com/path?query=…" />
+        </div>
+
+        <button class="btn btn-ros" id="url-btn">✂ Shorten URL</button>
+
+        <!-- Result Box -->
+        <div id="url-result" class="result" style="display:none;">
+          <div style="font-size:0.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin-bottom:8px;font-weight:700;">✅ Shortened Link Ready</div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <a id="url-short-text" href="#" target="_blank" rel="noopener"
+               style="font-family:'Space Mono',monospace;font-size:0.9rem;color:var(--cyn);
+                      flex:1;word-break:break-all;text-decoration:none;
+                      padding:10px 14px;background:rgba(34,211,238,0.07);
+                      border:1px solid rgba(34,211,238,0.2);border-radius:10px;">—</a>
+            <button class="copy-btn" id="url-copy-btn">📋 Copy</button>
+          </div>
+          <div style="margin-top:10px;font-size:0.75rem;color:var(--dim);">
+            Powered by <a href="https://cleanuri.com" target="_blank" style="color:var(--ind2);text-decoration:none;">CleanURI.com</a>
+            · Proxied via Cloudflare Worker
+          </div>
+        </div>
+
+        <!-- Error -->
+        <div class="msg err" id="url-err"><span class="msg-icon">⚠</span><span id="url-err-txt">Error.</span></div>
+
+        <!-- Worker Info Box -->
+        <div style="margin-top:24px;background:rgba(12,18,36,0.8);border:1px solid rgba(99,102,241,0.2);
+                    border-radius:14px;padding:16px 18px;">
+          <div style="font-size:0.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+                      color:var(--ind2);margin-bottom:10px;">⚙️ Cloudflare Worker Backend</div>
+          <p style="font-size:0.78rem;color:var(--sub);line-height:1.6;margin-bottom:10px;">
+            This tool uses a Cloudflare Worker at <code style="color:var(--cyn);background:rgba(34,211,238,0.08);
+            padding:2px 6px;border-radius:5px;">your-worker.workers.dev/shorten</code> to proxy requests to
+            CleanURI, bypassing browser CORS restrictions. Deploy the <strong style="color:var(--txt);">index.js</strong> below to your Cloudflare Worker.
+          </p>
+          <button class="btn" id="worker-code-toggle-btn"
+                  onclick="document.getElementById('worker-code-box').style.display =
+                    document.getElementById('worker-code-box').style.display==='none'?'block':'none'"
+                  style="padding:8px 16px;font-size:0.78rem;background:rgba(99,102,241,0.12);
+                         border:1px solid rgba(99,102,241,0.3);color:var(--ind2);">
+            📄 View index.js Worker Code
+          </button>
+          <div id="worker-code-box" style="display:none;margin-top:12px;">
+            <pre id="worker-code-pre" style="background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.07);
+                 border-radius:10px;padding:14px;font-family:'Space Mono',monospace;font-size:0.72rem;
+                 color:#c7d2fe;overflow-x:auto;white-space:pre;line-height:1.6;max-height:360px;overflow-y:auto;"></pre>
+            <button class="copy-btn" id="worker-copy-btn" style="margin-top:8px;">📋 Copy Worker Code</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- PANEL: VIDEO DOWNLOADER            -->
+  <!-- ═══════════════════════════════════ -->
+  <div id="p-video" class="panel">
+    <div class="panel-inner">
+      <button class="back-btn" onclick="closePanel('p-video')">← Dashboard</button>
+      <div class="pcard">
+        <div class="phead">
+          <div class="phead-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7)">📥</div>
+          <div>
+            <div class="phead-title">Video Downloader</div>
+            <div class="phead-sub">Cobalt API · YouTube · TikTok · Instagram · Twitter & more</div>
+          </div>
+          <span class="panel-live" style="color:#c084fc;background:rgba(168,85,247,0.1);border-color:rgba(168,85,247,0.25);">Cobalt</span>
+        </div>
+
+        <p style="font-size:.85rem;color:var(--sub);line-height:1.65;margin-bottom:20px;">
+          Paste any video URL from YouTube, TikTok, Instagram, Twitter/X, Reddit, Vimeo, Dailymotion, SoundCloud and more. Choose your preferred quality and format — powered by the free Cobalt API.
+        </p>
+
+        <!-- URL Input -->
+        <div class="field">
+          <label class="lbl">Video URL</label>
+          <input type="url" id="vid-url" placeholder="https://www.youtube.com/watch?v=… or TikTok, Instagram, Twitter…" />
+        </div>
+
+        <!-- Options Row -->
+        <div class="row2" style="margin-bottom:0;">
+          <div class="field">
+            <label class="lbl">Quality</label>
+            <select id="vid-quality" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:13px 15px;font-family:inherit;font-size:0.93rem;transition:var(--t);outline:none;appearance:none;cursor:pointer;">
+              <option value="max">Max (Best Available)</option>
+              <option value="2160">4K · 2160p</option>
+              <option value="1440">2K · 1440p</option>
+              <option value="1080">Full HD · 1080p</option>
+              <option value="720" selected>HD · 720p</option>
+              <option value="480">SD · 480p</option>
+              <option value="360">Low · 360p</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="lbl">Mode</label>
+            <select id="vid-mode" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:13px 15px;font-family:inherit;font-size:0.93rem;transition:var(--t);outline:none;appearance:none;cursor:pointer;">
+              <option value="auto">Auto (Video + Audio)</option>
+              <option value="audio">Audio Only (MP3)</option>
+              <option value="mute">Video Only (No Audio)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Advanced Options -->
+        <div style="margin:14px 0 0;background:rgba(12,18,36,0.6);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:14px 16px;">
+          <div style="font-size:0.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--sub);margin-bottom:12px;">⚙ Options</div>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.83rem;color:var(--sub);">
+              <input type="checkbox" id="vid-mute-audio" style="width:auto;accent-color:#a855f7;">
+              Mute Audio
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.83rem;color:var(--sub);">
+              <input type="checkbox" id="vid-no-watermark" style="width:auto;accent-color:#a855f7;" checked>
+              Remove Watermark (TikTok)
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.83rem;color:var(--sub);">
+              <input type="checkbox" id="vid-full-audio" style="width:auto;accent-color:#a855f7;">
+              Full Audio (YT Music)
+            </label>
+          </div>
+        </div>
+
+        <button class="btn" id="vid-btn" style="background:linear-gradient(135deg,#6b21a8,#9333ea,#a855f7);color:#fff;box-shadow:0 4px 20px rgba(168,85,247,0.3);">
+          📥 Download Video
+        </button>
+
+        <!-- Loading -->
+        <div id="vid-loading" style="display:none;text-align:center;padding:28px 0;color:var(--sub);font-size:.85rem;">
+          <div style="font-size:1.6rem;margin-bottom:8px;display:inline-block;animation:doSpin 1s linear infinite;">⚙️</div>
+          <br>Processing your request via Cobalt…
+        </div>
+
+        <!-- Result -->
+        <div id="vid-result" class="result" style="display:none;">
+          <div style="font-size:0.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin-bottom:12px;font-weight:700;">✅ Download Ready</div>
+
+          <!-- Media preview info -->
+          <div id="vid-info" style="display:none;background:rgba(168,85,247,0.07);border:1px solid rgba(168,85,247,0.2);border-radius:12px;padding:14px 16px;margin-bottom:14px;">
+            <div id="vid-title" style="font-size:0.9rem;font-weight:700;color:var(--txt);margin-bottom:4px;">—</div>
+            <div id="vid-meta" style="font-size:0.75rem;color:var(--sub);">—</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <a id="vid-link" href="#" target="_blank" rel="noopener"
+               style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+                      background:linear-gradient(135deg,rgba(107,33,168,0.3),rgba(168,85,247,0.3));
+                      border:1px solid rgba(168,85,247,0.4);color:#c084fc;
+                      border-radius:12px;padding:13px 20px;font-size:0.88rem;font-weight:700;
+                      text-decoration:none;transition:var(--t);"
+               onmouseover="this.style.filter='brightness(1.15)'"
+               onmouseout="this.style.filter=''">
+              ⬇ Open / Download File
+            </a>
+          </div>
+
+          <div style="margin-top:10px;font-size:0.72rem;color:var(--dim);line-height:1.6;">
+            💡 Click the link above — your browser will download or open the file.<br>
+            On mobile: long-press → "Save video/audio" for best results.
+          </div>
+        </div>
+
+        <!-- Multiple results (picker) -->
+        <div id="vid-picker" style="display:none;margin-top:16px;">
+          <div style="font-size:0.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin-bottom:12px;font-weight:700;">🎬 Pick a Stream</div>
+          <div id="vid-picker-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+
+        <!-- Error -->
+        <div class="msg err" id="vid-err"><span class="msg-icon">⚠</span><span id="vid-err-txt">Error.</span></div>
+
+        <!-- Supported Sites Info -->
+        <div style="margin-top:24px;background:rgba(12,18,36,0.8);border:1px solid rgba(168,85,247,0.15);border-radius:14px;padding:16px 18px;">
+          <div style="font-size:0.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c084fc;margin-bottom:10px;">🌐 Supported Platforms</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">YouTube</span>
+            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">TikTok</span>
+            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Instagram</span>
+            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Twitter / X</span>
+            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Reddit</span>
+            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Vimeo</span>
+            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Dailymotion</span>
+            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">SoundCloud</span>
+            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Twitch Clips</span>
+            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Bilibili</span>
+            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">& many more…</span>
+          </div>
+          <p style="font-size:0.74rem;color:var(--dim);margin-top:10px;line-height:1.6;">
+            Powered by <a href="https://cobalt.tools" target="_blank" style="color:#c084fc;text-decoration:none;">Cobalt.tools</a> — a free, open-source, privacy-friendly media downloader. No ads, no tracking.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+/* ══════════════════════════════════════════════
+   CORE UTILITIES
+══════════════════════════════════════════════ */
+const toast = document.getElementById('toast');
+function copyText(t) {
+  navigator.clipboard.writeText(t).then(() => {
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  }).catch(() => {
+    const el = document.createElement('textarea');
+    el.value = t; document.body.appendChild(el);
+    el.select(); document.execCommand('copy');
+    document.body.removeChild(el);
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  });
+}
+
+function openPanel(id) {
+  document.getElementById('home').style.display = 'none';
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if (id === 'p-email') emailInit();
+}
+function closePanel(id) {
+  document.getElementById(id).classList.remove('active');
+  document.getElementById('home').style.display = 'block';
+  if (id === 'p-email') emailDestroy();
+}
+
+function loading(btn, on) {
+  if (on) { btn.dataset.orig = btn.textContent; btn.textContent = '⏳ Loading…'; btn.disabled = true; }
+  else     { btn.textContent = btn.dataset.orig || btn.textContent; btn.disabled = false; }
+}
+function hideMsg(el) { el.style.display = 'none'; }
+function showMsg(el, type, txt) {
+  const span = el.querySelector('span:last-child');
+  if (span) span.textContent = txt;
+  el.style.display = 'flex';
+}
+
+/* ══════════════════════════════════════════════
+   MODULE 0 — ANONYMITY CHECKER
+   Scoring: VPN/Hosting(50) + Tor/Blacklist(30)
+           + Timezone(10) + Language(10) = 100
+══════════════════════════════════════════════ */
+
+// Known datacenter/hosting ASN keywords
+const DATACENTER_KEYWORDS = [
+  'amazon','aws','digitalocean','linode','vultr','ovh','hetzner','m247',
+  'leaseweb','choopa','psychz','zenlayer','frantech','serverius','hostinger',
+  'contabo','cloudflare','google cloud','microsoft azure','alibaba','tencent',
+  'rackspace','softlayer','quadranet','tzulo','sharktech','path network',
+  'colocrossing','nexeon','dacentec','fibernet','hostwinds','racknerd',
+  'buyvm','incero','krypt','multacom','reliablesite','steadfast','liquidweb',
+  'fastly','akamai','incapsula','sucuri','voxility','mevspace','combahton'
+];
+
+function isDatacenter(org) {
+  if (!org) return false;
+  const low = org.toLowerCase();
+  return DATACENTER_KEYWORDS.some(k => low.includes(k));
+}
+
+// Language → country mapping (common cases)
+const LANG_COUNTRY = {
+  'en': ['US','GB','CA','AU','NZ','IE','ZA','IN','SG','PH','NG','GH','KE','UG','TZ'],
+  'es': ['ES','MX','CO','AR','PE','VE','CL','EC','BO','PY','UY','CR','PA','DO','GT','HN','SV','NI','CU','PR'],
+  'fr': ['FR','BE','CH','CA','LU','MC','SN','CI','CM','MG','ML','BF','NE','TG','BJ','GA','CG','CD'],
+  'de': ['DE','AT','CH','LI','LU','BE'],
+  'pt': ['PT','BR','AO','MZ','CV','GW','ST','TL'],
+  'zh': ['CN','TW','HK','SG'],
+  'ar': ['SA','AE','EG','IQ','SY','JO','LB','KW','QA','BH','OM','YE','LY','TN','DZ','MA','SD'],
+  'ru': ['RU','BY','KZ','KG','TJ','TM','UZ','UA','MD','AZ','AM','GE'],
+  'ja': ['JP'],
+  'ko': ['KR','KP'],
+  'hi': ['IN'],
+  'bn': ['BD','IN'],
+  'tr': ['TR'],
+  'vi': ['VN'],
+  'th': ['TH'],
+  'id': ['ID'],
+  'ms': ['MY','SG','BN'],
+  'nl': ['NL','BE','SR'],
+  'pl': ['PL'],
+  'uk': ['UA'],
+  'it': ['IT','CH','SM','VA'],
+  'fa': ['IR','AF'],
+  'ur': ['PK','IN'],
+  'sw': ['TZ','KE','UG'],
+  'he': ['IL'],
+  'el': ['GR','CY'],
+  'cs': ['CZ'],
+  'sk': ['SK'],
+  'ro': ['RO','MD'],
+  'hu': ['HU'],
+  'bg': ['BG'],
+  'hr': ['HR'],
+  'sr': ['RS'],
+  'fi': ['FI'],
+  'sv': ['SE'],
+  'da': ['DK'],
+  'nb': ['NO'], 'nn': ['NO'],
+  'lt': ['LT'],
+  'lv': ['LV'],
+  'et': ['EE'],
+};
+
+function checkLanguageMatch(browserLang, countryCode) {
+  if (!browserLang || !countryCode) return { match: true, reason: 'Unable to verify' };
+  const base = browserLang.split('-')[0].toLowerCase();
+  const cc = countryCode.toUpperCase();
+  const allowed = LANG_COUNTRY[base];
+  if (!allowed) return { match: true, reason: `Lang "${base}" not in DB` };
+  return {
+    match: allowed.includes(cc),
+    reason: allowed.includes(cc)
+      ? `${base.toUpperCase()} ✓ matches ${cc}`
+      : `${base.toUpperCase()} ✗ doesn't match ${cc}`
+  };
+}
+
+function setCheckState(id, state, val, pts) {
+  const el = document.getElementById(id);
+  const valEl = document.getElementById(id + '-val');
+  const ptsEl = document.getElementById(id + '-pts');
+  el.className = 'check-item ' + state;
+  if (val !== undefined) {
+    valEl.textContent = val;
+    valEl.className = 'check-val' + (state === 'fail' ? ' mismatch' : '');
+  }
+  if (pts !== undefined) {
+    ptsEl.textContent = pts;
+    ptsEl.className = 'check-deduct ' + (state === 'pass' ? 'grn' : state === 'fail' ? 'red' : '');
+  }
+}
+
+function animateGauge(score) {
+  const circle = document.getElementById('gauge-circle');
+  const numEl   = document.getElementById('gauge-num');
+  const circumference = 2 * Math.PI * 80; // ~502.65
+  const offset = circumference - (score / 100) * circumference;
+
+  // Color by score
+  let color;
+  if (score >= 80)      color = '#10b981';
+  else if (score >= 50) color = '#f59e0b';
+  else                  color = '#f43f5e';
+
+  circle.style.stroke = color;
+  circle.style.strokeDashoffset = offset;
+
+  // Animate number
+  let cur = 0;
+  const step = score / 60;
+  const timer = setInterval(() => {
+    cur = Math.min(cur + step, score);
+    numEl.textContent = Math.round(cur) + '%';
+    if (cur >= score) clearInterval(timer);
+  }, 16);
+}
+
+function setBadge(score) {
+  const badge = document.getElementById('anon-badge');
+  const sub   = document.getElementById('anon-subtitle');
+  badge.className = 'anon-status-badge';
+  if (score === 100) {
+    badge.classList.add('badge-safe');
+    badge.textContent = '✅ Fully Anonymous';
+    sub.textContent = 'No leaks detected. Your connection appears clean.';
+  } else if (score >= 70) {
+    badge.classList.add('badge-safe');
+    badge.textContent = '🟢 Mostly Anonymous';
+    sub.textContent = 'Minor inconsistencies found. Generally safe.';
+  } else if (score >= 40) {
+    badge.classList.add('badge-warn');
+    badge.textContent = '🟡 Partial Anonymity';
+    sub.textContent = 'Some leaks detected. Your identity may be exposed.';
+  } else {
+    badge.classList.add('badge-danger');
+    badge.textContent = '🔴 Low Anonymity';
+    sub.textContent = 'Significant leaks detected. You are likely identifiable.';
+  }
+}
+
+function renderDetails(fields, containerId) {
+  document.getElementById(containerId).innerHTML = fields.map(f =>
+    `<div class="adet">
+      <div class="adet-k">${f.k}</div>
+      <div class="adet-v ${f.cls||''}">${f.v || '—'}</div>
+    </div>`
+  ).join('');
+}
+
+document.getElementById('anon-scan-btn').addEventListener('click', async function() {
+  const btn     = this;
+  const errEl   = document.getElementById('anon-err');
+  const loadEl  = document.getElementById('anon-loading');
+  const resEl   = document.getElementById('anon-result');
+
+  hideMsg(errEl);
+  resEl.style.display = 'none';
+  loadEl.style.display = 'block';
+  loading(btn, true);
+
+  // Browser-side data (collected immediately)
+  const browserTZ   = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const browserLang = navigator.language || navigator.languages?.[0] || '';
+  const ua          = navigator.userAgent;
+  const platform    = navigator.platform || 'Unknown';
+  const cookieOk    = navigator.cookieEnabled;
+  const doNotTrack  = navigator.doNotTrack;
+  const screen_res  = `${window.screen.width}×${window.screen.height}`;
+  const colorDepth  = window.screen.colorDepth + '-bit';
+
+  try {
+    // Fetch IP data from ipapi.co
+    const r = await fetch('https://ipapi.co/json/', { headers: { Accept: 'application/json' } });
+    if (!r.ok) throw new Error('ipapi ' + r.status);
+    const d = await r.json();
+    if (d.error) throw new Error(d.reason || 'API error');
+
+    loadEl.style.display = 'none';
+    resEl.style.display  = 'block';
+
+    let score = 100;
+    let deductions = [];
+
+    // ── CHECK 1: VPN / Proxy / Hosting (−50) ──
+    const org = d.org || '';
+    const asn = d.asn || '';
+    const vpnDetected = isDatacenter(org) || isDatacenter(asn);
+    if (vpnDetected) {
+      score -= 50;
+      deductions.push('VPN/Hosting detected');
+      setCheckState('chk-vpn', 'fail', `${org || asn}`, '−50% Deducted');
+    } else {
+      setCheckState('chk-vpn', 'pass', org || 'Residential ISP', '✓ No deduction');
+    }
+
+    // ── CHECK 2: Tor / Blacklist (−30) ──
+    // Check using Tor DNS: <reversed-ip>.dnsel.torproject.org
+    let torDetected = false;
+    const ip = d.ip || '';
+    try {
+      // We can't do actual DNS in browser, so we use a known Tor check API
+      const torR = await fetch(`https://check.torproject.org/api/ip`, { signal: AbortSignal.timeout(4000) });
+      if (torR.ok) {
+        const torD = await torR.json();
+        torDetected = torD.IsTor === true;
+      }
+    } catch { /* Tor check failed — assume not Tor */ }
+
+    if (torDetected) {
+      score -= 30;
+      deductions.push('Tor exit node detected');
+      setCheckState('chk-tor', 'fail', 'Tor Exit Node Detected', '−30% Deducted');
+    } else {
+      setCheckState('chk-tor', 'pass', 'Not a Tor/Blacklisted IP', '✓ No deduction');
+    }
+
+    // ── CHECK 3: Timezone Mismatch (−10) ──
+    const ipTZ = d.timezone || '';
+    const tzMatch = browserTZ === ipTZ;
+    if (!tzMatch && ipTZ) {
+      score -= 10;
+      deductions.push('Timezone mismatch');
+      setCheckState('chk-tz', 'fail',
+        `Browser: ${browserTZ}\nIP: ${ipTZ}`,
+        '−10% Deducted'
+      );
+      // Show both values with mismatch styling
+      document.getElementById('chk-tz-val').innerHTML =
+        `<span style="color:#f43f5e">Browser: ${browserTZ}</span><br>
+         <span style="color:#94a3b8">IP: ${ipTZ}</span>`;
+    } else {
+      setCheckState('chk-tz', 'pass',
+        ipTZ ? `✓ ${browserTZ}` : `Browser: ${browserTZ}`,
+        '✓ No deduction'
+      );
+    }
+
+    // ── CHECK 4: Language Mismatch (−10) ──
+    const cc = d.country_code || '';
+    const langCheck = checkLanguageMatch(browserLang, cc);
+    if (!langCheck.match) {
+      score -= 10;
+      deductions.push('Language mismatch');
+      setCheckState('chk-lang', 'fail', langCheck.reason, '−10% Deducted');
+    } else {
+      setCheckState('chk-lang', 'pass', langCheck.reason, '✓ No deduction');
+    }
+
+    score = Math.max(0, score);
+
+    // Animate gauge
+    animateGauge(score);
+    setBadge(score);
+
+    // Connection details
+    renderDetails([
+      { k: 'IP Address',  v: d.ip,            cls: 'highlight' },
+      { k: 'ISP / Org',   v: d.org            },
+      { k: 'ASN',         v: d.asn            },
+      { k: 'Country',     v: `${d.country_name||''} (${d.country_code||''})` },
+      { k: 'Region',      v: d.region         },
+      { k: 'City',        v: d.city           },
+      { k: 'IP Timezone', v: d.timezone,      cls: !tzMatch ? 'warn-val' : '' },
+      { k: 'UTC Offset',  v: d.utc_offset     },
+      { k: 'Languages',   v: d.languages      },
+      { k: 'Currency',    v: `${d.currency||''} ${d.currency_name||''}` },
+      { k: 'Latitude',    v: d.latitude       },
+      { k: 'Longitude',   v: d.longitude      },
+    ], 'anon-details');
+
+    // Browser fingerprint
+    renderDetails([
+      { k: 'Browser TZ',    v: browserTZ,    cls: !tzMatch ? 'warn-val' : '' },
+      { k: 'Language',      v: browserLang   },
+      { k: 'Platform',      v: platform      },
+      { k: 'Screen',        v: screen_res    },
+      { k: 'Color Depth',   v: colorDepth    },
+      { k: 'Cookies',       v: cookieOk ? 'Enabled' : 'Disabled' },
+      { k: 'Do Not Track',  v: doNotTrack === '1' ? 'Enabled' : doNotTrack === '0' ? 'Disabled' : 'Not Set' },
+      { k: 'User Agent',    v: ua.substring(0, 60) + (ua.length > 60 ? '…' : '') },
+    ], 'anon-browser');
+
+  } catch(e) {
+    loadEl.style.display = 'none';
+    showMsg(document.getElementById('anon-err'), 'err',
+      'Failed to fetch IP data. Check connection and try again.');
+  }
+
+  loading(btn, false);
+});
+/* ══════════════════════════════════════════════
+   TEMPORARY EMAIL MODULE — Mail.tm API
+   Cloudflare Worker proxy: POST /mail-proxy
+   Direct fallback: api.mail.tm (CORS allowed)
+══════════════════════════════════════════════ */
+const MAILTM = 'https://api.mail.tm';
+let emailToken  = null;
+let emailAddr   = null;
+let emailMsgIds = new Set();
+let emailPollInterval = null;
+let emailCountdown = 8;
+let emailCountdownTimer = null;
+
+function emailRandStr(len) {
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  return Array.from({length: len}, () => chars[Math.floor(Math.random()*chars.length)]).join('');
+}
+
+async function emailInit() {
+  const loadEl = document.getElementById('email-loading');
+  const readyEl = document.getElementById('email-ready');
+  const errEl   = document.getElementById('email-err');
+  loadEl.style.display = 'block';
+  readyEl.style.display = 'none';
+  hideMsg(errEl);
+  emailDestroy();
+
+  try {
+    // Step 1: Get available domains
+    const domR = await fetch(`${MAILTM}/domains?page=1`);
+    if (!domR.ok) throw new Error('Cannot reach Mail.tm');
+    const domD = await domR.json();
+    const domains = (domD['hydra:member'] || domD.hydra?.member || []);
+    if (!domains.length) throw new Error('No Mail.tm domains available');
+    const domain = domains[0].domain;
+
+    // Step 2: Create account
+    const user = emailRandStr(10);
+    const pass = emailRandStr(12) + 'X1!';
+    const address = `${user}@${domain}`;
+
+    const accR = await fetch(`${MAILTM}/accounts`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({address, password: pass})
+    });
+    if (!accR.ok) {
+      const e = await accR.json().catch(()=>({}));
+      throw new Error(e['hydra:description'] || e.detail || 'Account creation failed');
+    }
+
+    // Step 3: Get JWT token
+    const tokR = await fetch(`${MAILTM}/token`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({address, password: pass})
+    });
+    if (!tokR.ok) throw new Error('Auth failed');
+    const tokD = await tokR.json();
+    emailToken = tokD.token;
+    emailAddr  = address;
+
+    // Show UI
+    loadEl.style.display = 'none';
+    readyEl.style.display = 'block';
+    document.getElementById('email-address').textContent = emailAddr;
+
+    // Copy button
+    document.getElementById('email-copy-btn').onclick = () => {
+      copyText(emailAddr);
+      const b = document.getElementById('email-copy-btn');
+      b.textContent = '✓ Copied!'; b.classList.add('copied');
+      setTimeout(() => { b.textContent = '📋 Copy'; b.classList.remove('copied'); }, 2000);
+    };
+
+    // New email button
+    document.getElementById('email-refresh-btn').onclick = () => emailInit();
+
+    // Start polling
+    emailPollInbox();
+    emailStartPolling();
+
+  } catch(e) {
+    loadEl.style.display = 'none';
+    showMsg(document.getElementById('email-err'), 'err', '⚠ ' + e.message + '. Mail.tm may be temporarily down — try again in a moment.');
+  }
+}
+
+function emailDestroy() {
+  if (emailPollInterval)     { clearInterval(emailPollInterval);     emailPollInterval = null; }
+  if (emailCountdownTimer)   { clearInterval(emailCountdownTimer);   emailCountdownTimer = null; }
+  emailToken  = null;
+  emailAddr   = null;
+  emailMsgIds = new Set();
+}
+
+function emailStartPolling() {
+  emailCountdown = 8;
+  emailPollInterval   = setInterval(emailPollInbox, 8000);
+  emailCountdownTimer = setInterval(() => {
+    emailCountdown--;
+    const el = document.getElementById('email-poll-timer');
+    if (el) el.textContent = `Next check: ${emailCountdown}s`;
+    if (emailCountdown <= 0) emailCountdown = 8;
+  }, 1000);
+}
+
+async function emailRefreshInbox() {
+  emailCountdown = 8;
+  await emailPollInbox();
+}
+
+async function emailPollInbox() {
+  if (!emailToken) return;
+  try {
+    const r = await fetch(`${MAILTM}/messages?page=1`, {
+      headers: { Authorization: `Bearer ${emailToken}` }
+    });
+    if (!r.ok) return;
+    const data = await r.json();
+    const msgs = data['hydra:member'] || [];
+    const countEl = document.getElementById('email-count');
+    if (countEl) countEl.textContent = msgs.length;
+    renderInbox(msgs);
+  } catch { /* silently ignore poll errors */ }
+}
+
+function renderInbox(msgs) {
+  const inbox = document.getElementById('email-inbox');
+  if (!inbox) return;
+  if (!msgs.length) {
+    inbox.innerHTML = `<div class="inbox-empty"><div class="ie-icon">📭</div><div>Waiting for emails…</div><div style="font-size:0.72rem;margin-top:4px;color:var(--dim);">Send something to your address above</div></div>`;
+    return;
+  }
+  inbox.innerHTML = msgs.map(m => {
+    const isNew = !emailMsgIds.has(m.id);
+    if (isNew) emailMsgIds.add(m.id);
+    const from = m.from?.address || m.from?.name || 'Unknown';
+    const subj = m.subject || '(No Subject)';
+    const date = m.createdAt ? new Date(m.createdAt).toLocaleTimeString() : '';
+    return `<div class="inbox-item ${m.seen?'':'unread'}" onclick="emailOpenMsg('${m.id}')">
+      <div class="inbox-dot ${m.seen?'read':''}"></div>
+      <div class="inbox-meta">
+        <div class="inbox-from">${escHtml(from)}</div>
+        <div class="inbox-subj">${escHtml(subj)}</div>
+      </div>
+      <div class="inbox-time">${date}</div>
+    </div>`;
+  }).join('');
+}
+
+async function emailOpenMsg(id) {
+  if (!emailToken) return;
+  const modal   = document.getElementById('mail-modal');
+  const bodyEl  = document.getElementById('modal-body');
+  const fromEl  = document.getElementById('modal-from');
+  const subjEl  = document.getElementById('modal-subject');
+  const dateEl  = document.getElementById('modal-date');
+  modal.style.display = 'flex';
+  bodyEl.innerHTML = '<div style="text-align:center;padding:30px;color:var(--sub);">Loading message…</div>';
+
+  try {
+    const r = await fetch(`${MAILTM}/messages/${id}`, {
+      headers: { Authorization: `Bearer ${emailToken}` }
+    });
+    if (!r.ok) throw new Error('Failed to load message');
+    const m = await r.json();
+    fromEl.textContent = `From: ${m.from?.address || m.from?.name || '—'}`;
+    subjEl.textContent = m.subject || '(No Subject)';
+    dateEl.textContent = m.createdAt ? new Date(m.createdAt).toLocaleString() : '';
+
+    if (m.html && m.html.length) {
+      // Render HTML in sandboxed iframe
+      const blob = new Blob([m.html], {type:'text/html'});
+      const url  = URL.createObjectURL(blob);
+      bodyEl.innerHTML = `<iframe src="${url}" sandbox="allow-same-origin" onload="this.style.height=this.contentDocument.body.scrollHeight+40+'px'"></iframe>`;
+    } else {
+      const txt = (m.text || m.intro || '(Empty message)').replace(/\n/g,'<br>');
+      bodyEl.innerHTML = `<div style="color:var(--txt);white-space:pre-wrap;">${txt}</div>`;
+    }
+    // Mark as read in UI
+    emailPollInbox();
+  } catch(e) {
+    bodyEl.innerHTML = `<div style="color:var(--ros);padding:20px;">⚠ ${e.message}</div>`;
+  }
+}
+
+function closeMail() {
+  document.getElementById('mail-modal').style.display = 'none';
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+
+/* ══════════════════════════════════════════════
+   INTERNET SPEED TEST MODULE
+   Method: fetch() timing against public CDN
+   endpoints to measure download/upload throughput
+   and ping/jitter via multiple samples.
+══════════════════════════════════════════════ */
+
+// Download test files — public CDN assets (various sizes)
+const DL_ENDPOINTS = [
+  { url: 'https://speed.cloudflare.com/__down?bytes=10000000', size: 10_000_000, label: 'Cloudflare 10MB' },
+  { url: 'https://speed.cloudflare.com/__down?bytes=25000000', size: 25_000_000, label: 'Cloudflare 25MB' },
+];
+
+// Upload test: POST to httpbin (measures upload throughput)
+const UL_ENDPOINT = 'https://speed.cloudflare.com/__up';
+
+let speedRunning = false;
+
+function speedLog(msg) {
+  const el = document.getElementById('speed-log');
+  if (!el) return;
+  el.innerHTML += (el.innerHTML ? '<br>' : '') + `<span style="color:var(--dim);">${new Date().toLocaleTimeString()}</span> ${msg}`;
+  el.scrollTop = el.scrollHeight;
+}
+
+function speedSetArc(id, pct, maxMbps) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  // Arc: full = dasharray 212 (3/4 circle), empty = dashoffset 212
+  const fill = 212 * Math.min(pct, 1);
+  el.style.strokeDashoffset = 212 - fill;
+}
+
+function speedSetVal(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val !== null ? val : '—';
+}
+
+function speedSetBar(barId, pctId, pct) {
+  const bar = document.getElementById(barId);
+  const lbl = document.getElementById(pctId);
+  if (bar) bar.style.width = Math.min(pct * 100, 100) + '%';
+  if (lbl) lbl.textContent = Math.round(pct * 100) + '%';
+}
+
+async function measurePing(url, samples = 5) {
+  const times = [];
+  for (let i = 0; i < samples; i++) {
+    const t0 = performance.now();
+    try {
+      await fetch(url + (url.includes('?') ? '&' : '?') + 'ping=' + i + '&bytes=0', {
+        method: 'GET', cache: 'no-store',
+        signal: AbortSignal.timeout(4000)
+      });
+    } catch { /* ignore */ }
+    times.push(performance.now() - t0);
+    await new Promise(r => setTimeout(r, 80));
+  }
+  times.sort((a,b) => a - b);
+  const valid = times.slice(1, -1); // drop min/max
+  const avg   = valid.reduce((a,b) => a+b, 0) / valid.length;
+  const jitter = Math.max(...valid) - Math.min(...valid);
+  return { ping: Math.round(avg), jitter: Math.round(jitter) };
+}
+
+async function measureDownload() {
+  const ep = DL_ENDPOINTS[0];
+  const t0 = performance.now();
+  try {
+    const r = await fetch(ep.url + '&nocache=' + Date.now(), {
+      cache: 'no-store',
+      signal: AbortSignal.timeout(30000)
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+
+    const reader = r.body.getReader();
+    let loaded = 0;
+    const start = performance.now();
+
+    while (true) {
+      const {done, value} = await reader.read();
+      if (done) break;
+      loaded += value.byteLength;
+      const elapsed = (performance.now() - start) / 1000;
+      const mbps    = (loaded * 8) / (elapsed * 1_000_000);
+      const pct     = loaded / ep.size;
+      speedSetVal('dl-val', mbps.toFixed(1));
+      speedSetArc('dl-arc', pct, 1000);
+      speedSetBar('dl-bar', 'dl-pct', pct);
+    }
+
+    const elapsed = (performance.now() - t0) / 1000;
+    const mbps    = (ep.size * 8) / (elapsed * 1_000_000);
+    return mbps;
+  } catch(e) {
+    speedLog('⚠ Download test error: ' + e.message);
+    return null;
+  }
+}
+
+async function measureUpload() {
+  // Build a 5MB buffer to upload
+  const SIZE = 5 * 1024 * 1024;
+  const buf  = new Uint8Array(SIZE);
+  crypto.getRandomValues(buf.slice(0, 1024)); // only fill small part for speed
+
+  const t0 = performance.now();
+  try {
+    const r = await fetch(UL_ENDPOINT + '?nocache=' + Date.now(), {
+      method: 'POST',
+      body: buf,
+      cache: 'no-store',
+      signal: AbortSignal.timeout(30000)
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    await r.text();
+    const elapsed = (performance.now() - t0) / 1000;
+    const mbps    = (SIZE * 8) / (elapsed * 1_000_000);
+
+    // Animate upload gauge
+    speedSetVal('ul-val', mbps.toFixed(1));
+    speedSetArc('ul-arc', mbps / 200, 1000);
+    speedSetBar('ul-bar', 'ul-pct', 1);
+    return mbps;
+  } catch(e) {
+    speedLog('⚠ Upload test error: ' + e.message);
+    return null;
+  }
+}
+
+document.getElementById('speed-btn').addEventListener('click', async function() {
+  if (speedRunning) return;
+  speedRunning = true;
+  const btn    = this;
+  const resEl  = document.getElementById('speed-result');
+  const errEl  = document.getElementById('speed-err');
+  const logEl  = document.getElementById('speed-log');
+  hideMsg(errEl);
+  resEl.style.display = 'block';
+  if (logEl) logEl.innerHTML = '';
+
+  // Reset gauges
+  speedSetVal('dl-val', '…');
+  speedSetVal('ul-val', '…');
+  speedSetVal('ping-val', '…');
+  speedSetVal('jitter-val', '…');
+  speedSetVal('server-val', 'CF');
+  speedSetArc('dl-arc', 0, 1000);
+  speedSetArc('ul-arc', 0, 1000);
+  speedSetBar('dl-bar', 'dl-pct', 0);
+  speedSetBar('ul-bar', 'ul-pct', 0);
+
+  btn.textContent = '⏳ Testing…';
+  btn.disabled    = true;
+
+  try {
+    // Phase 1: Ping
+    speedLog('📡 Measuring ping & jitter…');
+    const { ping, jitter } = await measurePing('https://speed.cloudflare.com/__down');
+    speedSetVal('ping-val',   ping   !== null ? ping   : '—');
+    speedSetVal('jitter-val', jitter !== null ? jitter : '—');
+    speedLog(`✅ Ping: ${ping}ms · Jitter: ${jitter}ms`);
+
+    // Phase 2: Download
+    speedLog('⬇ Testing download speed…');
+    const dlMbps = await measureDownload();
+    if (dlMbps !== null) {
+      speedSetVal('dl-val', dlMbps.toFixed(1));
+      speedSetArc('dl-arc', dlMbps / 500, 1000);
+      speedSetBar('dl-bar', 'dl-pct', 1);
+      speedLog(`✅ Download: ${dlMbps.toFixed(2)} Mbps`);
+    } else {
+      speedSetVal('dl-val', 'ERR');
+    }
+
+    // Phase 3: Upload
+    speedLog('⬆ Testing upload speed…');
+    const ulMbps = await measureUpload();
+    if (ulMbps !== null) {
+      speedLog(`✅ Upload: ${ulMbps.toFixed(2)} Mbps`);
+    } else {
+      speedSetVal('ul-val', 'ERR');
+    }
+
+    speedLog('🏁 Test complete!');
+    speedSetVal('server-val', 'Cloudflare');
+
+  } catch(e) {
+    showMsg(errEl, 'err', 'Speed test failed: ' + e.message);
+  }
+
+  btn.textContent = '↻ Re-run Test';
+  btn.disabled    = false;
+  speedRunning    = false;
+});
+
+
+
+/* ══════════════════════════════════════════════
+   MODULE 4 — XONOMO LINK SHORTENER
+   Backend: CleanURI API via Cloudflare Worker
+   Worker endpoint: /shorten (POST proxy)
+   Fallback: direct CleanURI POST (CORS allowed on some hosts)
+══════════════════════════════════════════════ */
+
+// Cloudflare Worker index.js source (shown in UI)
+const WORKER_CODE = `// ╔══════════════════════════════════════════╗
+// ║   XONOMO Link Shortener — Cloudflare     ║
+// ║   Worker index.js                        ║
+// ║   Deploy at: workers.cloudflare.com      ║
+// ╚══════════════════════════════════════════╝
+
+const BRAND     = 'XONOMO';
+const BRAND_URL = 'https://xonomo.site';
+
+// ── CORS headers ──────────────────────────
+const CORS = {
+  'Access-Control-Allow-Origin' : '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
+// ── Main handler ──────────────────────────
+export default {
+  async fetch(request) {
+    const url = new URL(request.url);
+
+    // Pre-flight
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { status: 204, headers: CORS });
+    }
+
+    // POST /shorten  — proxy to CleanURI
+    if (request.method === 'POST' && url.pathname === '/shorten') {
+      return handleShorten(request);
+    }
+
+    // GET /  — serve the HTML dashboard
+    return new Response(getHTML(), {
+      headers: { 'Content-Type': 'text/html;charset=UTF-8' }
+    });
+  }
+};
+
+// ── Shorten handler ───────────────────────
+async function handleShorten(request) {
+  let body;
+  try { body = await request.json(); } catch {
+    return jsonErr(400, 'Invalid JSON body');
+  }
+
+  const longUrl = (body.url || '').trim();
+  if (!longUrl) return jsonErr(400, 'Missing "url" field');
+
+  // Validate URL format
+  try { new URL(longUrl); } catch {
+    return jsonErr(422, 'Invalid URL format — must start with http:// or https://');
+  }
+
+  // Call CleanURI API
+  const form = new URLSearchParams();
+  form.set('url', longUrl);
+
+  let upstream;
+  try {
+    upstream = await fetch('https://cleanuri.com/api/v1/shorten', {
+      method : 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body   : form.toString(),
+    });
+  } catch (e) {
+    return jsonErr(502, 'CleanURI upstream unreachable: ' + e.message);
+  }
+
+  const data = await upstream.json().catch(() => ({}));
+
+  if (!upstream.ok || data.error) {
+    const msg = data.error || \`CleanURI returned HTTP \${upstream.status}\`;
+    return jsonErr(upstream.status || 502, msg);
+  }
+
+  if (!data.result_url) {
+    return jsonErr(502, 'CleanURI returned no shortened URL');
+  }
+
+  return new Response(
+    JSON.stringify({ short_url: data.result_url, original: longUrl }),
+    { status: 200, headers: { ...CORS, 'Content-Type': 'application/json' } }
+  );
+}
+
+// ── Helpers ───────────────────────────────
+function jsonErr(status, message) {
+  return new Response(
+    JSON.stringify({ error: message }),
+    { status, headers: { ...CORS, 'Content-Type': 'application/json' } }
+  );
+}
+
+// ── Standalone HTML (served at GET /) ─────
+function getHTML() {
+  return \`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>\${BRAND} Link Shortener</title>
+  <script src="https://cdn.tailwindcss.com"><\\/script>
+  <style>
+    body { background:#0a0f1e; font-family:'Segoe UI',sans-serif; }
+    .glass { background:rgba(16,24,46,0.8); backdrop-filter:blur(20px); }
+    .glow  { box-shadow:0 0 30px rgba(244,63,94,0.2); }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(16px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .fade-up { animation: fadeUp .5s ease both; }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+  <div class="w-full max-w-lg fade-up">
+
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center gap-2 bg-rose-500/10 border border-rose-500/25
+                  rounded-full px-4 py-1.5 text-xs font-bold tracking-widest
+                  text-rose-400 uppercase mb-4">
+        <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+        CleanURI Powered
+      </div>
+      <h1 class="text-4xl font-black text-white tracking-tight mb-2">\${BRAND}
+        <span class="text-rose-400">Shortener</span></h1>
+      <p class="text-slate-400 text-sm">Turn long URLs into clean, shareable links instantly.</p>
+    </div>
+
+    <!-- Card -->
+    <div class="glass border border-white/8 rounded-2xl p-8 glow">
+      <label class="block text-xs font-bold tracking-widest text-slate-400
+                    uppercase mb-2">Long URL</label>
+      <input id="inp" type="url"
+        placeholder="https://your-very-long-link.com/path?query=..."
+        class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3
+               text-white placeholder-slate-600 text-sm outline-none
+               focus:border-rose-500/50 focus:ring-2 focus:ring-rose-500/20
+               transition mb-4"/>
+
+      <button id="btn" onclick="shorten()"
+        class="w-full bg-gradient-to-r from-rose-600 to-pink-600
+               hover:from-rose-500 hover:to-pink-500
+               text-white font-bold py-3 rounded-xl
+               transition-all active:scale-95 tracking-wide">
+        ✂ Shorten URL
+      </button>
+
+      <!-- Result -->
+      <div id="result" class="hidden mt-5 bg-black/30 border border-cyan-500/20
+                               rounded-xl p-4">
+        <p class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2">
+          ✅ Shortened Link</p>
+        <div class="flex items-center gap-3">
+          <a id="short" href="#" target="_blank"
+             class="flex-1 font-mono text-sm text-cyan-400
+                    truncate hover:text-cyan-300 transition"></a>
+          <button onclick="copyLink()"
+            class="shrink-0 bg-slate-700 hover:bg-slate-600
+                   text-white text-xs font-bold px-4 py-2 rounded-lg transition">
+            📋 Copy
+          </button>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div id="err" class="hidden mt-4 bg-rose-500/10 border border-rose-500/30
+                            rounded-xl px-4 py-3 text-rose-400 text-sm"></div>
+    </div>
+
+    <p class="text-center text-slate-700 text-xs mt-6">
+      © \${new Date().getFullYear()} <a href="\${BRAND_URL}"
+      class="text-slate-500 hover:text-slate-400">\${BRAND_URL}</a>
+      · Powered by CleanURI · Cloudflare Workers
+    </p>
+  </div>
+
+  <script>
+    async function shorten() {
+      const btn = document.getElementById('btn');
+      const url = document.getElementById('inp').value.trim();
+      const res = document.getElementById('result');
+      const err = document.getElementById('err');
+      res.classList.add('hidden'); err.classList.add('hidden');
+      if (!url) { err.textContent='Please enter a URL.'; err.classList.remove('hidden'); return; }
+      btn.textContent = '⏳ Shortening…'; btn.disabled = true;
+      try {
+        const r = await fetch('/shorten', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ url })
+        });
+        const data = await r.json();
+        if (!r.ok || data.error) throw new Error(data.error || 'Failed');
+        document.getElementById('short').href = data.short_url;
+        document.getElementById('short').textContent = data.short_url;
+        res.classList.remove('hidden');
+      } catch(e) {
+        err.textContent = '⚠ ' + e.message;
+        err.classList.remove('hidden');
+      }
+      btn.textContent = '✂ Shorten URL'; btn.disabled = false;
+    }
+    function copyLink() {
+      const t = document.getElementById('short').textContent;
+      navigator.clipboard.writeText(t).then(() => {
+        const b = event.target; b.textContent='✓ Copied!';
+        setTimeout(()=>b.textContent='📋 Copy', 2000);
+      });
+    }
+    document.getElementById('inp').addEventListener('keydown', e => {
+      if (e.key==='Enter') shorten();
+    });
+  <\\/script>
+</body>
+</html>\`;
+}`;
+
+// Inject worker code into the pre element
+(function() {
+  const pre = document.getElementById('worker-code-pre');
+  if (pre) pre.textContent = WORKER_CODE;
+
+  const copyBtn = document.getElementById('worker-copy-btn');
+  if (copyBtn) {
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(WORKER_CODE).then(() => {
+        copyBtn.textContent = '✓ Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = '📋 Copy Worker Code';
+          copyBtn.classList.remove('copied');
+        }, 2500);
+      });
+    };
+  }
+})();
+
+// ── Frontend shorten button ───────────────
+document.getElementById('url-btn').addEventListener('click', async function() {
+  const btn    = this;
+  const raw    = document.getElementById('url-input').value.trim();
+  const resEl  = document.getElementById('url-result');
+  const errEl  = document.getElementById('url-err');
+  const linkEl = document.getElementById('url-short-text');
+
+  hideMsg(errEl);
+  resEl.style.display = 'none';
+
+  if (!raw) { showMsg(errEl, 'err', 'Please enter a URL.'); return; }
+  try { new URL(raw); } catch {
+    showMsg(errEl, 'err', 'Invalid URL — must start with https:// or http://'); return;
+  }
+
+  loading(btn, true);
+
+  try {
+    // Primary: CleanURI via Worker proxy (same origin /shorten)
+    // Fallback: direct CleanURI POST (works on servers, may fail locally)
+    const endpoints = [
+      // Worker proxy (works when deployed to Cloudflare Workers)
+      { url: '/shorten', method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: raw }),
+        parse: async r => { const d = await r.json(); if (!r.ok || d.error) throw new Error(d.error||'Error'); return d.short_url; }
+      },
+      // Direct CleanURI (CORS-allowed on some hosting environments)
+      { url: 'https://cleanuri.com/api/v1/shorten', method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `url=${encodeURIComponent(raw)}`,
+        parse: async r => { const d = await r.json(); if (!r.ok || d.error) throw new Error(d.error||'CleanURI error'); return d.result_url; }
+      },
+    ];
+
+    let shortened = null;
+    let lastErr   = '';
+    for (const ep of endpoints) {
+      try {
+        const r = await fetch(ep.url, { method: ep.method, headers: ep.headers, body: ep.body });
+        shortened = await ep.parse(r);
+        if (shortened) break;
+      } catch(e) { lastErr = e.message; }
+    }
+
+    if (shortened) {
+      linkEl.href        = shortened;
+      linkEl.textContent = shortened;
+      resEl.style.display = 'block';
+
+      const copyBtn = document.getElementById('url-copy-btn');
+      copyBtn.onclick = () => {
+        navigator.clipboard.writeText(shortened).then(() => {
+          copyBtn.classList.add('copied');
+          copyBtn.textContent = '✓ Copied!';
+          setTimeout(() => {
+            copyBtn.classList.remove('copied');
+            copyBtn.textContent = '📋 Copy';
+          }, 2000);
+        }).catch(() => copyText(shortened));
+      };
+    } else {
+      showMsg(errEl, 'err', lastErr || 'Shortening failed. Deploy the Cloudflare Worker for full support, or host on a server (CORS restrictions apply locally).');
+    }
+  } catch(e) {
+    showMsg(errEl, 'err', 'Unexpected error: ' + e.message);
+  }
+
+  loading(btn, false);
+});
+
+document.getElementById('url-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('url-btn').click();
+});
+
+
+/* ══════════════════════════════════════════════
+   MODULE 5 — VIDEO DOWNLOADER
+   Powered by Cobalt API (cobalt.tools)
+   Endpoint: https://api.cobalt.tools
+══════════════════════════════════════════════ */
+
+const COBALT_API = 'https://api.cobalt.tools';
+
+document.getElementById('vid-btn').addEventListener('click', async function() {
+  const btn     = this;
+  const rawUrl  = document.getElementById('vid-url').value.trim();
+  const quality = document.getElementById('vid-quality').value;
+  const mode    = document.getElementById('vid-mode').value;
+  const muteAudio     = document.getElementById('vid-mute-audio').checked;
+  const noWatermark   = document.getElementById('vid-no-watermark').checked;
+  const fullAudio     = document.getElementById('vid-full-audio').checked;
+
+  const errEl    = document.getElementById('vid-err');
+  const resEl    = document.getElementById('vid-result');
+  const loadEl   = document.getElementById('vid-loading');
+  const pickerEl = document.getElementById('vid-picker');
+
+  // Reset UI
+  hideMsg(errEl);
+  resEl.style.display    = 'none';
+  pickerEl.style.display = 'none';
+  loadEl.style.display   = 'none';
+
+  if (!rawUrl) {
+    showMsg(errEl, 'err', 'Please paste a video URL.');
+    return;
+  }
+  try { new URL(rawUrl); } catch {
+    showMsg(errEl, 'err', 'Invalid URL — make sure it starts with https://');
+    return;
+  }
+
+  loadEl.style.display = 'block';
+  loading(btn, true);
+
+  try {
+    // Build Cobalt API request body
+    const body = {
+      url: rawUrl,
+      videoQuality: quality === 'max' ? 'max' : quality,
+      audioFormat: 'best',
+      filenameStyle: 'pretty',
+    };
+
+    if (mode === 'audio') {
+      body.downloadMode = 'audio';
+    } else if (mode === 'mute') {
+      body.downloadMode = 'mute';
+    } else {
+      body.downloadMode = 'auto';
+    }
+
+    if (muteAudio)   body.videoMuteAudio = true;
+    if (noWatermark) body.tiktokFullAudio = false;
+    if (fullAudio)   body.youtubeHLS = false;
+
+    const resp = await fetch(`${COBALT_API}`, {
+      method: 'POST',
+      headers: {
+        'Accept':       'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await resp.json();
+    loadEl.style.display = 'none';
+
+    // Handle Cobalt API response types
+    if (data.status === 'error') {
+      const code = data.error?.code || 'unknown';
+      const msgs = {
+        'error.api.link.invalid':     'Invalid or unsupported URL. Make sure the link is correct.',
+        'error.api.link.unsupported': 'This platform is not supported by Cobalt.',
+        'error.api.content.too_long': 'The video is too long to download.',
+        'error.api.fetch.empty':      'No downloadable content found at this URL.',
+        'error.api.rate_limit':       'Too many requests. Please wait a moment and try again.',
+      };
+      throw new Error(msgs[code] || `Cobalt error: ${code}`);
+    }
+
+    if (data.status === 'redirect' || data.status === 'tunnel') {
+      // Single direct download URL
+      showVideoResult(data.url, rawUrl);
+
+    } else if (data.status === 'picker') {
+      // Multiple streams — show picker
+      showVideoPicker(data.picker, data.audio);
+
+    } else {
+      throw new Error('Unexpected response from Cobalt. Try a different URL or quality.');
+    }
+
+  } catch(e) {
+    loadEl.style.display = 'none';
+    showMsg(errEl, 'err', '⚠ ' + e.message);
+  }
+
+  loading(btn, false);
+});
+
+function showVideoResult(url, originalUrl) {
+  const resEl   = document.getElementById('vid-result');
+  const linkEl  = document.getElementById('vid-link');
+  const infoEl  = document.getElementById('vid-info');
+  const titleEl = document.getElementById('vid-title');
+  const metaEl  = document.getElementById('vid-meta');
+
+  linkEl.href = url;
+
+  // Try to extract a nice label from URL
+  try {
+    const u = new URL(originalUrl);
+    let platform = u.hostname.replace('www.','').replace('m.','');
+    titleEl.textContent = 'Download from ' + platform;
+    metaEl.textContent  = 'Your file is ready. Click the button below to download.';
+    infoEl.style.display = 'block';
+  } catch { infoEl.style.display = 'none'; }
+
+  resEl.style.display = 'block';
+}
+
+function showVideoPicker(picks, fallbackAudio) {
+  const pickerEl     = document.getElementById('vid-picker');
+  const pickerListEl = document.getElementById('vid-picker-list');
+
+  pickerListEl.innerHTML = '';
+
+  picks.forEach((item, i) => {
+    const btn = document.createElement('a');
+    btn.href   = item.url;
+    btn.target = '_blank';
+    btn.rel    = 'noopener';
+    const label = item.type === 'photo'
+      ? `🖼 Image ${i+1}`
+      : item.type === 'video'
+        ? `🎬 Video ${i+1}` + (item.quality ? ` · ${item.quality}` : '')
+        : `📄 File ${i+1}`;
+
+    btn.innerHTML = label;
+    btn.style.cssText = `
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      background:linear-gradient(135deg,rgba(107,33,168,0.2),rgba(168,85,247,0.2));
+      border:1px solid rgba(168,85,247,0.35);color:#c084fc;
+      border-radius:12px;padding:11px 18px;font-size:0.85rem;font-weight:700;
+      text-decoration:none;transition:filter 0.2s;width:100%;box-sizing:border-box;
+    `;
+    btn.onmouseover = () => btn.style.filter = 'brightness(1.2)';
+    btn.onmouseout  = () => btn.style.filter = '';
+    pickerListEl.appendChild(btn);
+  });
+
+  // Fallback audio track if present
+  if (fallbackAudio) {
+    const aBtn = document.createElement('a');
+    aBtn.href   = fallbackAudio;
+    aBtn.target = '_blank';
+    aBtn.rel    = 'noopener';
+    aBtn.innerHTML = '🎵 Audio Track';
+    aBtn.style.cssText = `
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#10b981;
+      border-radius:12px;padding:11px 18px;font-size:0.85rem;font-weight:700;
+      text-decoration:none;transition:filter 0.2s;width:100%;box-sizing:border-box;margin-top:6px;
+    `;
+    aBtn.onmouseover = () => aBtn.style.filter = 'brightness(1.2)';
+    aBtn.onmouseout  = () => aBtn.style.filter = '';
+    pickerListEl.appendChild(aBtn);
+  }
+
+  pickerEl.style.display = 'block';
+}
+
+// Allow Enter key on video input
+document.getElementById('vid-url').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('vid-btn').click();
+});
+
+
+</script>
+</body>
+</html>
