@@ -1592,11 +1592,90 @@ document.getElementById('anon-scan-btn').addEventListener('click', async functio
   const colorDepth  = window.screen.colorDepth + '-bit';
 
   try {
-    // Fetch IP data from ipapi.co
-    const r = await fetch('https://ipapi.co/json/', { headers: { Accept: 'application/json' } });
-    if (!r.ok) throw new Error('ipapi ' + r.status);
-    const d = await r.json();
-    if (d.error) throw new Error(d.reason || 'API error');
+    // Multi-API fallback: tries each HTTPS source until one works
+    async function fetchIPData() {
+
+      // Source 1: ipwho.is (HTTPS, no key, generous limit, CORS ok)
+      try {
+        const r = await fetch('https://ipwho.is/', { signal: AbortSignal.timeout(6000) });
+        if (r.ok) {
+          const j = await r.json();
+          if (j.success !== false && j.ip) {
+            return {
+              ip: j.ip, org: j.connection?.org || j.connection?.isp || '',
+              asn: j.connection?.asn ? 'AS' + j.connection.asn : '',
+              country_name: j.country, country_code: j.country_code,
+              region: j.region, city: j.city,
+              timezone: j.timezone?.id || '', utc_offset: j.timezone?.utc || '',
+              languages: '', currency: j.currency?.code || '', currency_name: j.currency?.name || '',
+              latitude: j.latitude, longitude: j.longitude,
+              _proxy: false, _hosting: false
+            };
+          }
+        }
+      } catch {}
+
+      // Source 2: ipapi.co (HTTPS, no key)
+      try {
+        const r = await fetch('https://ipapi.co/json/', {
+          headers: { Accept: 'application/json' },
+          signal: AbortSignal.timeout(6000)
+        });
+        if (r.ok) {
+          const j = await r.json();
+          if (!j.error) return {
+            ip: j.ip, org: j.org || '', asn: j.asn || '',
+            country_name: j.country_name, country_code: j.country_code,
+            region: j.region, city: j.city,
+            timezone: j.timezone, utc_offset: j.utc_offset || '',
+            languages: j.languages || '', currency: j.currency || '', currency_name: j.currency_name || '',
+            latitude: j.latitude, longitude: j.longitude,
+            _proxy: false, _hosting: false
+          };
+        }
+      } catch {}
+
+      // Source 3: freeipapi.com (HTTPS, no key)
+      try {
+        const r = await fetch('https://freeipapi.com/api/json', { signal: AbortSignal.timeout(6000) });
+        if (r.ok) {
+          const j = await r.json();
+          if (j.ipAddress) return {
+            ip: j.ipAddress, org: j.isp || '', asn: '',
+            country_name: j.countryName, country_code: j.countryCode,
+            region: j.regionName, city: j.cityName,
+            timezone: j.timeZone, utc_offset: '',
+            languages: j.language || '', currency: '', currency_name: '',
+            latitude: j.latitude, longitude: j.longitude,
+            _proxy: false, _hosting: false
+          };
+        }
+      } catch {}
+
+      // Source 4: ipinfo.io (HTTPS, no key, generous free tier)
+      try {
+        const r = await fetch('https://ipinfo.io/json', { signal: AbortSignal.timeout(6000) });
+        if (r.ok) {
+          const j = await r.json();
+          if (j.ip) {
+            const [lat, lon] = (j.loc || ',').split(',');
+            return {
+              ip: j.ip, org: j.org || '', asn: j.org?.split(' ')[0] || '',
+              country_name: j.country, country_code: j.country,
+              region: j.region, city: j.city,
+              timezone: j.timezone, utc_offset: '',
+              languages: '', currency: '', currency_name: '',
+              latitude: parseFloat(lat) || 0, longitude: parseFloat(lon) || 0,
+              _proxy: false, _hosting: false
+            };
+          }
+        }
+      } catch {}
+
+      throw new Error('সব IP সার্ভিস ব্যর্থ হয়েছে। ইন্টারনেট সংযোগ চেক করুন।');
+    }
+
+    const d = await fetchIPData();
 
     loadEl.style.display = 'none';
     resEl.style.display  = 'block';
@@ -1607,7 +1686,7 @@ document.getElementById('anon-scan-btn').addEventListener('click', async functio
     // ── CHECK 1: VPN / Proxy / Hosting (−50) ──
     const org = d.org || '';
     const asn = d.asn || '';
-    const vpnDetected = isDatacenter(org) || isDatacenter(asn);
+    const vpnDetected = d._proxy || d._hosting || isDatacenter(org) || isDatacenter(asn);
     if (vpnDetected) {
       score -= 50;
       deductions.push('VPN/Hosting detected');
