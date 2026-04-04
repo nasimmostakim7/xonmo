@@ -878,26 +878,18 @@
         <div class="hcard-desc">Transform any long URL into a clean, shareable short link via CleanURI API. Instant, no account needed.</div>
       </div>
 
-      <!-- 6. Video Downloader — full width -->
-      <div class="hcard" onclick="openPanel('p-video')" data-color="pur" style="--card-color:#a855f7; grid-column: 1 / -1;">
-        <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
-          <div class="hcard-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7);flex-shrink:0;">📥</div>
-          <div style="flex:1;min-width:200px;">
-            <div class="hcard-badge live" style="background:rgba(168,85,247,0.15);color:#c084fc;border-color:rgba(168,85,247,0.3);">Cobalt Powered · Multi-Platform</div>
-            <div class="hcard-title" style="font-size:1.15rem;">Video Downloader</div>
-            <div class="hcard-desc">Download videos from YouTube, Instagram, TikTok, Twitter/X, Reddit, Vimeo & more. Choose quality, audio-only mode, and more — powered by Cobalt API.</div>
-          </div>
-          <div style="text-align:center;flex-shrink:0;">
-            <div style="font-family:'Space Mono',monospace;font-size:1.6rem;font-weight:700;background:linear-gradient(135deg,#c084fc,#f0abfc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">4K</div>
-            <div style="font-size:0.7rem;color:var(--sub);letter-spacing:.1em;text-transform:uppercase;">Max Quality</div>
-          </div>
-        </div>
+      <!-- 6. Image to PDF -->
+      <div class="hcard" onclick="openPanel('p-img2pdf')" data-color="pur">
+        <div class="hcard-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7);">🖼️</div>
+        <div class="hcard-badge live" style="background:rgba(168,85,247,0.15);color:#c084fc;border-color:rgba(168,85,247,0.3);">jsPDF · Client-side</div>
+        <div class="hcard-title">Image to PDF</div>
+        <div class="hcard-desc">Multiple JPG/PNG/WebP ছবি একটি PDF ফাইলে রূপান্তর — সম্পূর্ণ browser এ, কোনো upload বা server ছাড়াই।</div>
       </div>
 
     </div>
 
     <footer class="site-footer">
-      <p>© 2025 XONOMO.SITE &nbsp;·&nbsp; Powered by Mail.tm · ipapi.co · CleanURI · Cobalt · Cloudflare Workers</p>
+      <p>© 2025 XONOMO.SITE &nbsp;·&nbsp; Powered by Mail.tm · Cloudflare · CleanURI · jsPDF</p>
     </footer>
   </div>
 
@@ -1228,142 +1220,114 @@
   </div>
 
   <!-- ═══════════════════════════════════ -->
-  <!-- PANEL: VIDEO DOWNLOADER            -->
+
   <!-- ═══════════════════════════════════ -->
-  <div id="p-video" class="panel">
+  <!-- PANEL: IMAGE TO PDF                -->
+  <!-- ═══════════════════════════════════ -->
+  <div id="p-img2pdf" class="panel">
     <div class="panel-inner">
-      <button class="back-btn" onclick="closePanel('p-video')">← Dashboard</button>
+      <button class="back-btn" onclick="closePanel('p-img2pdf')">← Dashboard</button>
       <div class="pcard">
         <div class="phead">
-          <div class="phead-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7)">📥</div>
+          <div class="phead-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7)">🖼️</div>
           <div>
-            <div class="phead-title">Video Downloader</div>
-            <div class="phead-sub">Cobalt API · YouTube · TikTok · Instagram · Twitter & more</div>
+            <div class="phead-title">Image to PDF</div>
+            <div class="phead-sub">jsPDF · Browser-side · No Upload Needed</div>
           </div>
-          <span class="panel-live" style="color:#c084fc;background:rgba(168,85,247,0.1);border-color:rgba(168,85,247,0.25);">Cobalt</span>
+          <span class="panel-live" style="color:#c084fc;background:rgba(168,85,247,0.1);border-color:rgba(168,85,247,0.25);">Local</span>
         </div>
 
         <p style="font-size:.85rem;color:var(--sub);line-height:1.65;margin-bottom:20px;">
-          Paste any video URL from YouTube, TikTok, Instagram, Twitter/X, Reddit, Vimeo, Dailymotion, SoundCloud and more. Choose your preferred quality and format — powered by the free Cobalt API.
+          এক বা একাধিক ছবি (JPG, PNG, WebP, GIF) সিলেক্ট করুন, ক্রম ঠিক করুন, তারপর এক ক্লিকে PDF তৈরি করুন। সবকিছু আপনার browser এ হয় — কোনো ডেটা কোথাও যায় না।
         </p>
 
-        <!-- URL Input -->
-        <div class="field">
-          <label class="lbl">Video URL</label>
-          <input type="url" id="vid-url" placeholder="https://www.youtube.com/watch?v=… or TikTok, Instagram, Twitter…" />
+        <!-- Drop Zone -->
+        <div id="pdf-dropzone"
+             style="border:2px dashed rgba(168,85,247,0.4);border-radius:18px;
+                    padding:36px 20px;text-align:center;cursor:pointer;
+                    background:rgba(168,85,247,0.04);transition:all 0.25s;margin-bottom:18px;"
+             onclick="document.getElementById('pdf-file-input').click()"
+             ondragover="pdfDragOver(event)" ondragleave="pdfDragLeave(event)" ondrop="pdfDrop(event)">
+          <div style="font-size:2.4rem;margin-bottom:10px;">📂</div>
+          <div style="font-size:0.92rem;font-weight:700;color:var(--txt);margin-bottom:5px;">ছবি সিলেক্ট বা ড্র্যাগ করুন</div>
+          <div style="font-size:0.75rem;color:var(--sub);">JPG · PNG · WebP · GIF — একাধিক ফাইল সমর্থিত</div>
+          <input type="file" id="pdf-file-input" accept="image/*" multiple style="display:none">
         </div>
 
         <!-- Options Row -->
-        <div class="row2" style="margin-bottom:0;">
-          <div class="field">
-            <label class="lbl">Quality</label>
-            <select id="vid-quality" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:13px 15px;font-family:inherit;font-size:0.93rem;transition:var(--t);outline:none;appearance:none;cursor:pointer;">
-              <option value="max">Max (Best Available)</option>
-              <option value="2160">4K · 2160p</option>
-              <option value="1440">2K · 1440p</option>
-              <option value="1080">Full HD · 1080p</option>
-              <option value="720" selected>HD · 720p</option>
-              <option value="480">SD · 480p</option>
-              <option value="360">Low · 360p</option>
+        <div class="row2" style="margin-bottom:16px;">
+          <div class="field" style="margin-bottom:0;">
+            <label class="lbl">পেজ সাইজ</label>
+            <select id="pdf-pagesize" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:11px 14px;font-family:inherit;font-size:0.9rem;outline:none;appearance:none;cursor:pointer;transition:var(--t);">
+              <option value="a4">A4 (210×297 mm)</option>
+              <option value="letter">Letter (8.5×11 in)</option>
+              <option value="a3">A3 (297×420 mm)</option>
+              <option value="fit">Image Size (ছবি অনুযায়ী)</option>
             </select>
           </div>
-          <div class="field">
-            <label class="lbl">Mode</label>
-            <select id="vid-mode" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:13px 15px;font-family:inherit;font-size:0.93rem;transition:var(--t);outline:none;appearance:none;cursor:pointer;">
-              <option value="auto">Auto (Video + Audio)</option>
-              <option value="audio">Audio Only (MP3)</option>
-              <option value="mute">Video Only (No Audio)</option>
+          <div class="field" style="margin-bottom:0;">
+            <label class="lbl">Orientation</label>
+            <select id="pdf-orient" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:11px 14px;font-family:inherit;font-size:0.9rem;outline:none;appearance:none;cursor:pointer;transition:var(--t);">
+              <option value="auto">Auto (ছবি দেখে)</option>
+              <option value="portrait">Portrait (খাড়া)</option>
+              <option value="landscape">Landscape (আড়া)</option>
             </select>
           </div>
         </div>
 
-        <!-- Advanced Options -->
-        <div style="margin:14px 0 0;background:rgba(12,18,36,0.6);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:14px 16px;">
-          <div style="font-size:0.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--sub);margin-bottom:12px;">⚙ Options</div>
-          <div style="display:flex;flex-wrap:wrap;gap:14px;">
-            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.83rem;color:var(--sub);">
-              <input type="checkbox" id="vid-mute-audio" style="width:auto;accent-color:#a855f7;">
-              Mute Audio
-            </label>
-            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.83rem;color:var(--sub);">
-              <input type="checkbox" id="vid-no-watermark" style="width:auto;accent-color:#a855f7;" checked>
-              Remove Watermark (TikTok)
-            </label>
-            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.83rem;color:var(--sub);">
-              <input type="checkbox" id="vid-full-audio" style="width:auto;accent-color:#a855f7;">
-              Full Audio (YT Music)
-            </label>
+        <!-- Margin & Quality -->
+        <div class="row2" style="margin-bottom:16px;">
+          <div class="field" style="margin-bottom:0;">
+            <label class="lbl">Margin (mm)</label>
+            <input type="number" id="pdf-margin" value="10" min="0" max="50" style="padding:11px 14px;">
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label class="lbl">Image Quality</label>
+            <select id="pdf-quality" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:11px 14px;font-family:inherit;font-size:0.9rem;outline:none;appearance:none;cursor:pointer;transition:var(--t);">
+              <option value="0.98">High (98%)</option>
+              <option value="0.85" selected>Medium (85%)</option>
+              <option value="0.65">Low (65%) — ছোট ফাইল</option>
+            </select>
           </div>
         </div>
 
-        <button class="btn" id="vid-btn" style="background:linear-gradient(135deg,#6b21a8,#9333ea,#a855f7);color:#fff;box-shadow:0 4px 20px rgba(168,85,247,0.3);">
-          📥 Download Video
+        <!-- Preview Grid -->
+        <div id="pdf-preview-wrap" style="display:none;margin-bottom:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <div style="font-size:0.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ind2);">
+              🖼 Selected Images <span id="pdf-count" style="background:rgba(99,102,241,0.2);border-radius:20px;padding:1px 8px;margin-left:4px;">0</span>
+            </div>
+            <button onclick="pdfClearAll()" style="font-size:0.72rem;color:var(--ros);background:none;border:none;cursor:pointer;padding:4px 8px;">✕ Clear All</button>
+          </div>
+          <div id="pdf-preview-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;max-height:280px;overflow-y:auto;padding:4px;"></div>
+          <p style="font-size:0.72rem;color:var(--dim);margin-top:8px;">💡 ছবিতে ক্লিক করে সরাতে পারবেন (drag to reorder)</p>
+        </div>
+
+        <!-- Generate Button -->
+        <button class="btn" id="pdf-btn" disabled
+                style="background:linear-gradient(135deg,#6b21a8,#9333ea,#a855f7);color:#fff;
+                       box-shadow:0 4px 20px rgba(168,85,247,0.3);opacity:0.5;">
+          📄 Generate PDF
         </button>
 
-        <!-- Loading -->
-        <div id="vid-loading" style="display:none;text-align:center;padding:28px 0;color:var(--sub);font-size:.85rem;">
-          <div style="font-size:1.6rem;margin-bottom:8px;display:inline-block;animation:doSpin 1s linear infinite;">⚙️</div>
-          <br>Processing your request via Cobalt…
-        </div>
-
-        <!-- Result -->
-        <div id="vid-result" class="result" style="display:none;">
-          <div style="font-size:0.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin-bottom:12px;font-weight:700;">✅ Download Ready</div>
-
-          <!-- Media preview info -->
-          <div id="vid-info" style="display:none;background:rgba(168,85,247,0.07);border:1px solid rgba(168,85,247,0.2);border-radius:12px;padding:14px 16px;margin-bottom:14px;">
-            <div id="vid-title" style="font-size:0.9rem;font-weight:700;color:var(--txt);margin-bottom:4px;">—</div>
-            <div id="vid-meta" style="font-size:0.75rem;color:var(--sub);">—</div>
-          </div>
-
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-            <a id="vid-link" href="#" target="_blank" rel="noopener"
-               style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;
-                      background:linear-gradient(135deg,rgba(107,33,168,0.3),rgba(168,85,247,0.3));
-                      border:1px solid rgba(168,85,247,0.4);color:#c084fc;
-                      border-radius:12px;padding:13px 20px;font-size:0.88rem;font-weight:700;
-                      text-decoration:none;transition:var(--t);"
-               onmouseover="this.style.filter='brightness(1.15)'"
-               onmouseout="this.style.filter=''">
-              ⬇ Open / Download File
-            </a>
-          </div>
-
-          <div style="margin-top:10px;font-size:0.72rem;color:var(--dim);line-height:1.6;">
-            💡 Click the link above — your browser will download or open the file.<br>
-            On mobile: long-press → "Save video/audio" for best results.
+        <!-- Progress -->
+        <div id="pdf-progress" style="display:none;margin-top:16px;">
+          <div style="font-size:0.78rem;color:var(--sub);margin-bottom:8px;" id="pdf-progress-txt">Processing…</div>
+          <div style="height:6px;background:rgba(255,255,255,0.07);border-radius:6px;overflow:hidden;">
+            <div id="pdf-progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#7c3aed,#a855f7);border-radius:6px;transition:width 0.3s ease;"></div>
           </div>
         </div>
 
-        <!-- Multiple results (picker) -->
-        <div id="vid-picker" style="display:none;margin-top:16px;">
-          <div style="font-size:0.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin-bottom:12px;font-weight:700;">🎬 Pick a Stream</div>
-          <div id="vid-picker-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+        <!-- Success -->
+        <div id="pdf-success" style="display:none;margin-top:16px;background:rgba(16,185,129,0.09);
+             border:1px solid rgba(16,185,129,0.25);border-radius:14px;padding:16px 18px;text-align:center;">
+          <div style="font-size:1.6rem;margin-bottom:6px;">✅</div>
+          <div style="font-size:0.9rem;font-weight:700;color:#6ee7b7;margin-bottom:4px;">PDF তৈরি সম্পন্ন!</div>
+          <div style="font-size:0.75rem;color:var(--sub);" id="pdf-success-info">—</div>
         </div>
 
         <!-- Error -->
-        <div class="msg err" id="vid-err"><span class="msg-icon">⚠</span><span id="vid-err-txt">Error.</span></div>
-
-        <!-- Supported Sites Info -->
-        <div style="margin-top:24px;background:rgba(12,18,36,0.8);border:1px solid rgba(168,85,247,0.15);border-radius:14px;padding:16px 18px;">
-          <div style="font-size:0.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c084fc;margin-bottom:10px;">🌐 Supported Platforms</div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;">
-            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">YouTube</span>
-            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">TikTok</span>
-            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Instagram</span>
-            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Twitter / X</span>
-            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Reddit</span>
-            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Vimeo</span>
-            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Dailymotion</span>
-            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">SoundCloud</span>
-            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Twitch Clips</span>
-            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">Bilibili</span>
-            <span style="font-size:0.75rem;color:var(--sub);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:3px 10px;">& many more…</span>
-          </div>
-          <p style="font-size:0.74rem;color:var(--dim);margin-top:10px;line-height:1.6;">
-            Powered by <a href="https://cobalt.tools" target="_blank" style="color:#c084fc;text-decoration:none;">Cobalt.tools</a> — a free, open-source, privacy-friendly media downloader. No ads, no tracking.
-          </p>
-        </div>
+        <div class="msg err" id="pdf-err"><span class="msg-icon">⚠</span><span id="pdf-err-txt">Error.</span></div>
 
       </div>
     </div>
@@ -1592,87 +1556,55 @@ document.getElementById('anon-scan-btn').addEventListener('click', async functio
   const colorDepth  = window.screen.colorDepth + '-bit';
 
   try {
-    // Multi-API fallback: tries each HTTPS source until one works
+    // Cloudflare built-in endpoints — no external API, no function file needed
     async function fetchIPData() {
 
-      // Source 1: ipwho.is (HTTPS, no key, generous limit, CORS ok)
-      try {
-        const r = await fetch('https://ipwho.is/', { signal: AbortSignal.timeout(6000) });
-        if (r.ok) {
-          const j = await r.json();
-          if (j.success !== false && j.ip) {
-            return {
-              ip: j.ip, org: j.connection?.org || j.connection?.isp || '',
-              asn: j.connection?.asn ? 'AS' + j.connection.asn : '',
-              country_name: j.country, country_code: j.country_code,
-              region: j.region, city: j.city,
-              timezone: j.timezone?.id || '', utc_offset: j.timezone?.utc || '',
-              languages: '', currency: j.currency?.code || '', currency_name: j.currency?.name || '',
-              latitude: j.latitude, longitude: j.longitude,
-              _proxy: false, _hosting: false
-            };
-          }
-        }
-      } catch {}
+      // Step 1: Get IP + basic info from Cloudflare's own /cdn-cgi/trace
+      // This endpoint exists on EVERY Cloudflare-proxied site automatically
+      const traceR = await fetch('/cdn-cgi/trace', { signal: AbortSignal.timeout(6000) });
+      if (!traceR.ok) throw new Error('Cloudflare trace failed');
+      const traceText = await traceR.text();
 
-      // Source 2: ipapi.co (HTTPS, no key)
-      try {
-        const r = await fetch('https://ipapi.co/json/', {
-          headers: { Accept: 'application/json' },
-          signal: AbortSignal.timeout(6000)
-        });
-        if (r.ok) {
-          const j = await r.json();
-          if (!j.error) return {
-            ip: j.ip, org: j.org || '', asn: j.asn || '',
-            country_name: j.country_name, country_code: j.country_code,
-            region: j.region, city: j.city,
-            timezone: j.timezone, utc_offset: j.utc_offset || '',
-            languages: j.languages || '', currency: j.currency || '', currency_name: j.currency_name || '',
-            latitude: j.latitude, longitude: j.longitude,
-            _proxy: false, _hosting: false
-          };
-        }
-      } catch {}
+      // Parse the key=value text format
+      const cf = {};
+      traceText.trim().split('\n').forEach(line => {
+        const [k, ...v] = line.split('=');
+        cf[k.trim()] = v.join('=').trim();
+      });
+      // cf now has: ip, loc (country), colo, uag, ts, etc.
 
-      // Source 3: freeipapi.com (HTTPS, no key)
-      try {
-        const r = await fetch('https://freeipapi.com/api/json', { signal: AbortSignal.timeout(6000) });
-        if (r.ok) {
-          const j = await r.json();
-          if (j.ipAddress) return {
-            ip: j.ipAddress, org: j.isp || '', asn: '',
-            country_name: j.countryName, country_code: j.countryCode,
-            region: j.regionName, city: j.cityName,
-            timezone: j.timeZone, utc_offset: '',
-            languages: j.language || '', currency: '', currency_name: '',
-            latitude: j.latitude, longitude: j.longitude,
-            _proxy: false, _hosting: false
-          };
-        }
-      } catch {}
+      const ip          = cf.ip    || '';
+      const countryCode = cf.loc   || '';
 
-      // Source 4: ipinfo.io (HTTPS, no key, generous free tier)
-      try {
-        const r = await fetch('https://ipinfo.io/json', { signal: AbortSignal.timeout(6000) });
-        if (r.ok) {
-          const j = await r.json();
-          if (j.ip) {
-            const [lat, lon] = (j.loc || ',').split(',');
-            return {
-              ip: j.ip, org: j.org || '', asn: j.org?.split(' ')[0] || '',
-              country_name: j.country, country_code: j.country,
-              region: j.region, city: j.city,
-              timezone: j.timezone, utc_offset: '',
-              languages: '', currency: '', currency_name: '',
-              latitude: parseFloat(lat) || 0, longitude: parseFloat(lon) || 0,
-              _proxy: false, _hosting: false
-            };
-          }
-        }
-      } catch {}
+      // Step 2: Get timezone from browser's own Intl (accurate for the user)
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-      throw new Error('সব IP সার্ভিস ব্যর্থ হয়েছে। ইন্টারনেট সংযোগ চেক করুন।');
+      // Step 3: Get city/region/org from a lightweight HTTPS geo API
+      // ipinfo.io free tier: 50k/month, no key needed for basic fields
+      let org = '', asn = '', region = '', city = '', lat = 0, lon = 0;
+      try {
+        const geoR = await fetch(`https://ipinfo.io/${ip}/json`, { signal: AbortSignal.timeout(5000) });
+        if (geoR.ok) {
+          const g = await geoR.json();
+          org    = g.org    || '';
+          asn    = g.org?.split(' ')[0] || '';
+          region = g.region || '';
+          city   = g.city   || '';
+          const [la, lo] = (g.loc || ',').split(',');
+          lat = parseFloat(la) || 0;
+          lon = parseFloat(lo) || 0;
+        }
+      } catch { /* city/org optional — IP still works */ }
+
+      return {
+        ip, org, asn,
+        country_name: countryCode,
+        country_code: countryCode,
+        region, city, timezone,
+        utc_offset: '', languages: '', currency: '', currency_name: '',
+        latitude: lat, longitude: lon,
+        _proxy: false, _hosting: isDatacenter(org),
+      };
     }
 
     const d = await fetchIPData();
@@ -2407,7 +2339,7 @@ function getHTML() {
     });
   <\\/script>
 </body>
-</html>\`;
+\`;
 }`;
 
 // Inject worker code into the pre element
@@ -2451,28 +2383,38 @@ document.getElementById('url-btn').addEventListener('click', async function() {
   try {
     // Primary: CleanURI via Worker proxy (same origin /shorten)
     // Fallback: direct CleanURI POST (works on servers, may fail locally)
-    const endpoints = [
-      // Worker proxy (works when deployed to Cloudflare Workers)
-      { url: '/shorten', method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: raw }),
-        parse: async r => { const d = await r.json(); if (!r.ok || d.error) throw new Error(d.error||'Error'); return d.short_url; }
-      },
-      // Direct CleanURI (CORS-allowed on some hosting environments)
-      { url: 'https://cleanuri.com/api/v1/shorten', method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `url=${encodeURIComponent(raw)}`,
-        parse: async r => { const d = await r.json(); if (!r.ok || d.error) throw new Error(d.error||'CleanURI error'); return d.result_url; }
-      },
-    ];
-
+    // CleanURI via allorigins CORS proxy — works on any static host including Cloudflare Pages
     let shortened = null;
     let lastErr   = '';
-    for (const ep of endpoints) {
+    try {
+      // Method 1: allorigins proxy (bypasses CORS, no key needed)
+      const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://cleanuri.com/api/v1/shorten');
+      const r = await fetch(proxyUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'url=' + encodeURIComponent(raw),
+        signal: AbortSignal.timeout(8000)
+      });
+      if (r.ok) {
+        const d = await r.json();
+        if (d.result_url) shortened = d.result_url;
+        else if (d.error) lastErr = d.error;
+      }
+    } catch(e) { lastErr = e.message; }
+
+    // Method 2: corsproxy.io fallback
+    if (!shortened) {
       try {
-        const r = await fetch(ep.url, { method: ep.method, headers: ep.headers, body: ep.body });
-        shortened = await ep.parse(r);
-        if (shortened) break;
+        const r = await fetch('https://corsproxy.io/?' + encodeURIComponent('https://cleanuri.com/api/v1/shorten'), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'url=' + encodeURIComponent(raw),
+          signal: AbortSignal.timeout(8000)
+        });
+        if (r.ok) {
+          const d = await r.json();
+          if (d.result_url) shortened = d.result_url;
+        }
       } catch(e) { lastErr = e.message; }
     }
 
@@ -2507,188 +2449,234 @@ document.getElementById('url-input').addEventListener('keydown', e => {
 });
 
 
+
 /* ══════════════════════════════════════════════
-   MODULE 5 — VIDEO DOWNLOADER
-   Powered by Cobalt API (cobalt.tools)
-   Endpoint: https://api.cobalt.tools
+   MODULE 5 — IMAGE TO PDF
+   Library: jsPDF (CDN loaded on demand)
 ══════════════════════════════════════════════ */
 
-const COBALT_API = 'https://api.cobalt.tools';
+let pdfFiles = [];   // { file, dataUrl, name }
+let pdfDragging = null;
 
-document.getElementById('vid-btn').addEventListener('click', async function() {
-  const btn     = this;
-  const rawUrl  = document.getElementById('vid-url').value.trim();
-  const quality = document.getElementById('vid-quality').value;
-  const mode    = document.getElementById('vid-mode').value;
-  const muteAudio     = document.getElementById('vid-mute-audio').checked;
-  const noWatermark   = document.getElementById('vid-no-watermark').checked;
-  const fullAudio     = document.getElementById('vid-full-audio').checked;
+// Load jsPDF on first use
+function loadJsPDF() {
+  return new Promise((resolve, reject) => {
+    if (window.jspdf) { resolve(window.jspdf.jsPDF); return; }
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+    s.onload  = () => resolve(window.jspdf.jsPDF);
+    s.onerror = () => reject(new Error('jsPDF লোড ব্যর্থ হয়েছে। ইন্টারনেট চেক করুন।'));
+    document.head.appendChild(s);
+  });
+}
 
-  const errEl    = document.getElementById('vid-err');
-  const resEl    = document.getElementById('vid-result');
-  const loadEl   = document.getElementById('vid-loading');
-  const pickerEl = document.getElementById('vid-picker');
+// File input change
+document.getElementById('pdf-file-input').addEventListener('change', function() {
+  pdfAddFiles(Array.from(this.files));
+  this.value = ''; // allow re-selecting same files
+});
 
-  // Reset UI
+// Drag & drop
+function pdfDragOver(e) {
+  e.preventDefault();
+  document.getElementById('pdf-dropzone').style.borderColor = 'rgba(168,85,247,0.9)';
+  document.getElementById('pdf-dropzone').style.background  = 'rgba(168,85,247,0.1)';
+}
+function pdfDragLeave(e) {
+  document.getElementById('pdf-dropzone').style.borderColor = 'rgba(168,85,247,0.4)';
+  document.getElementById('pdf-dropzone').style.background  = 'rgba(168,85,247,0.04)';
+}
+function pdfDrop(e) {
+  e.preventDefault();
+  pdfDragLeave(e);
+  const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+  pdfAddFiles(files);
+}
+
+function pdfAddFiles(files) {
+  const errEl = document.getElementById('pdf-err');
   hideMsg(errEl);
-  resEl.style.display    = 'none';
-  pickerEl.style.display = 'none';
-  loadEl.style.display   = 'none';
-
-  if (!rawUrl) {
-    showMsg(errEl, 'err', 'Please paste a video URL.');
-    return;
-  }
-  try { new URL(rawUrl); } catch {
-    showMsg(errEl, 'err', 'Invalid URL — make sure it starts with https://');
-    return;
-  }
-
-  loadEl.style.display = 'block';
-  loading(btn, true);
-
-  try {
-    // Build Cobalt API request body
-    const body = {
-      url: rawUrl,
-      videoQuality: quality === 'max' ? 'max' : quality,
-      audioFormat: 'best',
-      filenameStyle: 'pretty',
+  let added = 0;
+  files.forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      pdfFiles.push({ file, dataUrl: e.target.result, name: file.name });
+      pdfRenderPreview();
     };
+    reader.readAsDataURL(file);
+    added++;
+  });
+  if (!added) showMsg(errEl, 'err', 'শুধু ছবি ফাইল সমর্থিত (JPG, PNG, WebP, GIF)');
+}
 
-    if (mode === 'audio') {
-      body.downloadMode = 'audio';
-    } else if (mode === 'mute') {
-      body.downloadMode = 'mute';
-    } else {
-      body.downloadMode = 'auto';
-    }
+function pdfRenderPreview() {
+  const grid  = document.getElementById('pdf-preview-grid');
+  const wrap  = document.getElementById('pdf-preview-wrap');
+  const count = document.getElementById('pdf-count');
+  const btn   = document.getElementById('pdf-btn');
 
-    if (muteAudio)   body.videoMuteAudio = true;
-    if (noWatermark) body.tiktokFullAudio = false;
-    if (fullAudio)   body.youtubeHLS = false;
+  count.textContent = pdfFiles.length;
+  wrap.style.display  = pdfFiles.length ? 'block' : 'none';
+  btn.disabled        = pdfFiles.length === 0;
+  btn.style.opacity   = pdfFiles.length ? '1' : '0.5';
 
-    const resp = await fetch(`${COBALT_API}`, {
-      method: 'POST',
-      headers: {
-        'Accept':       'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
+  grid.innerHTML = '';
+  pdfFiles.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.style.cssText = 'position:relative;cursor:grab;border-radius:10px;overflow:hidden;border:2px solid rgba(168,85,247,0.3);aspect-ratio:1;background:#0a0e1a;';
+    div.draggable = true;
+    div.dataset.idx = idx;
+
+    const img = document.createElement('img');
+    img.src = item.dataUrl;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+
+    const badge = document.createElement('div');
+    badge.style.cssText = 'position:absolute;top:3px;left:4px;background:rgba(0,0,0,0.65);color:#fff;font-size:0.6rem;font-weight:700;padding:2px 6px;border-radius:6px;';
+    badge.textContent = idx + 1;
+
+    const del = document.createElement('button');
+    del.innerHTML = '✕';
+    del.style.cssText = 'position:absolute;top:3px;right:3px;background:rgba(244,63,94,0.8);border:none;color:#fff;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center;padding:0;';
+    del.onclick = (e) => { e.stopPropagation(); pdfFiles.splice(idx, 1); pdfRenderPreview(); };
+
+    div.appendChild(img); div.appendChild(badge); div.appendChild(del);
+
+    // Drag reorder
+    div.addEventListener('dragstart', () => { pdfDragging = idx; div.style.opacity = '0.4'; });
+    div.addEventListener('dragend',   () => { div.style.opacity = '1'; pdfRenderPreview(); });
+    div.addEventListener('dragover',  (e) => { e.preventDefault(); });
+    div.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (pdfDragging === null || pdfDragging === idx) return;
+      const moved = pdfFiles.splice(pdfDragging, 1)[0];
+      pdfFiles.splice(idx, 0, moved);
+      pdfDragging = null;
+      pdfRenderPreview();
     });
 
-    const data = await resp.json();
-    loadEl.style.display = 'none';
+    grid.appendChild(div);
+  });
+}
 
-    // Handle Cobalt API response types
-    if (data.status === 'error') {
-      const code = data.error?.code || 'unknown';
-      const msgs = {
-        'error.api.link.invalid':     'Invalid or unsupported URL. Make sure the link is correct.',
-        'error.api.link.unsupported': 'This platform is not supported by Cobalt.',
-        'error.api.content.too_long': 'The video is too long to download.',
-        'error.api.fetch.empty':      'No downloadable content found at this URL.',
-        'error.api.rate_limit':       'Too many requests. Please wait a moment and try again.',
-      };
-      throw new Error(msgs[code] || `Cobalt error: ${code}`);
+function pdfClearAll() {
+  pdfFiles = [];
+  pdfRenderPreview();
+  hideMsg(document.getElementById('pdf-err'));
+  document.getElementById('pdf-success').style.display = 'none';
+}
+
+document.getElementById('pdf-btn').addEventListener('click', async function() {
+  const btn       = this;
+  const errEl     = document.getElementById('pdf-err');
+  const progressW = document.getElementById('pdf-progress');
+  const progressB = document.getElementById('pdf-progress-bar');
+  const progressT = document.getElementById('pdf-progress-txt');
+  const successEl = document.getElementById('pdf-success');
+  const successInf= document.getElementById('pdf-success-info');
+
+  hideMsg(errEl);
+  successEl.style.display  = 'none';
+  progressW.style.display  = 'block';
+  progressB.style.width    = '0%';
+  btn.disabled = true; btn.style.opacity = '0.5';
+
+  try {
+    progressT.textContent = 'jsPDF লোড হচ্ছে…';
+    progressB.style.width = '10%';
+    const jsPDF = await loadJsPDF();
+
+    const pageSize  = document.getElementById('pdf-pagesize').value;
+    const orient    = document.getElementById('pdf-orient').value;
+    const margin    = parseInt(document.getElementById('pdf-margin').value) || 0;
+    const quality   = parseFloat(document.getElementById('pdf-quality').value);
+
+    progressT.textContent = 'PDF তৈরি হচ্ছে…';
+    progressB.style.width = '20%';
+
+    let doc = null;
+    const total = pdfFiles.length;
+
+    for (let i = 0; i < total; i++) {
+      const item = pdfFiles[i];
+      progressT.textContent = `ছবি ${i+1} / ${total} প্রক্রিয়া হচ্ছে…`;
+      progressB.style.width = (20 + (i / total) * 70) + '%';
+
+      // Load image to get natural dimensions
+      await new Promise((resolve) => {
+        const tmpImg = new Image();
+        tmpImg.onload = () => {
+          const imgW = tmpImg.naturalWidth;
+          const imgH = tmpImg.naturalHeight;
+          const isLandscapeImg = imgW > imgH;
+
+          // Determine page orientation
+          let pageOrient;
+          if (orient === 'auto')      pageOrient = isLandscapeImg ? 'landscape' : 'portrait';
+          else if (orient === 'landscape') pageOrient = 'landscape';
+          else                         pageOrient = 'portrait';
+
+          // Determine page dimensions in mm
+          let pW, pH;
+          if (pageSize === 'fit') {
+            // 1px ≈ 0.264583 mm
+            pW = imgW * 0.264583;
+            pH = imgH * 0.264583;
+            pageOrient = 'portrait'; // fit mode ignores orientation
+          } else {
+            const sizes = { a4: [210,297], letter: [215.9,279.4], a3: [297,420] };
+            [pW, pH] = sizes[pageSize];
+            if (pageOrient === 'landscape') [pW, pH] = [pH, pW];
+          }
+
+          if (!doc) {
+            doc = new jsPDF({ orientation: pageOrient, unit: 'mm', format: pageSize === 'fit' ? [pW, pH] : pageSize });
+          } else {
+            doc.addPage(pageSize === 'fit' ? [pW, pH] : pageSize, pageOrient);
+          }
+
+          // Fit image into page with margin
+          const availW = pW - margin * 2;
+          const availH = pH - margin * 2;
+          const ratio  = Math.min(availW / imgW, availH / imgH);
+          const drawW  = imgW * ratio;
+          const drawH  = imgH * ratio;
+          const x = margin + (availW - drawW) / 2;
+          const y = margin + (availH - drawH) / 2;
+
+          // Detect format
+          const fmt = item.file.type === 'image/png' ? 'PNG' : 'JPEG';
+          doc.addImage(item.dataUrl, fmt, x, y, drawW, drawH, undefined, 'MEDIUM');
+          resolve();
+        };
+        tmpImg.src = item.dataUrl;
+      });
+
+      // Small delay to keep UI responsive
+      await new Promise(r => setTimeout(r, 30));
     }
 
-    if (data.status === 'redirect' || data.status === 'tunnel') {
-      // Single direct download URL
-      showVideoResult(data.url, rawUrl);
+    progressB.style.width = '95%';
+    progressT.textContent = 'PDF সেভ হচ্ছে…';
+    await new Promise(r => setTimeout(r, 50));
 
-    } else if (data.status === 'picker') {
-      // Multiple streams — show picker
-      showVideoPicker(data.picker, data.audio);
+    const filename = 'xonomo-images-' + Date.now() + '.pdf';
+    doc.save(filename);
 
-    } else {
-      throw new Error('Unexpected response from Cobalt. Try a different URL or quality.');
-    }
+    progressB.style.width  = '100%';
+    progressW.style.display = 'none';
+    successInf.textContent  = `${total}টি ছবি · ${filename}`;
+    successEl.style.display = 'block';
 
   } catch(e) {
-    loadEl.style.display = 'none';
+    progressW.style.display = 'none';
     showMsg(errEl, 'err', '⚠ ' + e.message);
   }
 
-  loading(btn, false);
+  btn.disabled = false; btn.style.opacity = '1';
 });
 
-function showVideoResult(url, originalUrl) {
-  const resEl   = document.getElementById('vid-result');
-  const linkEl  = document.getElementById('vid-link');
-  const infoEl  = document.getElementById('vid-info');
-  const titleEl = document.getElementById('vid-title');
-  const metaEl  = document.getElementById('vid-meta');
-
-  linkEl.href = url;
-
-  // Try to extract a nice label from URL
-  try {
-    const u = new URL(originalUrl);
-    let platform = u.hostname.replace('www.','').replace('m.','');
-    titleEl.textContent = 'Download from ' + platform;
-    metaEl.textContent  = 'Your file is ready. Click the button below to download.';
-    infoEl.style.display = 'block';
-  } catch { infoEl.style.display = 'none'; }
-
-  resEl.style.display = 'block';
-}
-
-function showVideoPicker(picks, fallbackAudio) {
-  const pickerEl     = document.getElementById('vid-picker');
-  const pickerListEl = document.getElementById('vid-picker-list');
-
-  pickerListEl.innerHTML = '';
-
-  picks.forEach((item, i) => {
-    const btn = document.createElement('a');
-    btn.href   = item.url;
-    btn.target = '_blank';
-    btn.rel    = 'noopener';
-    const label = item.type === 'photo'
-      ? `🖼 Image ${i+1}`
-      : item.type === 'video'
-        ? `🎬 Video ${i+1}` + (item.quality ? ` · ${item.quality}` : '')
-        : `📄 File ${i+1}`;
-
-    btn.innerHTML = label;
-    btn.style.cssText = `
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      background:linear-gradient(135deg,rgba(107,33,168,0.2),rgba(168,85,247,0.2));
-      border:1px solid rgba(168,85,247,0.35);color:#c084fc;
-      border-radius:12px;padding:11px 18px;font-size:0.85rem;font-weight:700;
-      text-decoration:none;transition:filter 0.2s;width:100%;box-sizing:border-box;
-    `;
-    btn.onmouseover = () => btn.style.filter = 'brightness(1.2)';
-    btn.onmouseout  = () => btn.style.filter = '';
-    pickerListEl.appendChild(btn);
-  });
-
-  // Fallback audio track if present
-  if (fallbackAudio) {
-    const aBtn = document.createElement('a');
-    aBtn.href   = fallbackAudio;
-    aBtn.target = '_blank';
-    aBtn.rel    = 'noopener';
-    aBtn.innerHTML = '🎵 Audio Track';
-    aBtn.style.cssText = `
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#10b981;
-      border-radius:12px;padding:11px 18px;font-size:0.85rem;font-weight:700;
-      text-decoration:none;transition:filter 0.2s;width:100%;box-sizing:border-box;margin-top:6px;
-    `;
-    aBtn.onmouseover = () => aBtn.style.filter = 'brightness(1.2)';
-    aBtn.onmouseout  = () => aBtn.style.filter = '';
-    pickerListEl.appendChild(aBtn);
-  }
-
-  pickerEl.style.display = 'block';
-}
-
-// Allow Enter key on video input
-document.getElementById('vid-url').addEventListener('keydown', e => {
-  if (e.key === 'Enter') document.getElementById('vid-btn').click();
-});
 
 
 </script>
