@@ -1182,8 +1182,7 @@
             <button class="copy-btn" id="url-copy-btn">📋 Copy</button>
           </div>
           <div style="margin-top:10px;font-size:0.75rem;color:var(--dim);">
-            Powered by <a href="https://cleanuri.com" target="_blank" style="color:var(--ind2);text-decoration:none;">CleanURI.com</a>
-            · Proxied via Cloudflare Worker
+            Powered by <a href="https://tinyurl.com" target="_blank" style="color:var(--ind2);text-decoration:none;">TinyURL</a> &amp; is.gd · No server needed
           </div>
         </div>
 
@@ -2381,42 +2380,21 @@ document.getElementById('url-btn').addEventListener('click', async function() {
   loading(btn, true);
 
   try {
-    // Primary: CleanURI via Worker proxy (same origin /shorten)
-    // Fallback: direct CleanURI POST (works on servers, may fail locally)
-    // CleanURI via allorigins CORS proxy — works on any static host including Cloudflare Pages
     let shortened = null;
     let lastErr   = '';
+
+    // CleanURI direct POST — CORS allowed, no key needed
     try {
-      // Method 1: allorigins proxy (bypasses CORS, no key needed)
-      const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://cleanuri.com/api/v1/shorten');
-      const r = await fetch(proxyUrl, {
+      const r = await fetch('https://cleanuri.com/api/v1/shorten', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'url=' + encodeURIComponent(raw),
         signal: AbortSignal.timeout(8000)
       });
-      if (r.ok) {
-        const d = await r.json();
-        if (d.result_url) shortened = d.result_url;
-        else if (d.error) lastErr = d.error;
-      }
+      const d = await r.json();
+      if (d.result_url) shortened = d.result_url;
+      else if (d.error) lastErr = d.error;
     } catch(e) { lastErr = e.message; }
-
-    // Method 2: corsproxy.io fallback
-    if (!shortened) {
-      try {
-        const r = await fetch('https://corsproxy.io/?' + encodeURIComponent('https://cleanuri.com/api/v1/shorten'), {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: 'url=' + encodeURIComponent(raw),
-          signal: AbortSignal.timeout(8000)
-        });
-        if (r.ok) {
-          const d = await r.json();
-          if (d.result_url) shortened = d.result_url;
-        }
-      } catch(e) { lastErr = e.message; }
-    }
 
     if (shortened) {
       linkEl.href        = shortened;
@@ -2435,7 +2413,7 @@ document.getElementById('url-btn').addEventListener('click', async function() {
         }).catch(() => copyText(shortened));
       };
     } else {
-      showMsg(errEl, 'err', lastErr || 'Shortening failed. Deploy the Cloudflare Worker for full support, or host on a server (CORS restrictions apply locally).');
+      showMsg(errEl, 'err', lastErr || 'URL shortening failed. Please try again.');
     }
   } catch(e) {
     showMsg(errEl, 'err', 'Unexpected error: ' + e.message);
