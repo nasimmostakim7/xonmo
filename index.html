@@ -267,8 +267,8 @@
       backdrop-filter: var(--blur);
       -webkit-backdrop-filter: var(--blur);
       border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 36px;
+      border-radius: 22px;
+      padding: 22px 20px;
       position: relative;
       overflow: hidden;
     }
@@ -280,8 +280,8 @@
 
     /* Panel Header */
     .phead {
-      display: flex; align-items: flex-start; gap: 16px;
-      margin-bottom: 30px; padding-bottom: 24px;
+      display: flex; align-items: flex-start; gap: 14px;
+      margin-bottom: 18px; padding-bottom: 16px;
       border-bottom: 1px solid var(--border);
     }
     .phead-icon {
@@ -811,6 +811,81 @@
     }
     .speed-test-btn:hover { background: linear-gradient(135deg, rgba(99,102,241,0.5), rgba(168,85,247,0.5)); }
 
+
+    /* ══════════════════════════════════════
+       PIN & SIDEBAR
+    ══════════════════════════════════════ */
+    .hcard-wrap { position: relative; }
+    .pin-btn {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px; color: var(--sub);
+      font-size: 0.7rem; font-weight: 700;
+      padding: 4px 10px; cursor: pointer;
+      transition: var(--t); z-index: 2;
+      font-family: inherit; letter-spacing: 0.04em;
+    }
+    .pin-btn:hover { background: rgba(99,102,241,0.2); color: var(--ind2); border-color: var(--ind); }
+    .pin-btn.pinned { background: rgba(99,102,241,0.25); color: var(--ind2); border-color: var(--ind); }
+
+    /* Sidebar */
+    #sidebar {
+      position: fixed; left: 0; top: 0; bottom: 0;
+      width: 220px; background: rgba(8,12,28,0.97);
+      border-right: 1px solid rgba(99,102,241,0.2);
+      backdrop-filter: blur(20px);
+      z-index: 500; display: none;
+      flex-direction: column; padding: 0;
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    #sidebar.open { display: flex; transform: translateX(0); }
+    .sidebar-header {
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sidebar-title {
+      font-family: 'Syne', sans-serif; font-size: 0.85rem;
+      font-weight: 700; color: var(--ind2); letter-spacing: 0.05em;
+    }
+    .sidebar-close {
+      background: none; border: none; color: var(--sub);
+      cursor: pointer; font-size: 1rem; padding: 4px;
+      transition: color 0.2s;
+    }
+    .sidebar-close:hover { color: var(--ros); }
+    .sidebar-links { padding: 12px 8px; flex: 1; overflow-y: auto; }
+    .sidebar-link {
+      display: block; width: 100%;
+      padding: 10px 12px; border-radius: 10px;
+      font-size: 0.83rem; font-weight: 600;
+      color: var(--sub); background: none; border: none;
+      cursor: pointer; text-align: left; transition: var(--t);
+      font-family: inherit; letter-spacing: 0.02em;
+    }
+    .sidebar-link:hover { background: rgba(99,102,241,0.15); color: var(--txt); }
+    .sidebar-link.active-link { color: var(--ind2); background: rgba(99,102,241,0.12); }
+
+    /* Pinned mode */
+    body.pinned-mode #home { display: none !important; }
+    body.pinned-mode .panel.pinned-panel { display: block !important; }
+    body.pinned-mode #sidebar { display: flex; }
+
+    /* Sidebar toggle button (top-left when pinned) */
+    #sidebar-toggle {
+      display: none; position: fixed; top: 14px; left: 14px;
+      z-index: 600; background: rgba(8,12,28,0.92);
+      border: 1px solid rgba(99,102,241,0.3); border-radius: 10px;
+      color: var(--ind2); padding: 8px 12px; cursor: pointer;
+      font-size: 0.8rem; font-weight: 700; font-family: inherit;
+      backdrop-filter: blur(10px); transition: var(--t);
+    }
+    #sidebar-toggle:hover { background: rgba(99,102,241,0.2); }
+    body.pinned-mode #sidebar-toggle { display: block; }
+    body.pinned-mode .back-btn { display: none !important; }
+
   </style>
 </head>
 <body>
@@ -821,6 +896,21 @@
   <div class="orb orb3"></div>
 </div>
 
+
+<!-- Sidebar toggle button -->
+<button id="sidebar-toggle" onclick="toggleSidebar()">☰ Menu</button>
+
+<!-- Sidebar -->
+<div id="sidebar">
+  <div class="sidebar-header">
+    <span class="sidebar-title">🔧 Services</span>
+    <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
+  </div>
+  <div class="sidebar-links" id="sidebar-links">
+    <!-- filled by JS -->
+  </div>
+</div>
+
 <!-- Toast -->
 <div id="toast">✓ Copied!</div>
 
@@ -829,17 +919,14 @@
   <!-- HOME PAGE -->
   <div id="home">
     <header class="site-header">
-      <div class="header-kicker">Premium Utility Suite</div>
-      <h1 class="site-title">
-        <span class="t1">XONOMO</span><span class="t2">.SITE</span>
-      </h1>
-      <p class="site-tagline">Anonymity checker, temporary email, internet speed test, IP intelligence & smart URL tools — all in one place.</p>
+      <div class="header-kicker">Premium Utility Hub</div>
     </header>
 
     <div class="card-grid">
 
       <!-- 1. Anonymity Checker — full width -->
-      <div class="hcard" onclick="openPanel('p-anon')" data-color="ind" style="--card-color:#818cf8; grid-column: 1 / -1;">
+      <div class="hcard" onclick="openPanel('p-anon')" data-color="ind" style="--card-color:#818cf8; grid-column: 1 / -1; position:relative;">
+        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-anon','Anonymity Checker')" title="Pin this service">📌 Pin</button>
         <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
           <div class="hcard-icon c6" style="flex-shrink:0;">🕵️</div>
           <div style="flex:1;min-width:200px;">
@@ -855,7 +942,8 @@
       </div>
 
       <!-- 2. Temp Email -->
-      <div class="hcard" onclick="openPanel('p-email')" data-color="cyn">
+      <div class="hcard" onclick="openPanel('p-email')" data-color="cyn" style="position:relative;">
+        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-email','Temporary Email')">📌 Pin</button>
         <div class="hcard-icon c2">📧</div>
         <div class="hcard-badge live">Mail.tm Powered</div>
         <div class="hcard-title">Temporary Email</div>
@@ -863,7 +951,8 @@
       </div>
 
       <!-- 3. Speed Test -->
-      <div class="hcard" onclick="openPanel('p-speed')" data-color="grn">
+      <div class="hcard" onclick="openPanel('p-speed')" data-color="grn" style="position:relative;">
+        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-speed','Speed Test')">📌 Pin</button>
         <div class="hcard-icon c3">⚡</div>
         <div class="hcard-badge live">Real-time</div>
         <div class="hcard-title">Internet Speed Test</div>
@@ -871,7 +960,8 @@
       </div>
 
       <!-- 5. URL Shortener -->
-      <div class="hcard" onclick="openPanel('p-url')" data-color="amb">
+      <div class="hcard" onclick="openPanel('p-url')" data-color="amb" style="position:relative;">
+        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-url','Link Shortener')">📌 Pin</button>
         <div class="hcard-icon c5">🔗</div>
         <div class="hcard-badge live">CleanURI Powered</div>
         <div class="hcard-title">XONOMO Link Shortener</div>
@@ -879,18 +969,16 @@
       </div>
 
       <!-- 6. Image to PDF -->
-      <div class="hcard" onclick="openPanel('p-img2pdf')" data-color="pur">
+      <div class="hcard" onclick="openPanel('p-img2pdf')" data-color="pur" style="position:relative;">
+        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-img2pdf','Image to PDF & Image to Text')">📌 Pin</button>
         <div class="hcard-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7);">🖼️</div>
-        <div class="hcard-badge live" style="background:rgba(168,85,247,0.15);color:#c084fc;border-color:rgba(168,85,247,0.3);">jsPDF · Client-side</div>
-        <div class="hcard-title">Image to PDF</div>
-        <div class="hcard-desc">Multiple JPG/PNG/WebP ছবি একটি PDF ফাইলে রূপান্তর — সম্পূর্ণ browser এ, কোনো upload বা server ছাড়াই।</div>
-      </div>
+        <div class="hcard-badge live" style="background:rgba(168,85,247,0.15);color:#c084fc;border-color:rgba(168,85,247,0.3);">Image → PDF / Text</div>
+        <div class="hcard-title">Image to PDF & Image to Text</div>
+        <div class="hcard-desc">MMultiple JPG/PNG/WebP images into a single PDF — all in your browser, nothing uploaded.</div>    </div>
 
     </div>
 
-    <footer class="site-footer">
-      <p>© 2025 XONOMO.SITE &nbsp;·&nbsp; Powered by Mail.tm · Cloudflare · CleanURI · jsPDF</p>
-    </footer>
+
   </div>
 
   <div id="p-anon" class="panel">
@@ -999,9 +1087,7 @@
           </div>
         </div>
 
-        <p style="font-size:.85rem;color:var(--sub);line-height:1.65;margin-bottom:18px;">
-          Your disposable email address is auto-created. Use it to receive emails without revealing your real address. Inbox auto-refreshes every 8 seconds.
-        </p>
+
 
         <!-- Email Address Box -->
         <div id="email-loading" style="text-align:center;padding:22px 0;color:var(--sub);font-size:.85rem;">
@@ -1074,9 +1160,7 @@
           </div>
         </div>
 
-        <p style="font-size:.85rem;color:var(--sub);line-height:1.65;margin-bottom:20px;">
-          Measure your real internet speed directly in the browser. Tests download, upload, ping and jitter using multiple CDN endpoints.
-        </p>
+
 
         <button class="btn speed-test-btn" id="speed-btn">▶ Start Speed Test</button>
 
@@ -1154,13 +1238,11 @@
           <div class="phead-icon" style="background:linear-gradient(135deg,#9d174d,#f43f5e)">🔗</div>
           <div>
             <div class="phead-title">XONOMO Link Shortener</div>
-            <div class="phead-sub">CleanURI API · Instant · No Account Needed</div>
+
           </div>
         </div>
 
-        <p style="font-size:.85rem;color:var(--sub);line-height:1.65;margin-bottom:22px;">
-          Paste any long URL below and get a clean, shareable short link powered by CleanURI. The request is proxied via Cloudflare Worker to avoid CORS issues.
-        </p>
+
 
         <!-- Input -->
         <div class="field">
@@ -1189,31 +1271,6 @@
         <!-- Error -->
         <div class="msg err" id="url-err"><span class="msg-icon">⚠</span><span id="url-err-txt">Error.</span></div>
 
-        <!-- Worker Info Box -->
-        <div style="margin-top:24px;background:rgba(12,18,36,0.8);border:1px solid rgba(99,102,241,0.2);
-                    border-radius:14px;padding:16px 18px;">
-          <div style="font-size:0.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-                      color:var(--ind2);margin-bottom:10px;">⚙️ Cloudflare Worker Backend</div>
-          <p style="font-size:0.78rem;color:var(--sub);line-height:1.6;margin-bottom:10px;">
-            This tool uses a Cloudflare Worker at <code style="color:var(--cyn);background:rgba(34,211,238,0.08);
-            padding:2px 6px;border-radius:5px;">your-worker.workers.dev/shorten</code> to proxy requests to
-            CleanURI, bypassing browser CORS restrictions. Deploy the <strong style="color:var(--txt);">index.js</strong> below to your Cloudflare Worker.
-          </p>
-          <button class="btn" id="worker-code-toggle-btn"
-                  onclick="document.getElementById('worker-code-box').style.display =
-                    document.getElementById('worker-code-box').style.display==='none'?'block':'none'"
-                  style="padding:8px 16px;font-size:0.78rem;background:rgba(99,102,241,0.12);
-                         border:1px solid rgba(99,102,241,0.3);color:var(--ind2);">
-            📄 View index.js Worker Code
-          </button>
-          <div id="worker-code-box" style="display:none;margin-top:12px;">
-            <pre id="worker-code-pre" style="background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.07);
-                 border-radius:10px;padding:14px;font-family:'Space Mono',monospace;font-size:0.72rem;
-                 color:#c7d2fe;overflow-x:auto;white-space:pre;line-height:1.6;max-height:360px;overflow-y:auto;"></pre>
-            <button class="copy-btn" id="worker-copy-btn" style="margin-top:8px;">📋 Copy Worker Code</button>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
@@ -1229,18 +1286,19 @@
       <div class="pcard">
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7)">🖼️</div>
-          <div>
-            <div class="phead-title">Image to PDF</div>
-            <div class="phead-sub">jsPDF · Browser-side · No Upload Needed</div>
-          </div>
-          <span class="panel-live" style="color:#c084fc;background:rgba(168,85,247,0.1);border-color:rgba(168,85,247,0.25);">Local</span>
+          <div><div class="phead-title">Image to PDF & Image to Text</div></div>
         </div>
 
-        <p style="font-size:.85rem;color:var(--sub);line-height:1.65;margin-bottom:20px;">
-          এক বা একাধিক ছবি (JPG, PNG, WebP, GIF) সিলেক্ট করুন, ক্রম ঠিক করুন, তারপর এক ক্লিকে PDF তৈরি করুন। সবকিছু আপনার browser এ হয় — কোনো ডেটা কোথাও যায় না।
-        </p>
+        <!-- Tabs -->
+        <div class="tabs" style="margin-bottom:20px;">
+          <button class="tab-btn on" id="tab-pdf-btn" onclick="switchImgTab('pdf')">Image to PDF</button>
+          <button class="tab-btn" id="tab-ocr-btn" onclick="switchImgTab('ocr')">Image to Text</button>
+        </div>
 
-        <!-- Drop Zone -->
+        <!-- PDF TAB -->
+        <div id="tab-pdf-content">
+
+                <!-- Drop Zone -->
         <div id="pdf-dropzone"
              style="border:2px dashed rgba(168,85,247,0.4);border-radius:18px;
                     padding:36px 20px;text-align:center;cursor:pointer;
@@ -1248,28 +1306,28 @@
              onclick="document.getElementById('pdf-file-input').click()"
              ondragover="pdfDragOver(event)" ondragleave="pdfDragLeave(event)" ondrop="pdfDrop(event)">
           <div style="font-size:2.4rem;margin-bottom:10px;">📂</div>
-          <div style="font-size:0.92rem;font-weight:700;color:var(--txt);margin-bottom:5px;">ছবি সিলেক্ট বা ড্র্যাগ করুন</div>
-          <div style="font-size:0.75rem;color:var(--sub);">JPG · PNG · WebP · GIF — একাধিক ফাইল সমর্থিত</div>
+          <div style="font-size:0.92rem;font-weight:700;color:var(--txt);margin-bottom:5px;">Select or drag images here</div>
+          <div style="font-size:0.75rem;color:var(--sub);">JPG · PNG · WebP · GIF — multiple files supported</div>
           <input type="file" id="pdf-file-input" accept="image/*" multiple style="display:none">
         </div>
 
         <!-- Options Row -->
         <div class="row2" style="margin-bottom:16px;">
           <div class="field" style="margin-bottom:0;">
-            <label class="lbl">পেজ সাইজ</label>
+            <label class="lbl">Page Size</label>
             <select id="pdf-pagesize" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:11px 14px;font-family:inherit;font-size:0.9rem;outline:none;appearance:none;cursor:pointer;transition:var(--t);">
               <option value="a4">A4 (210×297 mm)</option>
               <option value="letter">Letter (8.5×11 in)</option>
               <option value="a3">A3 (297×420 mm)</option>
-              <option value="fit">Image Size (ছবি অনুযায়ী)</option>
+              <option value="fit">Image Size (fit)</option>
             </select>
           </div>
           <div class="field" style="margin-bottom:0;">
             <label class="lbl">Orientation</label>
             <select id="pdf-orient" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:11px 14px;font-family:inherit;font-size:0.9rem;outline:none;appearance:none;cursor:pointer;transition:var(--t);">
-              <option value="auto">Auto (ছবি দেখে)</option>
-              <option value="portrait">Portrait (খাড়া)</option>
-              <option value="landscape">Landscape (আড়া)</option>
+              <option value="auto">Auto (detect)</option>
+              <option value="portrait">Portrait</option>
+              <option value="landscape">Landscape</option>
             </select>
           </div>
         </div>
@@ -1285,7 +1343,7 @@
             <select id="pdf-quality" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:11px 14px;font-family:inherit;font-size:0.9rem;outline:none;appearance:none;cursor:pointer;transition:var(--t);">
               <option value="0.98">High (98%)</option>
               <option value="0.85" selected>Medium (85%)</option>
-              <option value="0.65">Low (65%) — ছোট ফাইল</option>
+              <option value="0.65">Low (65%) — smaller file</option>
             </select>
           </div>
         </div>
@@ -1299,7 +1357,7 @@
             <button onclick="pdfClearAll()" style="font-size:0.72rem;color:var(--ros);background:none;border:none;cursor:pointer;padding:4px 8px;">✕ Clear All</button>
           </div>
           <div id="pdf-preview-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;max-height:280px;overflow-y:auto;padding:4px;"></div>
-          <p style="font-size:0.72rem;color:var(--dim);margin-top:8px;">💡 ছবিতে ক্লিক করে সরাতে পারবেন (drag to reorder)</p>
+          <p style="font-size:0.72rem;color:var(--dim);margin-top:8px;">💡 Drag thumbnails to reorder</p>
         </div>
 
         <!-- Generate Button -->
@@ -1321,12 +1379,81 @@
         <div id="pdf-success" style="display:none;margin-top:16px;background:rgba(16,185,129,0.09);
              border:1px solid rgba(16,185,129,0.25);border-radius:14px;padding:16px 18px;text-align:center;">
           <div style="font-size:1.6rem;margin-bottom:6px;">✅</div>
-          <div style="font-size:0.9rem;font-weight:700;color:#6ee7b7;margin-bottom:4px;">PDF তৈরি সম্পন্ন!</div>
+          <div style="font-size:0.9rem;font-weight:700;color:#6ee7b7;margin-bottom:4px;">PDF created successfully!</div>
           <div style="font-size:0.75rem;color:var(--sub);" id="pdf-success-info">—</div>
         </div>
 
         <!-- Error -->
         <div class="msg err" id="pdf-err"><span class="msg-icon">⚠</span><span id="pdf-err-txt">Error.</span></div>
+
+
+        </div><!-- /tab-pdf-content -->
+
+        <!-- OCR TAB -->
+        <div id="tab-ocr-content" style="display:none;">
+
+          <!-- OCR Drop Zone -->
+          <div id="ocr-dropzone"
+               style="border:2px dashed rgba(168,85,247,0.4);border-radius:18px;
+                      padding:36px 20px;text-align:center;cursor:pointer;
+                      background:rgba(168,85,247,0.04);transition:all 0.25s;margin-bottom:18px;"
+               onclick="document.getElementById('ocr-file-input').click()"
+               ondragover="ocrDragOver(event)" ondragleave="ocrDragLeave(event)" ondrop="ocrDrop(event)">
+            <div style="font-size:2.4rem;margin-bottom:10px;">🔍</div>
+            <div style="font-size:0.92rem;font-weight:700;color:var(--txt);margin-bottom:5px;">Extract text from image</div>
+            <div style="font-size:0.75rem;color:var(--sub);">JPG · PNG · WebP — select an image</div>
+            <input type="file" id="ocr-file-input" accept="image/*" style="display:none">
+          </div>
+
+
+
+          <!-- OCR Preview -->
+          <div id="ocr-preview-wrap" style="display:none;margin-bottom:16px;text-align:center;">
+            <img id="ocr-preview-img" src="" alt="preview"
+                 style="max-width:100%;max-height:220px;border-radius:12px;
+                        border:1px solid rgba(168,85,247,0.3);object-fit:contain;">
+            <div id="ocr-file-name" style="font-size:0.72rem;color:var(--sub);margin-top:6px;"></div>
+          </div>
+
+          <!-- OCR Button -->
+          <button class="btn" id="ocr-btn" disabled
+                  style="background:linear-gradient(135deg,#6b21a8,#9333ea,#a855f7);color:#fff;
+                         box-shadow:0 4px 20px rgba(168,85,247,0.3);opacity:0.5;">
+            🔍 Extract Text
+          </button>
+
+          <!-- OCR Progress -->
+          <div id="ocr-progress" style="display:none;margin-top:16px;">
+            <div style="font-size:0.78rem;color:var(--sub);margin-bottom:8px;" id="ocr-progress-txt">Processing…</div>
+            <div style="height:6px;background:rgba(255,255,255,0.07);border-radius:6px;overflow:hidden;">
+              <div id="ocr-progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#7c3aed,#a855f7);border-radius:6px;transition:width 0.3s ease;"></div>
+            </div>
+          </div>
+
+          <!-- OCR Result -->
+          <div id="ocr-result" style="display:none;margin-top:16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div style="font-size:0.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);">✅ Extracted Text</div>
+              <button onclick="ocrCopyText()" id="ocr-copy-btn"
+                      style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;
+                             background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);
+                             color:var(--ind2);border-radius:9px;padding:6px 14px;cursor:pointer;
+                             font-family:inherit;font-weight:700;transition:var(--t);">
+                📋 Copy
+              </button>
+            </div>
+            <textarea id="ocr-text-output" readonly
+                      style="width:100%;min-height:180px;background:rgba(8,12,28,0.8);
+                             border:1px solid rgba(168,85,247,0.25);border-radius:12px;
+                             color:var(--txt);padding:14px;font-family:'DM Sans',sans-serif;
+                             font-size:0.88rem;line-height:1.7;resize:vertical;outline:none;">
+            </textarea>
+          </div>
+
+          <!-- OCR Error -->
+          <div class="msg err" id="ocr-err"><span class="msg-icon">⚠</span><span id="ocr-err-txt">Error.</span></div>
+
+        </div><!-- /tab-ocr-content -->
 
       </div>
     </div>
@@ -2383,13 +2510,13 @@ document.getElementById('url-btn').addEventListener('click', async function() {
     let shortened = null;
     let lastErr   = '';
 
-    // CleanURI direct POST — CORS allowed, no key needed
+    // Cloudflare Pages Function proxy — /api/shorten
     try {
-      const r = await fetch('https://cleanuri.com/api/v1/shorten', {
+      const r = await fetch('/api/shorten', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'url=' + encodeURIComponent(raw),
-        signal: AbortSignal.timeout(8000)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: raw }),
+        signal: AbortSignal.timeout(10000)
       });
       const d = await r.json();
       if (d.result_url) shortened = d.result_url;
@@ -2443,7 +2570,7 @@ function loadJsPDF() {
     const s = document.createElement('script');
     s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
     s.onload  = () => resolve(window.jspdf.jsPDF);
-    s.onerror = () => reject(new Error('jsPDF লোড ব্যর্থ হয়েছে। ইন্টারনেট চেক করুন।'));
+    s.onerror = () => reject(new Error('Failed to load jsPDF. Check your internet connection.'));
     document.head.appendChild(s);
   });
 }
@@ -2485,7 +2612,7 @@ function pdfAddFiles(files) {
     reader.readAsDataURL(file);
     added++;
   });
-  if (!added) showMsg(errEl, 'err', 'শুধু ছবি ফাইল সমর্থিত (JPG, PNG, WebP, GIF)');
+  if (!added) showMsg(errEl, 'err', 'Only image files are supported (JPG, PNG, WebP, GIF)');
 }
 
 function pdfRenderPreview() {
@@ -2561,7 +2688,7 @@ document.getElementById('pdf-btn').addEventListener('click', async function() {
   btn.disabled = true; btn.style.opacity = '0.5';
 
   try {
-    progressT.textContent = 'jsPDF লোড হচ্ছে…';
+    progressT.textContent = 'Loading jsPDF…';
     progressB.style.width = '10%';
     const jsPDF = await loadJsPDF();
 
@@ -2570,7 +2697,7 @@ document.getElementById('pdf-btn').addEventListener('click', async function() {
     const margin    = parseInt(document.getElementById('pdf-margin').value) || 0;
     const quality   = parseFloat(document.getElementById('pdf-quality').value);
 
-    progressT.textContent = 'PDF তৈরি হচ্ছে…';
+    progressT.textContent = 'Creating PDF…';
     progressB.style.width = '20%';
 
     let doc = null;
@@ -2578,7 +2705,7 @@ document.getElementById('pdf-btn').addEventListener('click', async function() {
 
     for (let i = 0; i < total; i++) {
       const item = pdfFiles[i];
-      progressT.textContent = `ছবি ${i+1} / ${total} প্রক্রিয়া হচ্ছে…`;
+      progressT.textContent = `Processing image ${i+1} / ${total}…`;
       progressB.style.width = (20 + (i / total) * 70) + '%';
 
       // Load image to get natural dimensions
@@ -2636,7 +2763,7 @@ document.getElementById('pdf-btn').addEventListener('click', async function() {
     }
 
     progressB.style.width = '95%';
-    progressT.textContent = 'PDF সেভ হচ্ছে…';
+    progressT.textContent = 'Saving PDF…';
     await new Promise(r => setTimeout(r, 50));
 
     const filename = 'xonomo-images-' + Date.now() + '.pdf';
@@ -2644,7 +2771,7 @@ document.getElementById('pdf-btn').addEventListener('click', async function() {
 
     progressB.style.width  = '100%';
     progressW.style.display = 'none';
-    successInf.textContent  = `${total}টি ছবি · ${filename}`;
+    successInf.textContent  = `${total} image(s) · ${filename}`;
     successEl.style.display = 'block';
 
   } catch(e) {
@@ -2655,6 +2782,222 @@ document.getElementById('pdf-btn').addEventListener('click', async function() {
   btn.disabled = false; btn.style.opacity = '1';
 });
 
+
+
+
+
+/* ══════════════════════════════════════════════
+   OCR — Image to Text (Tesseract.js)
+══════════════════════════════════════════════ */
+let ocrFile = null;
+
+function switchImgTab(tab) {
+  const isPdf = tab === 'pdf';
+  document.getElementById('tab-pdf-content').style.display = isPdf ? 'block' : 'none';
+  document.getElementById('tab-ocr-content').style.display = isPdf ? 'none'  : 'block';
+  document.getElementById('tab-pdf-btn').classList.toggle('on', isPdf);
+  document.getElementById('tab-ocr-btn').classList.toggle('on', !isPdf);
+}
+
+// OCR drag & drop
+function ocrDragOver(e) {
+  e.preventDefault();
+  document.getElementById('ocr-dropzone').style.borderColor = 'rgba(168,85,247,0.9)';
+}
+function ocrDragLeave(e) {
+  document.getElementById('ocr-dropzone').style.borderColor = 'rgba(168,85,247,0.4)';
+}
+function ocrDrop(e) {
+  e.preventDefault();
+  ocrDragLeave(e);
+  const f = e.dataTransfer.files[0];
+  if (f && f.type.startsWith('image/')) ocrSetFile(f);
+}
+
+document.getElementById('ocr-file-input').addEventListener('change', function() {
+  if (this.files[0]) ocrSetFile(this.files[0]);
+  this.value = '';
+});
+
+function ocrSetFile(file) {
+  ocrFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('ocr-preview-img').src = e.target.result;
+    document.getElementById('ocr-preview-wrap').style.display = 'block';
+    document.getElementById('ocr-file-name').textContent = file.name;
+    document.getElementById('ocr-result').style.display = 'none';
+    hideMsg(document.getElementById('ocr-err'));
+  };
+  reader.readAsDataURL(file);
+  const btn = document.getElementById('ocr-btn');
+  btn.disabled = false; btn.style.opacity = '1';
+}
+
+document.getElementById('ocr-btn').addEventListener('click', async function() {
+  if (!ocrFile) return;
+  const btn       = this;
+  const progressW = document.getElementById('ocr-progress');
+  const progressB = document.getElementById('ocr-progress-bar');
+  const progressT = document.getElementById('ocr-progress-txt');
+  const resultEl  = document.getElementById('ocr-result');
+  const outputEl  = document.getElementById('ocr-text-output');
+  const errEl     = document.getElementById('ocr-err');
+
+  hideMsg(errEl);
+  resultEl.style.display  = 'none';
+  progressW.style.display = 'block';
+  progressB.style.width   = '0%';
+  btn.disabled = true; btn.style.opacity = '0.5';
+
+  try {
+    // Load Tesseract.js on demand
+    if (!window.Tesseract) {
+      progressT.textContent = 'Loading Tesseract…';
+      progressB.style.width = '10%';
+      await new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+        s.onload = res; s.onerror = () => rej(new Error('Failed to load Tesseract.'));
+        document.head.appendChild(s);
+      });
+    }
+
+    progressT.textContent = 'Analyzing image…';
+    progressB.style.width = '20%';
+
+    const result = await Tesseract.recognize(ocrFile, 'osd+eng', {
+      logger: m => {
+        if (m.status === 'recognizing text') {
+          const pct = Math.round((m.progress || 0) * 80) + 20;
+          progressB.style.width = pct + '%';
+          progressT.textContent = `Reading text… ${pct}%`;
+        }
+      }
+    });
+
+    progressB.style.width  = '100%';
+    progressW.style.display = 'none';
+
+    const text = (result.data.text || '').trim();
+    if (!text) {
+      showMsg(errEl, 'err', 'No text found. Try a clearer image.');
+    } else {
+      outputEl.value = text;
+      resultEl.style.display = 'block';
+    }
+
+  } catch(e) {
+    progressW.style.display = 'none';
+    showMsg(errEl, 'err', '⚠ ' + e.message);
+  }
+
+  btn.disabled = false; btn.style.opacity = '1';
+});
+
+function ocrCopyText() {
+  const text = document.getElementById('ocr-text-output').value;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const b = document.getElementById('ocr-copy-btn');
+    const orig = b.innerHTML;
+    b.innerHTML = '✓ Copied!';
+    b.style.color = 'var(--grn)';
+    setTimeout(() => { b.innerHTML = orig; b.style.color = ''; }, 2000);
+  });
+}
+
+/* ══════════════════════════════════════════════
+   PIN SERVICE & SIDEBAR
+══════════════════════════════════════════════ */
+const SERVICE_LIST = [
+  { id: 'p-anon',    label: '🕵️ Anonymity Checker' },
+  { id: 'p-email',   label: '📧 Temporary Email' },
+  { id: 'p-speed',   label: '⚡ Speed Test' },
+  { id: 'p-url',     label: '🔗 Link Shortener' },
+  { id: 'p-img2pdf', label: '🖼️ Image to PDF & Image to Text' },
+];
+
+let pinnedId = null;
+
+function pinService(panelId, label) {
+  // Unpin if same
+  if (pinnedId === panelId) {
+    unpinService();
+    return;
+  }
+  pinnedId = panelId;
+
+  // Enter pinned mode
+  document.body.classList.add('pinned-mode');
+
+  // Hide all panels, show pinned one
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('pinned-panel'));
+  const panel = document.getElementById(panelId);
+  panel.classList.add('active', 'pinned-panel');
+
+  // Update pin buttons
+  document.querySelectorAll('.pin-btn').forEach(b => b.classList.remove('pinned'));
+
+  // Build sidebar links
+  const linksEl = document.getElementById('sidebar-links');
+  linksEl.innerHTML = SERVICE_LIST.map(s =>
+    `<button class="sidebar-link ${s.id === panelId ? 'active-link' : ''}"
+             onclick="sidebarNav('${s.id}','${s.label}')">
+       ${s.label}
+     </button>`
+  ).join('');
+
+  // Open sidebar
+  document.getElementById('sidebar').classList.add('open');
+
+  // Scroll to top
+  window.scrollTo(0, 0);
+}
+
+function unpinService() {
+  pinnedId = null;
+  document.body.classList.remove('pinned-mode');
+  document.querySelectorAll('.panel').forEach(p => {
+    p.classList.remove('active', 'pinned-panel');
+  });
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('home').style.display = 'block';
+  document.querySelectorAll('.pin-btn').forEach(b => b.classList.remove('pinned'));
+}
+
+function sidebarNav(panelId, label) {
+  pinnedId = panelId;
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active', 'pinned-panel'));
+  const panel = document.getElementById(panelId);
+  panel.classList.add('active', 'pinned-panel');
+
+  // Update active link
+  document.querySelectorAll('.sidebar-link').forEach(b => {
+    b.classList.toggle('active-link', b.textContent.trim().includes(label.replace(/^[^ ]+ /, '')));
+  });
+
+  if (panelId === 'p-email') emailInit();
+  window.scrollTo(0, 0);
+
+  // Close sidebar on mobile
+  if (window.innerWidth < 600) toggleSidebar();
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// Override closePanel to respect pinned mode
+const _origClosePanel = closePanel;
+window.closePanel = function(id) {
+  if (pinnedId) {
+    // In pinned mode, back button should unpin
+    unpinService();
+  } else {
+    _origClosePanel(id);
+  }
+};
 
 
 </script>
