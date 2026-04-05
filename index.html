@@ -100,7 +100,7 @@
     /* HEADER */
     .site-header {
       text-align: center;
-      padding: 72px 0 52px;
+      padding: 18px 0 10px;
     }
     .header-kicker {
       display: inline-flex; align-items: center; gap: 8px;
@@ -136,9 +136,9 @@
     /* CARD GRID */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 18px;
-      margin-top: 42px;
+      margin-top: 12px;
     }
 
     /* HOME CARD */
@@ -148,7 +148,12 @@
       -webkit-backdrop-filter: var(--blur);
       border: 1px solid var(--border);
       border-radius: var(--r);
-      padding: 34px 28px;
+      padding: 18px 20px;
+      height: 250px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
       cursor: pointer;
       transition: var(--t);
       position: relative;
@@ -409,7 +414,7 @@
       background: rgba(8,12,28,0.6);
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: 14px; padding: 4px;
-      margin-bottom: 22px;
+      margin-bottom: 0;
     }
     .tab-btn {
       flex: 1; padding: 9px 6px; border-radius: 10px;
@@ -925,8 +930,8 @@
     <div class="card-grid">
 
       <!-- 1. Anonymity Checker — full width -->
-      <div class="hcard" onclick="openPanel('p-anon')" data-color="ind" style="--card-color:#818cf8; grid-column: 1 / -1; position:relative;">
-        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-anon','Anonymity Checker')" title="Pin this service">📌 Pin</button>
+      <div class="hcard" onclick="openPanel('p-anon')" data-color="ind" style="--card-color:#818cf8; grid-column: 1 / -1; position:relative; height:auto !important;">
+        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-anon')" title="Pin this service">📌 Pin</button>
         <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
           <div class="hcard-icon c6" style="flex-shrink:0;">🕵️</div>
           <div style="flex:1;min-width:200px;">
@@ -943,7 +948,7 @@
 
       <!-- 2. Temp Email -->
       <div class="hcard" onclick="openPanel('p-email')" data-color="cyn" style="position:relative;">
-        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-email','Temporary Email')">📌 Pin</button>
+        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-email')">📌 Pin</button>
         <div class="hcard-icon c2">📧</div>
         <div class="hcard-badge live">Mail.tm Powered</div>
         <div class="hcard-title">Temporary Email</div>
@@ -952,7 +957,7 @@
 
       <!-- 3. Speed Test -->
       <div class="hcard" onclick="openPanel('p-speed')" data-color="grn" style="position:relative;">
-        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-speed','Speed Test')">📌 Pin</button>
+        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-speed')">📌 Pin</button>
         <div class="hcard-icon c3">⚡</div>
         <div class="hcard-badge live">Real-time</div>
         <div class="hcard-title">Internet Speed Test</div>
@@ -961,7 +966,7 @@
 
       <!-- 5. URL Shortener -->
       <div class="hcard" onclick="openPanel('p-url')" data-color="amb" style="position:relative;">
-        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-url','Link Shortener')">📌 Pin</button>
+        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-url')">📌 Pin</button>
         <div class="hcard-icon c5">🔗</div>
         <div class="hcard-badge live">CleanURI Powered</div>
         <div class="hcard-title">XONOMO Link Shortener</div>
@@ -970,7 +975,7 @@
 
       <!-- 6. Image to PDF -->
       <div class="hcard" onclick="openPanel('p-img2pdf')" data-color="pur" style="position:relative;">
-        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-img2pdf','Image to PDF & Image to Text')">📌 Pin</button>
+        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-img2pdf')">📌 Pin</button>
         <div class="hcard-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7);">🖼️</div>
         <div class="hcard-badge live" style="background:rgba(168,85,247,0.15);color:#c084fc;border-color:rgba(168,85,247,0.3);">Image → PDF / Text</div>
         <div class="hcard-title">Image to PDF & Image to Text</div>
@@ -2909,6 +2914,7 @@ function ocrCopyText() {
 
 /* ══════════════════════════════════════════════
    PIN SERVICE & SIDEBAR
+   Uses localStorage — persists across visits
 ══════════════════════════════════════════════ */
 const SERVICE_LIST = [
   { id: 'p-anon',    label: '🕵️ Anonymity Checker' },
@@ -2918,85 +2924,83 @@ const SERVICE_LIST = [
   { id: 'p-img2pdf', label: '🖼️ Image to PDF & Image to Text' },
 ];
 
-let pinnedId = null;
+let pinnedId = localStorage.getItem('xonomo_pin') || null;
 
-function pinService(panelId, label) {
-  // Unpin if same
+// Build sidebar links helper
+function buildSidebar(activePanelId) {
+  const linksEl = document.getElementById('sidebar-links');
+  linksEl.innerHTML = SERVICE_LIST.map(s =>
+    `<button class="sidebar-link ${s.id === activePanelId ? 'active-link' : ''}"
+             onclick="sidebarNav('${s.id}')">
+       ${s.label}
+     </button>`
+  ).join('');
+}
+
+// Activate pinned mode UI
+function activatePinnedMode(panelId) {
+  document.body.classList.add('pinned-mode');
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active', 'pinned-panel'));
+  const panel = document.getElementById(panelId);
+  if (panel) panel.classList.add('active', 'pinned-panel');
+  buildSidebar(panelId);
+  document.getElementById('sidebar').classList.add('open');
+  window.scrollTo(0, 0);
+  if (panelId === 'p-email') emailInit();
+}
+
+// On page load — restore pin from localStorage
+(function initPin() {
+  if (!pinnedId) return;
+  // Slight delay so DOM is ready
+  activatePinnedMode(pinnedId);
+})();
+
+function pinService(panelId) {
+  // Unpin if same button pressed again
   if (pinnedId === panelId) {
     unpinService();
     return;
   }
   pinnedId = panelId;
-
-  // Enter pinned mode
-  document.body.classList.add('pinned-mode');
-
-  // Hide all panels, show pinned one
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('pinned-panel'));
-  const panel = document.getElementById(panelId);
-  panel.classList.add('active', 'pinned-panel');
-
-  // Update pin buttons
-  document.querySelectorAll('.pin-btn').forEach(b => b.classList.remove('pinned'));
-
-  // Build sidebar links
-  const linksEl = document.getElementById('sidebar-links');
-  linksEl.innerHTML = SERVICE_LIST.map(s =>
-    `<button class="sidebar-link ${s.id === panelId ? 'active-link' : ''}"
-             onclick="sidebarNav('${s.id}','${s.label}')">
-       ${s.label}
-     </button>`
-  ).join('');
-
-  // Open sidebar
-  document.getElementById('sidebar').classList.add('open');
-
-  // Scroll to top
-  window.scrollTo(0, 0);
+  localStorage.setItem('xonomo_pin', panelId);
+  activatePinnedMode(panelId);
 }
 
 function unpinService() {
   pinnedId = null;
+  localStorage.removeItem('xonomo_pin');
   document.body.classList.remove('pinned-mode');
-  document.querySelectorAll('.panel').forEach(p => {
-    p.classList.remove('active', 'pinned-panel');
-  });
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active', 'pinned-panel'));
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('home').style.display = 'block';
-  document.querySelectorAll('.pin-btn').forEach(b => b.classList.remove('pinned'));
+  window.scrollTo(0, 0);
 }
 
-function sidebarNav(panelId, label) {
-  pinnedId = panelId;
+function sidebarNav(panelId) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active', 'pinned-panel'));
   const panel = document.getElementById(panelId);
-  panel.classList.add('active', 'pinned-panel');
-
-  // Update active link
-  document.querySelectorAll('.sidebar-link').forEach(b => {
-    b.classList.toggle('active-link', b.textContent.trim().includes(label.replace(/^[^ ]+ /, '')));
-  });
-
+  if (panel) panel.classList.add('active', 'pinned-panel');
+  buildSidebar(panelId);
   if (panelId === 'p-email') emailInit();
   window.scrollTo(0, 0);
-
-  // Close sidebar on mobile
-  if (window.innerWidth < 600) toggleSidebar();
+  if (window.innerWidth < 640) document.getElementById('sidebar').classList.remove('open');
 }
 
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
 }
 
-// Override closePanel to respect pinned mode
+// closePanel: if pinned mode → go back to pinned home (do nothing to home)
+//             if normal mode → show home
 const _origClosePanel = closePanel;
 window.closePanel = function(id) {
   if (pinnedId) {
-    // In pinned mode, back button should unpin
-    unpinService();
-  } else {
-    _origClosePanel(id);
+    // Already in pinned mode — pressing Dashboard should do nothing since back-btn is hidden
+    // But sidebarNav handles navigation
+    return;
   }
+  _origClosePanel(id);
 };
 
 
