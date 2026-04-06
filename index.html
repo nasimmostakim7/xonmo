@@ -262,7 +262,7 @@
       color: var(--sub); border-radius: 10px;
       padding: 9px 16px; font-size: 0.85rem; font-weight: 600;
       cursor: pointer; transition: var(--t);
-      margin-bottom: 28px;
+      margin-bottom: 0;
     }
     .back-btn:hover { background: rgba(255,255,255,0.09); color: var(--txt); border-color: var(--ind); }
 
@@ -908,7 +908,7 @@
 <!-- Sidebar -->
 <div id="sidebar">
   <div class="sidebar-header">
-    <span class="sidebar-title">🔧 Services</span>
+    <span class="sidebar-title"></span>
     <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
   </div>
   <div class="sidebar-links" id="sidebar-links">
@@ -955,6 +955,17 @@
         <div class="hcard-desc">Instant disposable inbox — auto-generated email address, real-time inbox polling, read full messages. No signup needed.</div>
       </div>
 
+      <!-- 2b. Permanent Pro Email — Upcoming -->
+      <div class="hcard" data-color="cyn" style="position:relative;cursor:default;opacity:0.7;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0;">
+          <span class="hcard-badge" style="color:var(--amb);background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);">Upcoming</span>
+          <span style="font-size:0.68rem;color:var(--dim);font-weight:600;letter-spacing:0.05em;">PIN SOON</span>
+        </div>
+        <div class="hcard-icon" style="background:linear-gradient(135deg,#0e7490,#22d3ee);margin-top:10px;">📬</div>
+        <div class="hcard-title">Permanent Pro Email</div>
+        <div class="hcard-desc">Your own permanent professional email address — always available, no expiry. Coming soon.</div>
+      </div>
+
       <!-- 3. Speed Test -->
       <div class="hcard" onclick="openPanel('p-speed')" data-color="grn" style="position:relative;">
         <button class="pin-btn" onclick="event.stopPropagation();pinService('p-speed')">📌 Pin</button>
@@ -968,7 +979,7 @@
       <div class="hcard" onclick="openPanel('p-url')" data-color="amb" style="position:relative;">
         <button class="pin-btn" onclick="event.stopPropagation();pinService('p-url')">📌 Pin</button>
         <div class="hcard-icon c5">🔗</div>
-        <div class="hcard-badge live">CleanURI Powered</div>
+        <div class="hcard-badge" style="color:var(--amb);background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);">Under Construction</div>
         <div class="hcard-title">XONOMO Link Shortener</div>
         <div class="hcard-desc">Transform any long URL into a clean, shareable short link via CleanURI API. Instant, no account needed.</div>
       </div>
@@ -988,7 +999,10 @@
 
   <div id="p-anon" class="panel">
     <div class="panel-inner">
-      <button class="back-btn" onclick="closePanel('p-anon')">← Dashboard</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+        <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-anon')">← Dashboard</button>
+        <button class="pin-btn" style="position:static;" onclick="pinService('p-anon')">📌 Pin</button>
+      </div>
       <div class="pcard">
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#1e1b4b,#4f46e5)">🕵️</div>
@@ -1052,14 +1066,7 @@
                 <div class="check-deduct" id="chk-tz-pts">−10% if mismatch</div>
               </div>
             </div>
-            <div class="check-item" id="chk-lang">
-              <div class="check-icon">🌐</div>
-              <div class="check-body">
-                <div class="check-name">Language Match</div>
-                <div class="check-val" id="chk-lang-val">—</div>
-                <div class="check-deduct" id="chk-lang-pts">−10% if mismatch</div>
-              </div>
-            </div>
+
           </div>
 
           <!-- Details -->
@@ -1082,7 +1089,10 @@
   <!-- ═══════════════════════════════════ -->
   <div id="p-email" class="panel">
     <div class="panel-inner">
-      <button class="back-btn" onclick="closePanel('p-email')">← Dashboard</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+        <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-email')">← Dashboard</button>
+        <button class="pin-btn" style="position:static;" onclick="pinService('p-email')">📌 Pin</button>
+      </div>
       <div class="pcard">
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#0e7490,#22d3ee)">📧</div>
@@ -1155,7 +1165,10 @@
   <!-- ═══════════════════════════════════ -->
   <div id="p-speed" class="panel">
     <div class="panel-inner">
-      <button class="back-btn" onclick="closePanel('p-speed')">← Dashboard</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+        <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-speed')">← Dashboard</button>
+        <button class="pin-btn" style="position:static;" onclick="pinService('p-speed')">📌 Pin</button>
+      </div>
       <div class="pcard">
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#065f46,#10b981)">⚡</div>
@@ -1237,7 +1250,10 @@
 
   <div id="p-url" class="panel">
     <div class="panel-inner">
-      <button class="back-btn" onclick="closePanel('p-url')">← Dashboard</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+        <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-url')">← Dashboard</button>
+        <button class="pin-btn" style="position:static;" onclick="pinService('p-url')">📌 Pin</button>
+      </div>
       <div class="pcard">
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#9d174d,#f43f5e)">🔗</div>
@@ -1287,7 +1303,10 @@
   <!-- ═══════════════════════════════════ -->
   <div id="p-img2pdf" class="panel">
     <div class="panel-inner">
-      <button class="back-btn" onclick="closePanel('p-img2pdf')">← Dashboard</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+        <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-img2pdf')">← Dashboard</button>
+        <button class="pin-btn" style="position:static;" onclick="pinService('p-img2pdf')">📌 Pin</button>
+      </div>
       <div class="pcard">
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7)">🖼️</div>
@@ -1800,16 +1819,8 @@ document.getElementById('anon-scan-btn').addEventListener('click', async functio
       );
     }
 
-    // ── CHECK 4: Language Mismatch (−10) ──
+    // Language Match check removed — no deduction
     const cc = d.country_code || '';
-    const langCheck = checkLanguageMatch(browserLang, cc);
-    if (!langCheck.match) {
-      score -= 10;
-      deductions.push('Language mismatch');
-      setCheckState('chk-lang', 'fail', langCheck.reason, '−10% Deducted');
-    } else {
-      setCheckState('chk-lang', 'pass', langCheck.reason, '✓ No deduction');
-    }
 
     score = Math.max(0, score);
 
@@ -2856,14 +2867,15 @@ document.getElementById('ocr-btn').addEventListener('click', async function() {
   btn.disabled = true; btn.style.opacity = '0.5';
 
   try {
-    // Load Tesseract.js on demand
+    // Load Tesseract.js v4 (stable, CDN-friendly)
     if (!window.Tesseract) {
       progressT.textContent = 'Loading Tesseract…';
       progressB.style.width = '10%';
       await new Promise((res, rej) => {
         const s = document.createElement('script');
-        s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
-        s.onload = res; s.onerror = () => rej(new Error('Failed to load Tesseract.'));
+        s.src = 'https://unpkg.com/tesseract.js@4.1.4/dist/tesseract.min.js';
+        s.onload = res;
+        s.onerror = () => rej(new Error('Failed to load Tesseract. Check internet.'));
         document.head.appendChild(s);
       });
     }
@@ -2871,22 +2883,30 @@ document.getElementById('ocr-btn').addEventListener('click', async function() {
     progressT.textContent = 'Analyzing image…';
     progressB.style.width = '20%';
 
-    const result = await Tesseract.recognize(ocrFile, 'osd+eng', {
-      logger: m => {
-        if (m.status === 'recognizing text') {
-          const pct = Math.round((m.progress || 0) * 80) + 20;
-          progressB.style.width = pct + '%';
-          progressT.textContent = `Reading text… ${pct}%`;
-        }
+    // Use Tesseract.recognize — works in v4 directly
+    const result = await window.Tesseract.recognize(
+      ocrFile,
+      'eng',
+      {
+        logger: m => {
+          if (m.status === 'recognizing text') {
+            const pct = Math.round((m.progress || 0) * 75) + 20;
+            progressB.style.width = Math.min(pct, 95) + '%';
+            progressT.textContent = `Reading text… ${Math.min(pct,95)}%`;
+          }
+        },
+        workerPath: 'https://unpkg.com/tesseract.js@4.1.4/dist/worker.min.js',
+        langPath: 'https://tessdata.projectnaptha.com/4.0.0',
+        corePath: 'https://unpkg.com/tesseract.js-core@4.0.4/tesseract-core.wasm.js',
       }
-    });
+    );
 
     progressB.style.width  = '100%';
     progressW.style.display = 'none';
 
     const text = (result.data.text || '').trim();
     if (!text) {
-      showMsg(errEl, 'err', 'No text found. Try a clearer image.');
+      showMsg(errEl, 'err', 'No text detected. Try a higher-resolution image with clear text.');
     } else {
       outputEl.value = text;
       resultEl.style.display = 'block';
@@ -2945,8 +2965,20 @@ function activatePinnedMode(panelId) {
   if (panel) panel.classList.add('active', 'pinned-panel');
   buildSidebar(panelId);
   document.getElementById('sidebar').classList.add('open');
+  updatePanelPinButtons(panelId);
   window.scrollTo(0, 0);
   if (panelId === 'p-email') emailInit();
+}
+
+// Update pin button text inside panels
+function updatePanelPinButtons(activePanelId) {
+  document.querySelectorAll('.panel .pin-btn').forEach(btn => {
+    const panelEl = btn.closest('.panel');
+    if (!panelEl) return;
+    const isPinned = activePanelId && panelEl.id === activePanelId;
+    btn.textContent = isPinned ? '📌 Pinned' : '📌 Pin';
+    btn.classList.toggle('pinned', isPinned);
+  });
 }
 
 // On page load — restore pin from localStorage
@@ -2974,6 +3006,7 @@ function unpinService() {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active', 'pinned-panel'));
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('home').style.display = 'block';
+  updatePanelPinButtons(null);
   window.scrollTo(0, 0);
 }
 
@@ -2982,6 +3015,7 @@ function sidebarNav(panelId) {
   const panel = document.getElementById(panelId);
   if (panel) panel.classList.add('active', 'pinned-panel');
   buildSidebar(panelId);
+  updatePanelPinButtons(pinnedId);
   if (panelId === 'p-email') emailInit();
   window.scrollTo(0, 0);
   if (window.innerWidth < 640) document.getElementById('sidebar').classList.remove('open');
