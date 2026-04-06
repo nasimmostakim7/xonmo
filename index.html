@@ -846,6 +846,17 @@
       transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
     }
     #sidebar.open { display: flex; transform: translateX(0); }
+    /* Desktop: sidebar visible by default in pinned mode */
+    @media (min-width: 641px) {
+      body.pinned-mode #sidebar { display: flex; transform: translateX(0); }
+      body.pinned-mode .panel-inner { margin-left: 230px; }
+    }
+    /* Mobile: sidebar always hidden until toggled */
+    @media (max-width: 640px) {
+      #sidebar { display: none !important; }
+      #sidebar.open { display: flex !important; }
+      body.pinned-mode #sidebar:not(.open) { display: none !important; }
+    }
     .sidebar-header {
       padding: 18px 16px 14px;
       border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -876,7 +887,6 @@
     /* Pinned mode */
     body.pinned-mode #home { display: none !important; }
     body.pinned-mode .panel.pinned-panel { display: block !important; }
-    body.pinned-mode #sidebar { display: flex; }
 
     /* Sidebar toggle button (top-left when pinned) */
     #sidebar-toggle {
@@ -999,11 +1009,9 @@
 
   <div id="p-anon" class="panel">
     <div class="panel-inner">
-      <div style="margin-bottom:18px;">
-        <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-anon')">← Dashboard</button>
-      </div>
+      <button class="back-btn" onclick="closePanel('p-anon')">← Dashboard</button>
       <div class="pcard">
-        <button class="pin-btn" style="position:absolute;top:8px;right:14px;z-index:10;" onclick="pinService('p-anon')">📌 Pin</button>
+        <button class="pin-btn" onclick="pinService('p-anon')" style="position:absolute;top:14px;right:14px;z-index:3;">📌 Pin</button>
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#1e1b4b,#4f46e5)">🕵️</div>
           <div>
@@ -1089,11 +1097,9 @@
   <!-- ═══════════════════════════════════ -->
   <div id="p-email" class="panel">
     <div class="panel-inner">
-      <div style="margin-bottom:18px;">
-        <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-email')">← Dashboard</button>
-      </div>
+      <button class="back-btn" onclick="closePanel('p-email')">← Dashboard</button>
       <div class="pcard">
-        <button class="pin-btn" style="position:absolute;top:8px;right:14px;z-index:10;" onclick="pinService('p-email')">📌 Pin</button>
+        <button class="pin-btn" onclick="pinService('p-email')" style="position:absolute;top:14px;right:14px;z-index:3;">📌 Pin</button>
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#0e7490,#22d3ee)">📧</div>
           <div>
@@ -1128,7 +1134,7 @@
             <div style="font-size:0.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ind2);">
               📬 Inbox <span id="email-count" style="background:rgba(99,102,241,0.2);border-radius:20px;padding:1px 8px;margin-left:4px;">0</span>
             </div>
-            <button onclick="emailRefreshInbox()" style="font-size:0.72rem;color:var(--sub);background:none;border:none;cursor:pointer;padding:4px 8px;">↻ Refresh</button>
+<button id="email-inbox-refresh-btn" style="font-size:0.72rem;color:var(--sub);background:none;border:none;cursor:pointer;padding:4px 8px;">↻ Refresh</button>
           </div>
 
           <div class="inbox-list" id="email-inbox">
@@ -1165,11 +1171,9 @@
   <!-- ═══════════════════════════════════ -->
   <div id="p-speed" class="panel">
     <div class="panel-inner">
-      <div style="margin-bottom:18px;">
-        <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-speed')">← Dashboard</button>
-      </div>
+      <button class="back-btn" onclick="closePanel('p-speed')">← Dashboard</button>
       <div class="pcard">
-        <button class="pin-btn" style="position:absolute;top:8px;right:14px;z-index:10;" onclick="pinService('p-speed')">📌 Pin</button>
+        <button class="pin-btn" onclick="pinService('p-speed')" style="position:absolute;top:14px;right:14px;z-index:3;">📌 Pin</button>
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#065f46,#10b981)">⚡</div>
           <div>
@@ -1250,11 +1254,9 @@
 
   <div id="p-url" class="panel">
     <div class="panel-inner">
-      <div style="margin-bottom:18px;">
-        <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-url')">← Dashboard</button>
-      </div>
+      <button class="back-btn" onclick="closePanel('p-url')">← Dashboard</button>
       <div class="pcard">
-        <button class="pin-btn" style="position:absolute;top:8px;right:14px;z-index:10;" onclick="pinService('p-url')">📌 Pin</button>
+        <button class="pin-btn" onclick="pinService('p-url')" style="position:absolute;top:14px;right:14px;z-index:3;">📌 Pin</button>
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#9d174d,#f43f5e)">🔗</div>
           <div>
@@ -1303,11 +1305,9 @@
   <!-- ═══════════════════════════════════ -->
   <div id="p-img2pdf" class="panel">
     <div class="panel-inner">
-      <div style="margin-bottom:18px;">
-        <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-img2pdf')">← Dashboard</button>
-      </div>
+      <button class="back-btn" onclick="closePanel('p-img2pdf')">← Dashboard</button>
       <div class="pcard">
-        <button class="pin-btn" style="position:absolute;top:8px;right:14px;z-index:10;" onclick="pinService('p-img2pdf')">📌 Pin</button>
+        <button class="pin-btn" onclick="pinService('p-img2pdf')" style="position:absolute;top:14px;right:14px;z-index:3;">📌 Pin</button>
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7)">🖼️</div>
           <div><div class="phead-title">Image to PDF & Image to Text</div></div>
@@ -1870,19 +1870,45 @@ document.getElementById('anon-scan-btn').addEventListener('click', async functio
    Direct fallback: api.mail.tm (CORS allowed)
 ══════════════════════════════════════════════ */
 const MAILTM = 'https://api.mail.tm';
+const EMAIL_STORAGE_KEY = 'xonomo_email';
+const EMAIL_TTL = 10 * 24 * 60 * 60 * 1000; // 10 days
+
 let emailToken  = null;
 let emailAddr   = null;
+let emailPass   = null;
 let emailMsgIds = new Set();
-let emailPollInterval = null;
-let emailCountdown = 8;
+let emailPollInterval  = null;
 let emailCountdownTimer = null;
+let emailNewCooldown   = 0;   // seconds remaining on New btn cooldown
+let emailNewCooldownTimer = null;
 
 function emailRandStr(len) {
   const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
   return Array.from({length: len}, () => chars[Math.floor(Math.random()*chars.length)]).join('');
 }
 
-async function emailInit() {
+// Save email credentials to localStorage with timestamp
+function emailSaveToStorage(address, password) {
+  localStorage.setItem(EMAIL_STORAGE_KEY, JSON.stringify({
+    address, password, savedAt: Date.now()
+  }));
+}
+
+// Load saved email if within 10 days
+function emailLoadFromStorage() {
+  try {
+    const raw = localStorage.getItem(EMAIL_STORAGE_KEY);
+    if (!raw) return null;
+    const d = JSON.parse(raw);
+    if (Date.now() - d.savedAt > EMAIL_TTL) {
+      localStorage.removeItem(EMAIL_STORAGE_KEY);
+      return null;
+    }
+    return d;
+  } catch { return null; }
+}
+
+async function emailInit(forceNew = false) {
   const loadEl = document.getElementById('email-loading');
   const readyEl = document.getElementById('email-ready');
   const errEl   = document.getElementById('email-err');
@@ -1890,6 +1916,30 @@ async function emailInit() {
   readyEl.style.display = 'none';
   hideMsg(errEl);
   emailDestroy();
+
+  // Try restoring saved email first (unless forceNew)
+  if (!forceNew) {
+    const saved = emailLoadFromStorage();
+    if (saved) {
+      try {
+        const tokR = await fetch(`${MAILTM}/token`, {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({address: saved.address, password: saved.password})
+        });
+        if (tokR.ok) {
+          const tokD = await tokR.json();
+          emailToken = tokD.token;
+          emailAddr  = saved.address;
+          emailPass  = saved.password;
+          emailSaveToStorage(emailAddr, emailPass); // refresh TTL
+          emailShowReady();
+          return;
+        }
+      } catch {}
+      // Saved credentials failed — create new
+    }
+  }
 
   try {
     // Step 1: Get available domains
@@ -1925,26 +1975,9 @@ async function emailInit() {
     const tokD = await tokR.json();
     emailToken = tokD.token;
     emailAddr  = address;
-
-    // Show UI
-    loadEl.style.display = 'none';
-    readyEl.style.display = 'block';
-    document.getElementById('email-address').textContent = emailAddr;
-
-    // Copy button
-    document.getElementById('email-copy-btn').onclick = () => {
-      copyText(emailAddr);
-      const b = document.getElementById('email-copy-btn');
-      b.textContent = '✓ Copied!'; b.classList.add('copied');
-      setTimeout(() => { b.textContent = '📋 Copy'; b.classList.remove('copied'); }, 2000);
-    };
-
-    // New email button
-    document.getElementById('email-refresh-btn').onclick = () => emailInit();
-
-    // Start polling
-    emailPollInbox();
-    emailStartPolling();
+    emailPass  = pass;
+    emailSaveToStorage(emailAddr, emailPass);
+    emailShowReady();
 
   } catch(e) {
     loadEl.style.display = 'none';
@@ -1952,28 +1985,67 @@ async function emailInit() {
   }
 }
 
+function emailShowReady() {
+  document.getElementById('email-loading').style.display = 'none';
+  document.getElementById('email-ready').style.display = 'block';
+  document.getElementById('email-address').textContent = emailAddr;
+
+  // Copy button
+  document.getElementById('email-copy-btn').onclick = () => {
+    copyText(emailAddr);
+    const b = document.getElementById('email-copy-btn');
+    b.textContent = '✓ Copied!'; b.classList.add('copied');
+    setTimeout(() => { b.textContent = '📋 Copy'; b.classList.remove('copied'); }, 2000);
+  };
+
+  // New Email button — 30s cooldown
+  const newBtn = document.getElementById('email-refresh-btn');
+  newBtn.onclick = () => {
+    if (emailNewCooldown > 0) return;
+    emailNewCooldown = 30;
+    newBtn.disabled = true;
+    newBtn.textContent = `⏳ Wait ${emailNewCooldown}s`;
+    emailNewCooldownTimer = setInterval(() => {
+      emailNewCooldown--;
+      if (emailNewCooldown <= 0) {
+        clearInterval(emailNewCooldownTimer);
+        emailNewCooldown = 0;
+        newBtn.disabled = false;
+        newBtn.textContent = '🔄 New Email';
+      } else {
+        newBtn.textContent = `⏳ Wait ${emailNewCooldown}s`;
+      }
+    }, 1000);
+    emailInit(true); // force new email
+  };
+
+  // Refresh inbox button
+  document.getElementById('email-inbox-refresh-btn').onclick = () => emailPollInbox();
+
+  // Start polling
+  emailPollInbox();
+  emailStartPolling();
+}
+
 function emailDestroy() {
-  if (emailPollInterval)     { clearInterval(emailPollInterval);     emailPollInterval = null; }
-  if (emailCountdownTimer)   { clearInterval(emailCountdownTimer);   emailCountdownTimer = null; }
-  emailToken  = null;
-  emailAddr   = null;
+  if (emailPollInterval)    { clearInterval(emailPollInterval);    emailPollInterval = null; }
+  if (emailCountdownTimer)  { clearInterval(emailCountdownTimer);  emailCountdownTimer = null; }
+  if (emailNewCooldownTimer){ clearInterval(emailNewCooldownTimer);emailNewCooldownTimer = null; }
+  emailToken = null;
+  emailAddr  = null;
+  emailPass  = null;
   emailMsgIds = new Set();
 }
 
 function emailStartPolling() {
-  emailCountdown = 8;
+  let countdown = 8;
   emailPollInterval   = setInterval(emailPollInbox, 8000);
   emailCountdownTimer = setInterval(() => {
-    emailCountdown--;
+    countdown--;
     const el = document.getElementById('email-poll-timer');
-    if (el) el.textContent = `Next check: ${emailCountdown}s`;
-    if (emailCountdown <= 0) emailCountdown = 8;
+    if (el) el.textContent = `Next check: ${countdown}s`;
+    if (countdown <= 0) countdown = 8;
   }, 1000);
-}
-
-async function emailRefreshInbox() {
-  emailCountdown = 8;
-  await emailPollInbox();
 }
 
 async function emailPollInbox() {
@@ -1999,12 +2071,11 @@ function renderInbox(msgs) {
     return;
   }
   inbox.innerHTML = msgs.map(m => {
-    const isNew = !emailMsgIds.has(m.id);
-    if (isNew) emailMsgIds.add(m.id);
+    if (!emailMsgIds.has(m.id)) emailMsgIds.add(m.id);
     const from = m.from?.address || m.from?.name || 'Unknown';
     const subj = m.subject || '(No Subject)';
     const date = m.createdAt ? new Date(m.createdAt).toLocaleTimeString() : '';
-    return `<div class="inbox-item ${m.seen?'':'unread'}" onclick="emailOpenMsg('${m.id}')">
+    return `<div class="inbox-item ${m.seen?'':'unread'}" style="cursor:pointer;" onclick="emailOpenMsg('${m.id}')">
       <div class="inbox-dot ${m.seen?'read':''}"></div>
       <div class="inbox-meta">
         <div class="inbox-from">${escHtml(from)}</div>
@@ -2017,11 +2088,11 @@ function renderInbox(msgs) {
 
 async function emailOpenMsg(id) {
   if (!emailToken) return;
-  const modal   = document.getElementById('mail-modal');
-  const bodyEl  = document.getElementById('modal-body');
-  const fromEl  = document.getElementById('modal-from');
-  const subjEl  = document.getElementById('modal-subject');
-  const dateEl  = document.getElementById('modal-date');
+  const modal = document.getElementById('mail-modal');
+  const bodyEl = document.getElementById('modal-body');
+  const fromEl = document.getElementById('modal-from');
+  const subjEl = document.getElementById('modal-subject');
+  const dateEl = document.getElementById('modal-date');
   modal.style.display = 'flex';
   bodyEl.innerHTML = '<div style="text-align:center;padding:30px;color:var(--sub);">Loading message…</div>';
 
@@ -2036,15 +2107,13 @@ async function emailOpenMsg(id) {
     dateEl.textContent = m.createdAt ? new Date(m.createdAt).toLocaleString() : '';
 
     if (m.html && m.html.length) {
-      // Render HTML in sandboxed iframe
-      const blob = new Blob([m.html], {type:'text/html'});
+      const blob = new Blob([Array.isArray(m.html) ? m.html[0] : m.html], {type:'text/html'});
       const url  = URL.createObjectURL(blob);
-      bodyEl.innerHTML = `<iframe src="${url}" sandbox="allow-same-origin" onload="this.style.height=this.contentDocument.body.scrollHeight+40+'px'"></iframe>`;
+      bodyEl.innerHTML = `<iframe src="${url}" sandbox="allow-same-origin allow-popups" style="width:100%;min-height:300px;border:none;border-radius:10px;background:white;" onload="try{this.style.height=this.contentDocument.body.scrollHeight+40+'px'}catch(e){}"></iframe>`;
     } else {
       const txt = (m.text || m.intro || '(Empty message)').replace(/\n/g,'<br>');
-      bodyEl.innerHTML = `<div style="color:var(--txt);white-space:pre-wrap;">${txt}</div>`;
+      bodyEl.innerHTML = `<div style="color:var(--txt);white-space:pre-wrap;line-height:1.7;">${txt}</div>`;
     }
-    // Mark as read in UI
     emailPollInbox();
   } catch(e) {
     bodyEl.innerHTML = `<div style="color:var(--ros);padding:20px;">⚠ ${e.message}</div>`;
@@ -2964,7 +3033,8 @@ function activatePinnedMode(panelId) {
   const panel = document.getElementById(panelId);
   if (panel) panel.classList.add('active', 'pinned-panel');
   buildSidebar(panelId);
-  if (window.innerWidth >= 768) {
+  // Desktop: sidebar auto-visible via CSS; Mobile: keep closed until user clicks
+  if (window.innerWidth >= 641) {
     document.getElementById('sidebar').classList.add('open');
   }
   updatePanelPinButtons(panelId);
@@ -2978,7 +3048,7 @@ function updatePanelPinButtons(activePanelId) {
     const panelEl = btn.closest('.panel');
     if (!panelEl) return;
     const isPinned = activePanelId && panelEl.id === activePanelId;
-    btn.textContent = isPinned ? '📌 Unpin' : '📌 Pin';
+    btn.textContent = isPinned ? '📌 Pinned' : '📌 Pin';
     btn.classList.toggle('pinned', isPinned);
   });
 }
