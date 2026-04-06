@@ -999,11 +999,11 @@
 
   <div id="p-anon" class="panel">
     <div class="panel-inner">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <div style="margin-bottom:18px;">
         <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-anon')">← Dashboard</button>
-        <button class="pin-btn" style="position:static;" onclick="pinService('p-anon')">📌 Pin</button>
       </div>
       <div class="pcard">
+        <button class="pin-btn" style="position:absolute;top:8px;right:14px;z-index:10;" onclick="pinService('p-anon')">📌 Pin</button>
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#1e1b4b,#4f46e5)">🕵️</div>
           <div>
@@ -1089,11 +1089,11 @@
   <!-- ═══════════════════════════════════ -->
   <div id="p-email" class="panel">
     <div class="panel-inner">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <div style="margin-bottom:18px;">
         <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-email')">← Dashboard</button>
-        <button class="pin-btn" style="position:static;" onclick="pinService('p-email')">📌 Pin</button>
       </div>
       <div class="pcard">
+        <button class="pin-btn" style="position:absolute;top:8px;right:14px;z-index:10;" onclick="pinService('p-email')">📌 Pin</button>
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#0e7490,#22d3ee)">📧</div>
           <div>
@@ -1165,11 +1165,11 @@
   <!-- ═══════════════════════════════════ -->
   <div id="p-speed" class="panel">
     <div class="panel-inner">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <div style="margin-bottom:18px;">
         <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-speed')">← Dashboard</button>
-        <button class="pin-btn" style="position:static;" onclick="pinService('p-speed')">📌 Pin</button>
       </div>
       <div class="pcard">
+        <button class="pin-btn" style="position:absolute;top:8px;right:14px;z-index:10;" onclick="pinService('p-speed')">📌 Pin</button>
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#065f46,#10b981)">⚡</div>
           <div>
@@ -1250,11 +1250,11 @@
 
   <div id="p-url" class="panel">
     <div class="panel-inner">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <div style="margin-bottom:18px;">
         <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-url')">← Dashboard</button>
-        <button class="pin-btn" style="position:static;" onclick="pinService('p-url')">📌 Pin</button>
       </div>
       <div class="pcard">
+        <button class="pin-btn" style="position:absolute;top:8px;right:14px;z-index:10;" onclick="pinService('p-url')">📌 Pin</button>
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#9d174d,#f43f5e)">🔗</div>
           <div>
@@ -1303,11 +1303,11 @@
   <!-- ═══════════════════════════════════ -->
   <div id="p-img2pdf" class="panel">
     <div class="panel-inner">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+      <div style="margin-bottom:18px;">
         <button class="back-btn" style="margin-bottom:0;" onclick="closePanel('p-img2pdf')">← Dashboard</button>
-        <button class="pin-btn" style="position:static;" onclick="pinService('p-img2pdf')">📌 Pin</button>
       </div>
       <div class="pcard">
+        <button class="pin-btn" style="position:absolute;top:8px;right:14px;z-index:10;" onclick="pinService('p-img2pdf')">📌 Pin</button>
         <div class="phead">
           <div class="phead-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7)">🖼️</div>
           <div><div class="phead-title">Image to PDF & Image to Text</div></div>
@@ -2964,7 +2964,9 @@ function activatePinnedMode(panelId) {
   const panel = document.getElementById(panelId);
   if (panel) panel.classList.add('active', 'pinned-panel');
   buildSidebar(panelId);
-  document.getElementById('sidebar').classList.add('open');
+  if (window.innerWidth >= 768) {
+    document.getElementById('sidebar').classList.add('open');
+  }
   updatePanelPinButtons(panelId);
   window.scrollTo(0, 0);
   if (panelId === 'p-email') emailInit();
@@ -2976,7 +2978,7 @@ function updatePanelPinButtons(activePanelId) {
     const panelEl = btn.closest('.panel');
     if (!panelEl) return;
     const isPinned = activePanelId && panelEl.id === activePanelId;
-    btn.textContent = isPinned ? '📌 Pinned' : '📌 Pin';
+    btn.textContent = isPinned ? '📌 Unpin' : '📌 Pin';
     btn.classList.toggle('pinned', isPinned);
   });
 }
