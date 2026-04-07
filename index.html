@@ -965,17 +965,6 @@
         <div class="hcard-desc">Instant disposable inbox — auto-generated email address, real-time inbox polling, read full messages. No signup needed.</div>
       </div>
 
-      <!-- 2b. Permanent Pro Email — Upcoming -->
-      <div class="hcard" data-color="cyn" style="position:relative;cursor:default;opacity:0.7;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0;">
-          <span class="hcard-badge" style="color:var(--amb);background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);">Upcoming</span>
-          <span style="font-size:0.68rem;color:var(--dim);font-weight:600;letter-spacing:0.05em;">PIN SOON</span>
-        </div>
-        <div class="hcard-icon" style="background:linear-gradient(135deg,#0e7490,#22d3ee);margin-top:10px;">📬</div>
-        <div class="hcard-title">Permanent Pro Email</div>
-        <div class="hcard-desc">Your own permanent professional email address — always available, no expiry. Coming soon.</div>
-      </div>
-
       <!-- 3. Speed Test -->
       <div class="hcard" onclick="openPanel('p-speed')" data-color="grn" style="position:relative;">
         <button class="pin-btn" onclick="event.stopPropagation();pinService('p-speed')">📌 Pin</button>
@@ -983,15 +972,6 @@
         <div class="hcard-badge live">Real-time</div>
         <div class="hcard-title">Internet Speed Test</div>
         <div class="hcard-desc">Test your download & upload speed, ping and jitter instantly from your browser. No plugins needed.</div>
-      </div>
-
-      <!-- 5. URL Shortener -->
-      <div class="hcard" onclick="openPanel('p-url')" data-color="amb" style="position:relative;">
-        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-url')">📌 Pin</button>
-        <div class="hcard-icon c5">🔗</div>
-        <div class="hcard-badge" style="color:var(--amb);background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);">Under Construction</div>
-        <div class="hcard-title">XONOMO Link Shortener</div>
-        <div class="hcard-desc">Transform any long URL into a clean, shareable short link via CleanURI API. Instant, no account needed.</div>
       </div>
 
       <!-- 6. Image to PDF -->
@@ -3006,11 +2986,12 @@ function ocrCopyText() {
    Uses localStorage — persists across visits
 ══════════════════════════════════════════════ */
 const SERVICE_LIST = [
-  { id: 'p-anon',    label: '🕵️ Anonymity Checker' },
-  { id: 'p-email',   label: '📧 Temporary Email' },
-  { id: 'p-speed',   label: '⚡ Speed Test' },
-  { id: 'p-url',     label: '🔗 Link Shortener' },
-  { id: 'p-img2pdf', label: '🖼️ Image to PDF & Image to Text' },
+  { id: 'p-anon',       label: '🕵️ Anonymity Checker' },
+  { id: 'p-email',      label: '📧 Temporary Email' },
+  { id: 'p-pro-email',  label: '📬 Permanent Pro Email', upcoming: true },
+  { id: 'p-speed',      label: '⚡ Speed Test' },
+  { id: 'p-url',        label: '🔗 Link Shortener', construction: true },
+  { id: 'p-img2pdf',    label: '🖼️ Image to PDF & Image to Text' },
 ];
 
 let pinnedId = localStorage.getItem('xonomo_pin') || null;
@@ -3018,12 +2999,19 @@ let pinnedId = localStorage.getItem('xonomo_pin') || null;
 // Build sidebar links helper
 function buildSidebar(activePanelId) {
   const linksEl = document.getElementById('sidebar-links');
-  linksEl.innerHTML = SERVICE_LIST.map(s =>
-    `<button class="sidebar-link ${s.id === activePanelId ? 'active-link' : ''}"
-             onclick="sidebarNav('${s.id}')">
-       ${s.label}
-     </button>`
-  ).join('');
+  linksEl.innerHTML = SERVICE_LIST.map(s => {
+    const badge = s.upcoming
+      ? '<span style="font-size:0.6rem;color:var(--amb);background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:6px;padding:1px 6px;margin-left:6px;">Soon</span>'
+      : s.construction
+      ? '<span style="font-size:0.6rem;color:var(--amb);background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:6px;padding:1px 6px;margin-left:6px;">Beta</span>'
+      : '';
+    const disabled = s.upcoming ? 'opacity:0.55;cursor:default;pointer-events:none;' : '';
+    return `<button class="sidebar-link ${s.id === activePanelId ? 'active-link' : ''}"
+             style="${disabled}"
+             onclick="${s.upcoming ? '' : `sidebarNav('${s.id}')`}">
+       ${s.label}${badge}
+     </button>`;
+  }).join('');
 }
 
 // Activate pinned mode UI
@@ -3048,7 +3036,7 @@ function updatePanelPinButtons(activePanelId) {
     const panelEl = btn.closest('.panel');
     if (!panelEl) return;
     const isPinned = activePanelId && panelEl.id === activePanelId;
-    btn.textContent = isPinned ? '📌 Pinned' : '📌 Pin';
+    btn.textContent = isPinned ? '📌 Unpin' : '📌 Pin';
     btn.classList.toggle('pinned', isPinned);
   });
 }
