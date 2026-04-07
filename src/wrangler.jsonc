@@ -1,0 +1,10 @@
+{
+  "name": "xonomo-email-worker",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-04-07",
+  "send_email": [
+    {
+      "name": "SEND_EMAIL"
+    }
+  ]
+}
