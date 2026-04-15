@@ -1068,16 +1068,10 @@
         <div class="ad-mobile-home"><div style="width:320px;height:100px;position:relative;margin:auto;"><iframe data-aa='2433711' src='//ad.a-ads.com/2433711/?size=320x100' style='border:0;padding:0;width:320px;height:100px;overflow:hidden;display:block;margin:auto'></iframe><div style="width:320px;margin:auto;position:absolute;left:0;right:0;"><a target="_blank" style="display:inline-block;font-size:13px;color:#263238;padding:4px 10px;background:#F8F8F9;text-decoration:none;border-radius:0 0 4px 4px;" href="https://aads.com/campaigns/new/?source_id=2433711&source_type=ad_unit&partner=2433711">Advertise here</a></div></div></div>
       </div>
 
-      <!-- 3. Speed Test -->
-      <div class="hcard" onclick="openPanel('p-speed')" data-color="grn" style="position:relative;">
-        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-speed')">📌 Pin</button>
-        <!-- Top row: emoji | badge | [pin already absolute top-right] -->
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-          <div class="hcard-icon c3" style="flex-shrink:0;margin-bottom:0;">⚡</div>
-          <div class="hcard-badge live" style="margin-bottom:0;">Real-time</div>
-        </div>
-        <!-- Title centered below -->
-        <div class="hcard-title" style="text-align:center;">Internet Speed Test</div>
+      <!-- Ad Slot 3 (Speed Test moved to menu) -->
+      <div class="home-ad-slot">
+        <div class="ad-desktop-home"><ins style="width:300px;height:250px;display:block;" data-width="300" data-height="250" class="k705b1b6fae" data-domain="//data527.click" data-affquery="/d3764fce956be7f5a3e9/705b1b6fae/?placementName=default"><script src="//data527.click/js/responsive.js" async></script></ins></div>
+        <div class="ad-mobile-home"><ins style="width:300px;height:250px;display:block;" data-width="300" data-height="250" class="k705b1b6fae" data-domain="//data527.click" data-affquery="/d3764fce956be7f5a3e9/705b1b6fae/?placementName=default"><script src="//data527.click/js/responsive.js" async></script></ins></div>
       </div>
 
       <!-- 6. Image to PDF -->
@@ -2545,131 +2539,6 @@ function jsonErr(status, message) {
     JSON.stringify({ error: message }),
     { status, headers: { ...CORS, 'Content-Type': 'application/json' } }
   );
-}
-
-// ── Standalone HTML (served at GET /) ─────
-function getHTML() {
-  return \`<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>\${BRAND} Link Shortener</title>
-  <script src="https://cdn.tailwindcss.com"><\\/script>
-  <style>
-    body { background:#0a0f1e; font-family:'Segoe UI',sans-serif; }
-    .glass { background:rgba(16,24,46,0.8); backdrop-filter:blur(20px); }
-    .glow  { box-shadow:0 0 30px rgba(244,63,94,0.2); }
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(16px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
-    .fade-up { animation: fadeUp .5s ease both; }
-  </style>
-</head>
-<body class="min-h-screen flex items-center justify-center p-6">
-  <div class="w-full max-w-lg fade-up">
-
-    <!-- Header -->
-    <div class="text-center mb-8">
-      <div class="inline-flex items-center gap-2 bg-rose-500/10 border border-rose-500/25
-                  rounded-full px-4 py-1.5 text-xs font-bold tracking-widest
-                  text-rose-400 uppercase mb-4">
-        <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
-        CleanURI Powered
-      </div>
-      <h1 class="text-4xl font-black text-white tracking-tight mb-2">\${BRAND}
-        <span class="text-rose-400">Shortener</span></h1>
-      <p class="text-slate-400 text-sm">Turn long URLs into clean, shareable links instantly.</p>
-    </div>
-
-    <!-- Card -->
-    <div class="glass border border-white/8 rounded-2xl p-8 glow">
-      <label class="block text-xs font-bold tracking-widest text-slate-400
-                    uppercase mb-2">Long URL</label>
-      <input id="inp" type="url"
-        placeholder="https://your-very-long-link.com/path?query=..."
-        class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3
-               text-white placeholder-slate-600 text-sm outline-none
-               focus:border-rose-500/50 focus:ring-2 focus:ring-rose-500/20
-               transition mb-4"/>
-
-      <button id="btn" onclick="shorten()"
-        class="w-full bg-gradient-to-r from-rose-600 to-pink-600
-               hover:from-rose-500 hover:to-pink-500
-               text-white font-bold py-3 rounded-xl
-               transition-all active:scale-95 tracking-wide">
-        ✂ Shorten URL
-      </button>
-
-      <!-- Result -->
-      <div id="result" class="hidden mt-5 bg-black/30 border border-cyan-500/20
-                               rounded-xl p-4">
-        <p class="text-xs font-bold tracking-widest text-slate-500 uppercase mb-2">
-          ✅ Shortened Link</p>
-        <div class="flex items-center gap-3">
-          <a id="short" href="#" target="_blank"
-             class="flex-1 font-mono text-sm text-cyan-400
-                    truncate hover:text-cyan-300 transition"></a>
-          <button onclick="copyLink()"
-            class="shrink-0 bg-slate-700 hover:bg-slate-600
-                   text-white text-xs font-bold px-4 py-2 rounded-lg transition">
-            📋 Copy
-          </button>
-        </div>
-      </div>
-
-      <!-- Error -->
-      <div id="err" class="hidden mt-4 bg-rose-500/10 border border-rose-500/30
-                            rounded-xl px-4 py-3 text-rose-400 text-sm"></div>
-    </div>
-
-    <p class="text-center text-slate-700 text-xs mt-6">
-      © \${new Date().getFullYear()} <a href="\${BRAND_URL}"
-      class="text-slate-500 hover:text-slate-400">\${BRAND_URL}</a>
-      · Powered by CleanURI · Cloudflare Workers
-    </p>
-  </div>
-
-  <script>
-    async function shorten() {
-      const btn = document.getElementById('btn');
-      const url = document.getElementById('inp').value.trim();
-      const res = document.getElementById('result');
-      const err = document.getElementById('err');
-      res.classList.add('hidden'); err.classList.add('hidden');
-      if (!url) { err.textContent='Please enter a URL.'; err.classList.remove('hidden'); return; }
-      btn.textContent = '⏳ Shortening…'; btn.disabled = true;
-      try {
-        const r = await fetch('/shorten', {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({ url })
-        });
-        const data = await r.json();
-        if (!r.ok || data.error) throw new Error(data.error || 'Failed');
-        document.getElementById('short').href = data.short_url;
-        document.getElementById('short').textContent = data.short_url;
-        res.classList.remove('hidden');
-      } catch(e) {
-        err.textContent = '⚠ ' + e.message;
-        err.classList.remove('hidden');
-      }
-      btn.textContent = '✂ Shorten URL'; btn.disabled = false;
-    }
-    function copyLink() {
-      const t = document.getElementById('short').textContent;
-      navigator.clipboard.writeText(t).then(() => {
-        const b = event.target; b.textContent='✓ Copied!';
-        setTimeout(()=>b.textContent='📋 Copy', 2000);
-      });
-    }
-    document.getElementById('inp').addEventListener('keydown', e => {
-      if (e.key==='Enter') shorten();
-    });
-  <\\/script>
-</body>
-\`;
 }`;
 
 // Inject worker code into the pre element
@@ -2987,9 +2856,6 @@ document.getElementById('pdf-btn').addEventListener('click', async function() {
 });
 
 
-
-
-
 /* ══════════════════════════════════════════════
    OCR — Image to Text (Tesseract.js)
 ══════════════════════════════════════════════ */
@@ -3127,7 +2993,6 @@ function ocrCopyText() {
 const SERVICE_LIST = [
   { id: 'p-anon',       label: '🕵️ Anonymity Checker' },
   { id: 'p-email',      label: '📧 Temporary Email' },
-  { id: 'p-pro-email',  label: '📬 Permanent Pro Email', upcoming: true },
   { id: 'p-speed',      label: '⚡ Speed Test' },
   { id: 'p-url',        label: '🔗 Link Shortener', construction: true },
   { id: 'p-img2pdf',    label: '🖼️ Image to PDF & Image to Text' },
@@ -3235,8 +3100,6 @@ function toggleSidebar() {
 const _origClosePanel = closePanel;
 window.closePanel = function(id) {
   if (pinnedId) {
-    // Already in pinned mode — pressing Dashboard should do nothing since back-btn is hidden
-    // But sidebarNav handles navigation
     return;
   }
   _origClosePanel(id);
