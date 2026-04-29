@@ -1074,6 +1074,24 @@
         <div class="ad-mobile-home" style="width:300px;height:250px;overflow:hidden;margin:0 auto;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
       </div>
 
+      <!-- 6. Image to PDF -->
+      <div class="hcard" onclick="openPanel('p-img2pdf')" data-color="pur" style="position:relative;">
+        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-img2pdf')">📌 Pin</button>
+        <div style="display:flex;align-items:center;gap:14px;height:100%;">
+          <div class="hcard-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7);flex-shrink:0;">🖼️</div>
+          <div>
+            <div class="hcard-badge live" style="background:rgba(168,85,247,0.15);color:#c084fc;border-color:rgba(168,85,247,0.3);">Image → PDF / Text</div>
+            <div class="hcard-title">Image to PDF & Image to Text</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ad Slot 4 -->
+      <div class="home-ad-slot">
+        <div class="ad-desktop-home" style="width:300px;height:250px;overflow:hidden;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
+        <div class="ad-mobile-home" style="width:300px;height:250px;overflow:hidden;margin:0 auto;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
+      </div>
+
     </div>
 
 
@@ -1347,12 +1365,253 @@
       <div class="panel-ad-right" style="width:160px;min-height:300px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'20bd3e6cc57f5be2dd5f249505901f21','format':'iframe','height':300,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/20bd3e6cc57f5be2dd5f249505901f21/invoke.js"></script></div>
     </div>
   </div>
+
+  <div id="p-url" class="panel">
+    <div class="panel-ads-wrap">
+      <div class="panel-ad-left" style="width:160px;height:600px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'971a0305a399e3efffac96030d3e371f','format':'iframe','height':600,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/971a0305a399e3efffac96030d3e371f/invoke.js"></script></div>
+      <div class="panel-inner-wrap">
+        <div class="ad-mobile-top" style="width:300px;height:250px;overflow:hidden;margin:0 auto 12px;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
+        <div class="panel-inner-content">
+      <button class="back-btn" onclick="closePanel('p-url')">← Dashboard</button>
+      <div class="pcard">
+        <button class="pin-btn" onclick="pinService('p-url')" style="position:absolute;top:14px;right:14px;z-index:3;">📌 Pin</button>
+        <div class="phead">
+          <div class="phead-icon" style="background:linear-gradient(135deg,#9d174d,#f43f5e)">🔗</div>
+          <div>
+            <div class="phead-title">XONOMO Link Shortener</div>
+
+          </div>
+        </div>
+
+
+
+        <!-- Input -->
+        <div class="field">
+          <label class="lbl">Long URL</label>
+          <input type="url" id="url-input" placeholder="https://your-very-long-url.com/path?query=…" />
+        </div>
+
+        <button class="btn btn-ros" id="url-btn">✂ Shorten URL</button>
+
+        <!-- Result Box -->
+        <div id="url-result" class="result" style="display:none;">
+          <div style="font-size:0.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin-bottom:8px;font-weight:700;">✅ Shortened Link Ready</div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <a id="url-short-text" href="#" target="_blank" rel="noopener"
+               style="font-family:'Space Mono',monospace;font-size:0.9rem;color:var(--cyn);
+                      flex:1;word-break:break-all;text-decoration:none;
+                      padding:10px 14px;background:rgba(34,211,238,0.07);
+                      border:1px solid rgba(34,211,238,0.2);border-radius:10px;">—</a>
+            <button class="copy-btn" id="url-copy-btn">📋 Copy</button>
+          </div>
+          <div style="margin-top:10px;font-size:0.75rem;color:var(--dim);">
+            Powered by <a href="https://tinyurl.com" target="_blank" style="color:var(--ind2);text-decoration:none;">TinyURL</a> &amp; is.gd · No server needed
+          </div>
+        </div>
+
+        <!-- Error -->
+        <div class="msg err" id="url-err"><span class="msg-icon">⚠</span><span id="url-err-txt">Error.</span></div>
+
+      </div>
+        </div>
+        <div class="ad-mobile-bottom" style="width:300px;height:250px;overflow:hidden;margin:12px auto 0;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
+      </div>
+      <div class="panel-ad-right" style="width:160px;min-height:300px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'20bd3e6cc57f5be2dd5f249505901f21','format':'iframe','height':300,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/20bd3e6cc57f5be2dd5f249505901f21/invoke.js"></script></div>
+    </div>
+  </div>
+
   <!-- ═══════════════════════════════════ -->
 
   <!-- ═══════════════════════════════════ -->
   <!-- PANEL: IMAGE TO PDF                -->
   <!-- ═══════════════════════════════════ -->
-  
+  <div id="p-img2pdf" class="panel">
+    <div class="panel-ads-wrap">
+      <div class="panel-ad-left" style="width:160px;height:600px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'971a0305a399e3efffac96030d3e371f','format':'iframe','height':600,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/971a0305a399e3efffac96030d3e371f/invoke.js"></script></div>
+      <div class="panel-inner-wrap">
+        <div class="ad-mobile-top" style="width:300px;height:250px;overflow:hidden;margin:0 auto 12px;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
+        <div class="panel-inner-content">
+      <button class="back-btn" onclick="closePanel('p-img2pdf')">← Dashboard</button>
+      <div class="pcard">
+        <button class="pin-btn" onclick="pinService('p-img2pdf')" style="position:absolute;top:14px;right:14px;z-index:3;">📌 Pin</button>
+        <div class="phead">
+          <div class="phead-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7)">🖼️</div>
+          <div><div class="phead-title">Image to PDF & Image to Text</div></div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs" style="margin-bottom:20px;">
+          <button class="tab-btn on" id="tab-pdf-btn" onclick="switchImgTab('pdf')">Image to PDF</button>
+          <button class="tab-btn" id="tab-ocr-btn" onclick="switchImgTab('ocr')">Image to Text</button>
+        </div>
+
+        <!-- PDF TAB -->
+        <div id="tab-pdf-content">
+
+                <!-- Drop Zone -->
+        <div id="pdf-dropzone"
+             style="border:2px dashed rgba(168,85,247,0.4);border-radius:18px;
+                    padding:36px 20px;text-align:center;cursor:pointer;
+                    background:rgba(168,85,247,0.04);transition:all 0.25s;margin-bottom:18px;"
+             onclick="document.getElementById('pdf-file-input').click()"
+             ondragover="pdfDragOver(event)" ondragleave="pdfDragLeave(event)" ondrop="pdfDrop(event)">
+          <div style="font-size:2.4rem;margin-bottom:10px;">📂</div>
+          <div style="font-size:0.92rem;font-weight:700;color:var(--txt);margin-bottom:5px;">Select or drag images here</div>
+          <div style="font-size:0.75rem;color:var(--sub);">JPG · PNG · WebP · GIF — multiple files supported</div>
+          <input type="file" id="pdf-file-input" accept="image/*" multiple style="display:none">
+        </div>
+
+        <!-- Options Row -->
+        <div class="row2" style="margin-bottom:16px;">
+          <div class="field" style="margin-bottom:0;">
+            <label class="lbl">Page Size</label>
+            <select id="pdf-pagesize" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:11px 14px;font-family:inherit;font-size:0.9rem;outline:none;appearance:none;cursor:pointer;transition:var(--t);">
+              <option value="a4">A4 (210×297 mm)</option>
+              <option value="letter">Letter (8.5×11 in)</option>
+              <option value="a3">A3 (297×420 mm)</option>
+              <option value="fit">Image Size (fit)</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label class="lbl">Orientation</label>
+            <select id="pdf-orient" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:11px 14px;font-family:inherit;font-size:0.9rem;outline:none;appearance:none;cursor:pointer;transition:var(--t);">
+              <option value="auto">Auto (detect)</option>
+              <option value="portrait">Portrait</option>
+              <option value="landscape">Landscape</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Margin & Quality -->
+        <div class="row2" style="margin-bottom:16px;">
+          <div class="field" style="margin-bottom:0;">
+            <label class="lbl">Margin (mm)</label>
+            <input type="number" id="pdf-margin" value="10" min="0" max="50" style="padding:11px 14px;">
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label class="lbl">Image Quality</label>
+            <select id="pdf-quality" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:11px 14px;font-family:inherit;font-size:0.9rem;outline:none;appearance:none;cursor:pointer;transition:var(--t);">
+              <option value="0.98">High (98%)</option>
+              <option value="0.85" selected>Medium (85%)</option>
+              <option value="0.65">Low (65%) — smaller file</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Preview Grid -->
+        <div id="pdf-preview-wrap" style="display:none;margin-bottom:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <div style="font-size:0.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ind2);">
+              🖼 Selected Images <span id="pdf-count" style="background:rgba(99,102,241,0.2);border-radius:20px;padding:1px 8px;margin-left:4px;">0</span>
+            </div>
+            <button onclick="pdfClearAll()" style="font-size:0.72rem;color:var(--ros);background:none;border:none;cursor:pointer;padding:4px 8px;">✕ Clear All</button>
+          </div>
+          <div id="pdf-preview-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;max-height:280px;overflow-y:auto;padding:4px;"></div>
+          <p style="font-size:0.72rem;color:var(--dim);margin-top:8px;">💡 Drag thumbnails to reorder</p>
+        </div>
+
+        <!-- Generate Button -->
+        <button class="btn" id="pdf-btn" disabled
+                style="background:linear-gradient(135deg,#6b21a8,#9333ea,#a855f7);color:#fff;
+                       box-shadow:0 4px 20px rgba(168,85,247,0.3);opacity:0.5;">
+          📄 Generate PDF
+        </button>
+
+        <!-- Progress -->
+        <div id="pdf-progress" style="display:none;margin-top:16px;">
+          <div style="font-size:0.78rem;color:var(--sub);margin-bottom:8px;" id="pdf-progress-txt">Processing…</div>
+          <div style="height:6px;background:rgba(255,255,255,0.07);border-radius:6px;overflow:hidden;">
+            <div id="pdf-progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#7c3aed,#a855f7);border-radius:6px;transition:width 0.3s ease;"></div>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <div id="pdf-success" style="display:none;margin-top:16px;background:rgba(16,185,129,0.09);
+             border:1px solid rgba(16,185,129,0.25);border-radius:14px;padding:16px 18px;text-align:center;">
+          <div style="font-size:1.6rem;margin-bottom:6px;">✅</div>
+          <div style="font-size:0.9rem;font-weight:700;color:#6ee7b7;margin-bottom:4px;">PDF created successfully!</div>
+          <div style="font-size:0.75rem;color:var(--sub);" id="pdf-success-info">—</div>
+        </div>
+
+        <!-- Error -->
+        <div class="msg err" id="pdf-err"><span class="msg-icon">⚠</span><span id="pdf-err-txt">Error.</span></div>
+
+
+        </div><!-- /tab-pdf-content -->
+
+        <!-- OCR TAB -->
+        <div id="tab-ocr-content" style="display:none;">
+
+          <!-- OCR Drop Zone -->
+          <div id="ocr-dropzone"
+               style="border:2px dashed rgba(168,85,247,0.4);border-radius:18px;
+                      padding:36px 20px;text-align:center;cursor:pointer;
+                      background:rgba(168,85,247,0.04);transition:all 0.25s;margin-bottom:18px;"
+               onclick="document.getElementById('ocr-file-input').click()"
+               ondragover="ocrDragOver(event)" ondragleave="ocrDragLeave(event)" ondrop="ocrDrop(event)">
+            <div style="font-size:2.4rem;margin-bottom:10px;">🔍</div>
+            <div style="font-size:0.92rem;font-weight:700;color:var(--txt);margin-bottom:5px;">Extract text from image</div>
+            <div style="font-size:0.75rem;color:var(--sub);">JPG · PNG · WebP — select an image</div>
+            <input type="file" id="ocr-file-input" accept="image/*" style="display:none">
+          </div>
+
+
+
+          <!-- OCR Preview -->
+          <div id="ocr-preview-wrap" style="display:none;margin-bottom:16px;text-align:center;">
+            <img id="ocr-preview-img" src="" alt="preview"
+                 style="max-width:100%;max-height:220px;border-radius:12px;
+                        border:1px solid rgba(168,85,247,0.3);object-fit:contain;">
+            <div id="ocr-file-name" style="font-size:0.72rem;color:var(--sub);margin-top:6px;"></div>
+          </div>
+
+          <!-- OCR Button -->
+          <button class="btn" id="ocr-btn" disabled
+                  style="background:linear-gradient(135deg,#6b21a8,#9333ea,#a855f7);color:#fff;
+                         box-shadow:0 4px 20px rgba(168,85,247,0.3);opacity:0.5;">
+            🔍 Extract Text
+          </button>
+
+          <!-- OCR Progress -->
+          <div id="ocr-progress" style="display:none;margin-top:16px;">
+            <div style="font-size:0.78rem;color:var(--sub);margin-bottom:8px;" id="ocr-progress-txt">Processing…</div>
+            <div style="height:6px;background:rgba(255,255,255,0.07);border-radius:6px;overflow:hidden;">
+              <div id="ocr-progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#7c3aed,#a855f7);border-radius:6px;transition:width 0.3s ease;"></div>
+            </div>
+          </div>
+
+          <!-- OCR Result -->
+          <div id="ocr-result" style="display:none;margin-top:16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div style="font-size:0.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);">✅ Extracted Text</div>
+              <button onclick="ocrCopyText()" id="ocr-copy-btn"
+                      style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;
+                             background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);
+                             color:var(--ind2);border-radius:9px;padding:6px 14px;cursor:pointer;
+                             font-family:inherit;font-weight:700;transition:var(--t);">
+                📋 Copy
+              </button>
+            </div>
+            <textarea id="ocr-text-output" readonly
+                      style="width:100%;min-height:180px;background:rgba(8,12,28,0.8);
+                             border:1px solid rgba(168,85,247,0.25);border-radius:12px;
+                             color:var(--txt);padding:14px;font-family:'DM Sans',sans-serif;
+                             font-size:0.88rem;line-height:1.7;resize:vertical;outline:none;">
+            </textarea>
+          </div>
+
+          <!-- OCR Error -->
+          <div class="msg err" id="ocr-err"><span class="msg-icon">⚠</span><span id="ocr-err-txt">Error.</span></div>
+
+        </div><!-- /tab-ocr-content -->
+
+      </div>
+        </div>
+        <div class="ad-mobile-bottom" style="width:300px;height:250px;overflow:hidden;margin:12px auto 0;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
+      </div>
+      <div class="panel-ad-right" style="width:160px;min-height:300px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'20bd3e6cc57f5be2dd5f249505901f21','format':'iframe','height':300,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/20bd3e6cc57f5be2dd5f249505901f21/invoke.js"></script></div>
+    </div>
+  </div>
 
 </div><!-- /wrap -->
 
@@ -2181,7 +2440,157 @@ document.getElementById('speed-btn').addEventListener('click', async function() 
 
 
 
+/* ══════════════════════════════════════════════
+   MODULE 4 — XONOMO LINK SHORTENER
+   Backend: CleanURI API via Cloudflare Worker
+   Worker endpoint: /shorten (POST proxy)
+   Fallback: direct CleanURI POST (CORS allowed on some hosts)
+══════════════════════════════════════════════ */
 
+// Cloudflare Worker index.js source (shown in UI)
+const WORKER_CODE = `// ╔══════════════════════════════════════════╗
+// ║   XONOMO Link Shortener — Cloudflare     ║
+// ║   Worker index.js                        ║
+// ║   Deploy at: workers.cloudflare.com      ║
+// ╚══════════════════════════════════════════╝
+
+const BRAND     = 'XONOMO';
+const BRAND_URL = 'https://xonomo.site';
+
+// ── CORS headers ──────────────────────────
+const CORS = {
+  'Access-Control-Allow-Origin' : '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
+// ── Main handler ──────────────────────────
+export default {
+  async fetch(request) {
+    const url = new URL(request.url);
+
+    // Pre-flight
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { status: 204, headers: CORS });
+    }
+
+    // POST /shorten  — proxy to CleanURI
+    if (request.method === 'POST' && url.pathname === '/shorten') {
+      return handleShorten(request);
+    }
+
+    // GET /  — serve the HTML dashboard
+    return new Response(getHTML(), {
+      headers: { 'Content-Type': 'text/html;charset=UTF-8' }
+    });
+  }
+};
+
+// ── Shorten handler ───────────────────────
+async function handleShorten(request) {
+  let body;
+  try { body = await request.json(); } catch {
+    return jsonErr(400, 'Invalid JSON body');
+  }
+
+  const longUrl = (body.url || '').trim();
+  if (!longUrl) return jsonErr(400, 'Missing "url" field');
+
+  // Validate URL format
+  try { new URL(longUrl); } catch {
+    return jsonErr(422, 'Invalid URL format — must start with http:// or https://');
+  }
+
+  // Call CleanURI API
+  const form = new URLSearchParams();
+  form.set('url', longUrl);
+
+  let upstream;
+  try {
+    upstream = await fetch('https://cleanuri.com/api/v1/shorten', {
+      method : 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body   : form.toString(),
+    });
+  } catch (e) {
+    return jsonErr(502, 'CleanURI upstream unreachable: ' + e.message);
+  }
+
+  const data = await upstream.json().catch(() => ({}));
+
+  if (!upstream.ok || data.error) {
+    const msg = data.error || \`CleanURI returned HTTP \${upstream.status}\`;
+    return jsonErr(upstream.status || 502, msg);
+  }
+
+  if (!data.result_url) {
+    return jsonErr(502, 'CleanURI returned no shortened URL');
+  }
+
+  return new Response(
+    JSON.stringify({ short_url: data.result_url, original: longUrl }),
+    { status: 200, headers: { ...CORS, 'Content-Type': 'application/json' } }
+  );
+}
+
+// ── Helpers ───────────────────────────────
+function jsonErr(status, message) {
+  return new Response(
+    JSON.stringify({ error: message }),
+    { status, headers: { ...CORS, 'Content-Type': 'application/json' } }
+  );
+}`;
+
+// Inject worker code into the pre element
+(function() {
+  const pre = document.getElementById('worker-code-pre');
+  if (pre) pre.textContent = WORKER_CODE;
+
+  const copyBtn = document.getElementById('worker-copy-btn');
+  if (copyBtn) {
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(WORKER_CODE).then(() => {
+        copyBtn.textContent = '✓ Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = '📋 Copy Worker Code';
+          copyBtn.classList.remove('copied');
+        }, 2500);
+      });
+    };
+  }
+})();
+
+// ── Frontend shorten button ───────────────
+document.getElementById('url-btn').addEventListener('click', async function() {
+  const btn    = this;
+  const raw    = document.getElementById('url-input').value.trim();
+  const resEl  = document.getElementById('url-result');
+  const errEl  = document.getElementById('url-err');
+  const linkEl = document.getElementById('url-short-text');
+
+  hideMsg(errEl);
+  resEl.style.display = 'none';
+
+  if (!raw) { showMsg(errEl, 'err', 'Please enter a URL.'); return; }
+  try { new URL(raw); } catch {
+    showMsg(errEl, 'err', 'Invalid URL — must start with https:// or http://'); return;
+  }
+
+  loading(btn, true);
+
+  try {
+    let shortened = null;
+    let lastErr   = '';
+
+    // Cloudflare Pages Function proxy — /api/shorten
+    try {
+      const r = await fetch('/api/shorten', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: raw }),
+        signal: AbortSignal.timeout(10000)
+      });
       const d = await r.json();
       if (d.result_url) shortened = d.result_url;
       else if (d.error) lastErr = d.error;
@@ -2219,10 +2628,472 @@ document.getElementById('url-input').addEventListener('keydown', e => {
 
 
 
+/* ══════════════════════════════════════════════
+   MODULE 5 — IMAGE TO PDF
+   Library: jsPDF (CDN loaded on demand)
+══════════════════════════════════════════════ */
+
+let pdfFiles = [];   // { file, dataUrl, name }
+let pdfDragging = null;
+
+// Load jsPDF on first use
+function loadJsPDF() {
+  return new Promise((resolve, reject) => {
+    if (window.jspdf) { resolve(window.jspdf.jsPDF); return; }
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+    s.onload  = () => resolve(window.jspdf.jsPDF);
+    s.onerror = () => reject(new Error('Failed to load jsPDF. Check your internet connection.'));
+    document.head.appendChild(s);
+  });
+}
+
+// File input change
+document.getElementById('pdf-file-input').addEventListener('change', function() {
+  pdfAddFiles(Array.from(this.files));
+  this.value = ''; // allow re-selecting same files
+});
+
+// Drag & drop
+function pdfDragOver(e) {
+  e.preventDefault();
+  document.getElementById('pdf-dropzone').style.borderColor = 'rgba(168,85,247,0.9)';
+  document.getElementById('pdf-dropzone').style.background  = 'rgba(168,85,247,0.1)';
+}
+function pdfDragLeave(e) {
+  document.getElementById('pdf-dropzone').style.borderColor = 'rgba(168,85,247,0.4)';
+  document.getElementById('pdf-dropzone').style.background  = 'rgba(168,85,247,0.04)';
+}
+function pdfDrop(e) {
+  e.preventDefault();
+  pdfDragLeave(e);
+  const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+  pdfAddFiles(files);
+}
+
+function pdfAddFiles(files) {
+  const errEl = document.getElementById('pdf-err');
+  hideMsg(errEl);
+  let added = 0;
+  files.forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      pdfFiles.push({ file, dataUrl: e.target.result, name: file.name });
+      pdfRenderPreview();
+    };
+    reader.readAsDataURL(file);
+    added++;
+  });
+  if (!added) showMsg(errEl, 'err', 'Only image files are supported (JPG, PNG, WebP, GIF)');
+}
+
+function pdfRenderPreview() {
+  const grid  = document.getElementById('pdf-preview-grid');
+  const wrap  = document.getElementById('pdf-preview-wrap');
+  const count = document.getElementById('pdf-count');
+  const btn   = document.getElementById('pdf-btn');
+
+  count.textContent = pdfFiles.length;
+  wrap.style.display  = pdfFiles.length ? 'block' : 'none';
+  btn.disabled        = pdfFiles.length === 0;
+  btn.style.opacity   = pdfFiles.length ? '1' : '0.5';
+
+  grid.innerHTML = '';
+  pdfFiles.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.style.cssText = 'position:relative;cursor:grab;border-radius:10px;overflow:hidden;border:2px solid rgba(168,85,247,0.3);aspect-ratio:1;background:#0a0e1a;';
+    div.draggable = true;
+    div.dataset.idx = idx;
+
+    const img = document.createElement('img');
+    img.src = item.dataUrl;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+
+    const badge = document.createElement('div');
+    badge.style.cssText = 'position:absolute;top:3px;left:4px;background:rgba(0,0,0,0.65);color:#fff;font-size:0.6rem;font-weight:700;padding:2px 6px;border-radius:6px;';
+    badge.textContent = idx + 1;
+
+    const del = document.createElement('button');
+    del.innerHTML = '✕';
+    del.style.cssText = 'position:absolute;top:3px;right:3px;background:rgba(244,63,94,0.8);border:none;color:#fff;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center;padding:0;';
+    del.onclick = (e) => { e.stopPropagation(); pdfFiles.splice(idx, 1); pdfRenderPreview(); };
+
+    div.appendChild(img); div.appendChild(badge); div.appendChild(del);
+
+    // Drag reorder
+    div.addEventListener('dragstart', () => { pdfDragging = idx; div.style.opacity = '0.4'; });
+    div.addEventListener('dragend',   () => { div.style.opacity = '1'; pdfRenderPreview(); });
+    div.addEventListener('dragover',  (e) => { e.preventDefault(); });
+    div.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (pdfDragging === null || pdfDragging === idx) return;
+      const moved = pdfFiles.splice(pdfDragging, 1)[0];
+      pdfFiles.splice(idx, 0, moved);
+      pdfDragging = null;
+      pdfRenderPreview();
+    });
+
+    grid.appendChild(div);
+  });
+}
+
+function pdfClearAll() {
+  pdfFiles = [];
+  pdfRenderPreview();
+  hideMsg(document.getElementById('pdf-err'));
+  document.getElementById('pdf-success').style.display = 'none';
+}
+
+document.getElementById('pdf-btn').addEventListener('click', async function() {
+  const btn       = this;
+  const errEl     = document.getElementById('pdf-err');
+  const progressW = document.getElementById('pdf-progress');
+  const progressB = document.getElementById('pdf-progress-bar');
+  const progressT = document.getElementById('pdf-progress-txt');
+  const successEl = document.getElementById('pdf-success');
+  const successInf= document.getElementById('pdf-success-info');
+
+  hideMsg(errEl);
+  successEl.style.display  = 'none';
+  progressW.style.display  = 'block';
+  progressB.style.width    = '0%';
+  btn.disabled = true; btn.style.opacity = '0.5';
+
+  try {
+    progressT.textContent = 'Loading jsPDF…';
+    progressB.style.width = '10%';
+    const jsPDF = await loadJsPDF();
+
+    const pageSize  = document.getElementById('pdf-pagesize').value;
+    const orient    = document.getElementById('pdf-orient').value;
+    const margin    = parseInt(document.getElementById('pdf-margin').value) || 0;
+    const quality   = parseFloat(document.getElementById('pdf-quality').value);
+
+    progressT.textContent = 'Creating PDF…';
+    progressB.style.width = '20%';
+
+    let doc = null;
+    const total = pdfFiles.length;
+
+    for (let i = 0; i < total; i++) {
+      const item = pdfFiles[i];
+      progressT.textContent = `Processing image ${i+1} / ${total}…`;
+      progressB.style.width = (20 + (i / total) * 70) + '%';
+
+      // Load image to get natural dimensions
+      await new Promise((resolve) => {
+        const tmpImg = new Image();
+        tmpImg.onload = () => {
+          const imgW = tmpImg.naturalWidth;
+          const imgH = tmpImg.naturalHeight;
+          const isLandscapeImg = imgW > imgH;
+
+          // Determine page orientation
+          let pageOrient;
+          if (orient === 'auto')      pageOrient = isLandscapeImg ? 'landscape' : 'portrait';
+          else if (orient === 'landscape') pageOrient = 'landscape';
+          else                         pageOrient = 'portrait';
+
+          // Determine page dimensions in mm
+          let pW, pH;
+          if (pageSize === 'fit') {
+            // 1px ≈ 0.264583 mm
+            pW = imgW * 0.264583;
+            pH = imgH * 0.264583;
+            pageOrient = 'portrait'; // fit mode ignores orientation
+          } else {
+            const sizes = { a4: [210,297], letter: [215.9,279.4], a3: [297,420] };
+            [pW, pH] = sizes[pageSize];
+            if (pageOrient === 'landscape') [pW, pH] = [pH, pW];
+          }
+
+          if (!doc) {
+            doc = new jsPDF({ orientation: pageOrient, unit: 'mm', format: pageSize === 'fit' ? [pW, pH] : pageSize });
+          } else {
+            doc.addPage(pageSize === 'fit' ? [pW, pH] : pageSize, pageOrient);
+          }
+
+          // Fit image into page with margin
+          const availW = pW - margin * 2;
+          const availH = pH - margin * 2;
+          const ratio  = Math.min(availW / imgW, availH / imgH);
+          const drawW  = imgW * ratio;
+          const drawH  = imgH * ratio;
+          const x = margin + (availW - drawW) / 2;
+          const y = margin + (availH - drawH) / 2;
+
+          // Detect format
+          const fmt = item.file.type === 'image/png' ? 'PNG' : 'JPEG';
+          doc.addImage(item.dataUrl, fmt, x, y, drawW, drawH, undefined, 'MEDIUM');
+          resolve();
+        };
+        tmpImg.src = item.dataUrl;
+      });
+
+      // Small delay to keep UI responsive
+      await new Promise(r => setTimeout(r, 30));
+    }
+
+    progressB.style.width = '95%';
+    progressT.textContent = 'Saving PDF…';
+    await new Promise(r => setTimeout(r, 50));
+
+    const filename = 'xonomo-images-' + Date.now() + '.pdf';
+    doc.save(filename);
+
+    progressB.style.width  = '100%';
+    progressW.style.display = 'none';
+    successInf.textContent  = `${total} image(s) · ${filename}`;
+    successEl.style.display = 'block';
+
+  } catch(e) {
+    progressW.style.display = 'none';
+    showMsg(errEl, 'err', '⚠ ' + e.message);
+  }
+
+  btn.disabled = false; btn.style.opacity = '1';
+});
 
 
+/* ══════════════════════════════════════════════
+   OCR — Image to Text (Tesseract.js)
+══════════════════════════════════════════════ */
+let ocrFile = null;
 
+function switchImgTab(tab) {
+  const isPdf = tab === 'pdf';
+  document.getElementById('tab-pdf-content').style.display = isPdf ? 'block' : 'none';
+  document.getElementById('tab-ocr-content').style.display = isPdf ? 'none'  : 'block';
+  document.getElementById('tab-pdf-btn').classList.toggle('on', isPdf);
+  document.getElementById('tab-ocr-btn').classList.toggle('on', !isPdf);
+}
 
+// OCR drag & drop
+function ocrDragOver(e) {
+  e.preventDefault();
+  document.getElementById('ocr-dropzone').style.borderColor = 'rgba(168,85,247,0.9)';
+}
+function ocrDragLeave(e) {
+  document.getElementById('ocr-dropzone').style.borderColor = 'rgba(168,85,247,0.4)';
+}
+function ocrDrop(e) {
+  e.preventDefault();
+  ocrDragLeave(e);
+  const f = e.dataTransfer.files[0];
+  if (f && f.type.startsWith('image/')) ocrSetFile(f);
+}
+
+document.getElementById('ocr-file-input').addEventListener('change', function() {
+  if (this.files[0]) ocrSetFile(this.files[0]);
+  this.value = '';
+});
+
+function ocrSetFile(file) {
+  ocrFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('ocr-preview-img').src = e.target.result;
+    document.getElementById('ocr-preview-wrap').style.display = 'block';
+    document.getElementById('ocr-file-name').textContent = file.name;
+    document.getElementById('ocr-result').style.display = 'none';
+    hideMsg(document.getElementById('ocr-err'));
+  };
+  reader.readAsDataURL(file);
+  const btn = document.getElementById('ocr-btn');
+  btn.disabled = false; btn.style.opacity = '1';
+}
+
+document.getElementById('ocr-btn').addEventListener('click', async function() {
+  if (!ocrFile) return;
+  const btn       = this;
+  const progressW = document.getElementById('ocr-progress');
+  const progressB = document.getElementById('ocr-progress-bar');
+  const progressT = document.getElementById('ocr-progress-txt');
+  const resultEl  = document.getElementById('ocr-result');
+  const outputEl  = document.getElementById('ocr-text-output');
+  const errEl     = document.getElementById('ocr-err');
+
+  hideMsg(errEl);
+  resultEl.style.display  = 'none';
+  progressW.style.display = 'block';
+  progressB.style.width   = '0%';
+  btn.disabled = true; btn.style.opacity = '0.5';
+
+  try {
+    // Load Tesseract.js v4 (stable, CDN-friendly)
+    if (!window.Tesseract) {
+      progressT.textContent = 'Loading Tesseract…';
+      progressB.style.width = '10%';
+      await new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = 'https://unpkg.com/tesseract.js@4.1.4/dist/tesseract.min.js';
+        s.onload = res;
+        s.onerror = () => rej(new Error('Failed to load Tesseract. Check internet.'));
+        document.head.appendChild(s);
+      });
+    }
+
+    progressT.textContent = 'Analyzing image…';
+    progressB.style.width = '20%';
+
+    // Use Tesseract.recognize — works in v4 directly
+    const result = await window.Tesseract.recognize(
+      ocrFile,
+      'eng',
+      {
+        logger: m => {
+          if (m.status === 'recognizing text') {
+            const pct = Math.round((m.progress || 0) * 75) + 20;
+            progressB.style.width = Math.min(pct, 95) + '%';
+            progressT.textContent = `Reading text… ${Math.min(pct,95)}%`;
+          }
+        },
+        workerPath: 'https://unpkg.com/tesseract.js@4.1.4/dist/worker.min.js',
+        langPath: 'https://tessdata.projectnaptha.com/4.0.0',
+        corePath: 'https://unpkg.com/tesseract.js-core@4.0.4/tesseract-core.wasm.js',
+      }
+    );
+
+    progressB.style.width  = '100%';
+    progressW.style.display = 'none';
+
+    const text = (result.data.text || '').trim();
+    if (!text) {
+      showMsg(errEl, 'err', 'No text detected. Try a higher-resolution image with clear text.');
+    } else {
+      outputEl.value = text;
+      resultEl.style.display = 'block';
+    }
+
+  } catch(e) {
+    progressW.style.display = 'none';
+    showMsg(errEl, 'err', '⚠ ' + e.message);
+  }
+
+  btn.disabled = false; btn.style.opacity = '1';
+});
+
+function ocrCopyText() {
+  const text = document.getElementById('ocr-text-output').value;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const b = document.getElementById('ocr-copy-btn');
+    const orig = b.innerHTML;
+    b.innerHTML = '✓ Copied!';
+    b.style.color = 'var(--grn)';
+    setTimeout(() => { b.innerHTML = orig; b.style.color = ''; }, 2000);
+  });
+}
+
+/* ══════════════════════════════════════════════
+   PIN SERVICE & SIDEBAR
+   Uses localStorage — persists across visits
+══════════════════════════════════════════════ */
+const SERVICE_LIST = [
+  { id: 'p-anon',       label: '🕵️ Anonymity Checker' },
+  { id: 'p-email',      label: '📧 Temporary Email' },
+  { id: 'p-speed',      label: '⚡ Speed Test' },
+  { id: 'p-url',        label: '🔗 Link Shortener', construction: true },
+  { id: 'p-img2pdf',    label: '🖼️ Image to PDF & Image to Text' },
+];
+
+let pinnedId = localStorage.getItem('xonomo_pin') || null;
+
+// Build sidebar links helper
+function buildSidebar(activePanelId) {
+  const linksEl = document.getElementById('sidebar-links');
+  linksEl.innerHTML = SERVICE_LIST.map(s => {
+    const badge = s.upcoming
+      ? '<span style="font-size:0.6rem;color:var(--amb);background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:6px;padding:1px 6px;margin-left:6px;">Soon</span>'
+      : s.construction
+      ? '<span style="font-size:0.6rem;color:var(--amb);background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:6px;padding:1px 6px;margin-left:6px;">Beta</span>'
+      : '';
+    const disabled = s.upcoming ? 'opacity:0.55;cursor:default;pointer-events:none;' : '';
+    return `<button class="sidebar-link ${s.id === activePanelId ? 'active-link' : ''}"
+             style="${disabled}"
+             onclick="${s.upcoming ? '' : `sidebarNav('${s.id}')`}">
+       ${s.label}${badge}
+     </button>`;
+  }).join('');
+}
+
+// Activate pinned mode UI
+function activatePinnedMode(panelId) {
+  document.body.classList.add('pinned-mode');
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active', 'pinned-panel'));
+  const panel = document.getElementById(panelId);
+  if (panel) panel.classList.add('active', 'pinned-panel');
+  buildSidebar(panelId);
+  // Desktop: sidebar auto-visible via CSS; Mobile: keep closed until user clicks
+  if (window.innerWidth >= 641) {
+    document.getElementById('sidebar').classList.add('open');
+  }
+  updatePanelPinButtons(panelId);
+  window.scrollTo(0, 0);
+  if (panelId === 'p-email') emailInit();
+}
+
+// Update pin button text inside panels
+function updatePanelPinButtons(activePanelId) {
+  document.querySelectorAll('.panel .pin-btn').forEach(btn => {
+    const panelEl = btn.closest('.panel');
+    if (!panelEl) return;
+    const isPinned = activePanelId && panelEl.id === activePanelId;
+    btn.textContent = isPinned ? '📌 Unpin' : '📌 Pin';
+    btn.classList.toggle('pinned', isPinned);
+  });
+}
+
+// On page load — restore pin from localStorage
+(function initPin() {
+  if (!pinnedId) return;
+  // Slight delay so DOM is ready
+  activatePinnedMode(pinnedId);
+})();
+
+function pinService(panelId) {
+  // Unpin if same button pressed again
+  if (pinnedId === panelId) {
+    unpinService();
+    return;
+  }
+  pinnedId = panelId;
+  localStorage.setItem('xonomo_pin', panelId);
+  activatePinnedMode(panelId);
+}
+
+function unpinService() {
+  pinnedId = null;
+  localStorage.removeItem('xonomo_pin');
+  document.body.classList.remove('pinned-mode');
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active', 'pinned-panel'));
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('home').style.display = 'block';
+  updatePanelPinButtons(null);
+  window.scrollTo(0, 0);
+}
+
+function sidebarNav(panelId) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active', 'pinned-panel'));
+  const panel = document.getElementById(panelId);
+  if (panel) panel.classList.add('active', 'pinned-panel');
+  buildSidebar(panelId);
+  updatePanelPinButtons(pinnedId);
+  if (panelId === 'p-email') emailInit();
+  window.scrollTo(0, 0);
+  if (window.innerWidth < 640) document.getElementById('sidebar').classList.remove('open');
+}
+
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  if (window.innerWidth >= 641 && document.body.classList.contains('pinned-mode')) {
+    // Desktop pinned mode: toggle sidebar-closed on body
+    document.body.classList.toggle('sidebar-closed');
+  } else {
+    sidebar.classList.toggle('open');
+  }
+}
 
 // closePanel: if pinned mode → go back to pinned home (do nothing to home)
 //             if normal mode → show home
