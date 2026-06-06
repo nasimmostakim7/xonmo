@@ -48,6 +48,14 @@
     }
     @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
     @keyframes scaleIn { from { opacity: 0; transform: scale(0.93); } to { opacity: 1; transform: scale(1); } }
+    @keyframes codeReveal {
+      from { opacity: 0; transform: translateY(14px) scale(0.94); }
+      to   { opacity: 1; transform: translateY(0)    scale(1);    }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.65; }
+    }
 
     .fu  { animation: fadeUp 0.6s cubic-bezier(.22,.68,0,1.2) both; }
     .d1  { animation-delay: .05s; }
@@ -120,9 +128,10 @@
       margin-bottom: 32px;
     }
     .hero-eye {
-      font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 700;
-      letter-spacing: 5px; text-transform: uppercase; color: var(--gold);
-      margin-bottom: 11px;
+      font-family: 'Jost', sans-serif; font-size: 12.5px; font-weight: 700;
+      letter-spacing: 1.5px; color: var(--gold);
+      margin: 0 auto 13px; line-height: 1.55;
+      max-width: 640px;
     }
     .hero-h1 {
       font-family: 'Playfair Display', serif;
@@ -167,7 +176,6 @@
     }
     .book-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); }
 
-    /* Full image — contain within fixed height */
     .card-img {
       height: 210px; background: var(--cream-mid);
       display: flex; align-items: center; justify-content: center;
@@ -184,13 +192,11 @@
 
     .card-body { padding: 14px 16px 18px; }
 
-    /* Book name — Playfair italic, same cognac color as title */
     .card-name {
       font-family: 'Playfair Display', serif;
       font-style: italic; font-size: 12.5px; font-weight: 400;
       color: var(--cognac); margin-bottom: 5px;
     }
-    /* Book title — Playfair bold, cognac */
     .card-title {
       font-family: 'Playfair Display', serif;
       font-size: 16px; font-weight: 700;
@@ -289,12 +295,12 @@
     .editorial {
       background: var(--white); border-radius: var(--radius);
       border: 1px solid rgba(196,151,58,.15); border-left: 4px solid var(--wine);
-      padding: 26px 34px; margin-bottom: 26px;
+      padding: 16px 30px 22px; margin-bottom: 26px;
       box-shadow: var(--shadow-card);
     }
     .ed-head {
       display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 16px;
     }
     .ed-head-left { display: flex; align-items: center; gap: 11px; }
     .ed-bar {
@@ -309,16 +315,26 @@
       background: var(--cream-mid); padding: 3px 10px; border-radius: 20px;
     }
     .ed-body { font-family: 'Cormorant Garamond', serif; font-size: 18px; line-height: 1.76; color: var(--ink-mid); }
-    .ed-body .lead { font-size: 19.5px; font-weight: 500; color: var(--ink); margin-bottom: 14px; }
+    .ed-body .lead { font-size: 19px; font-weight: 500; color: var(--ink); margin-bottom: 14px; }
     .ed-body p { margin-bottom: 13px; }
     .ed-body strong { color: var(--wine-dark); font-weight: 600; }
-    .ed-hl { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; font-style: italic; color: var(--wine-dark); margin-bottom: 16px; line-height: 1.3; }
+    .ed-hl {
+      font-family: 'Playfair Display', serif; font-size: 21px;
+      font-weight: 700; font-style: italic; color: var(--wine-dark);
+      margin-bottom: 14px; line-height: 1.3;
+    }
+    .ed-sub-hl {
+      font-family: 'Playfair Display', serif; font-size: 17.5px;
+      font-weight: 700; color: var(--wine-dark);
+      margin: 20px 0 10px; line-height: 1.3;
+      border-bottom: 1px solid rgba(196,151,58,.25); padding-bottom: 6px;
+    }
     .stats-blk {
       background: linear-gradient(135deg, var(--cream-mid), var(--cream-dark));
-      border-radius: 8px; padding: 16px 20px; margin: 16px 0;
+      border-radius: 8px; padding: 15px 18px; margin: 13px 0;
       border-left: 3px solid var(--gold);
     }
-    .stats-blk p { margin-bottom: 9px; }
+    .stats-blk p { margin-bottom: 9px; font-size: 17px; }
     .stats-blk p:last-child { margin-bottom: 0; }
     .more-content { display: none; }
     .more-content.open { display: block; }
@@ -331,6 +347,76 @@
       cursor: pointer; margin-top: 8px; transition: all .2s;
     }
     .btn-more:hover { background: var(--wine); color: var(--white); }
+
+    /* ── DISCOUNT TIMER SECTIONS ── */
+    .discount-sections-wrap {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 14px; margin-top: 26px;
+    }
+    .disc-section {
+      background: linear-gradient(160deg, var(--cream-mid) 0%, var(--cream-dark) 100%);
+      border-radius: 11px; padding: 20px 16px 18px; text-align: center;
+      border: 1px solid rgba(196,151,58,.32);
+      position: relative; overflow: hidden;
+    }
+    .disc-section::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .disc-section.single::before {
+      background: linear-gradient(90deg, var(--wine) 0%, var(--gold) 100%);
+    }
+    .disc-section.bundle-disc::before {
+      background: linear-gradient(90deg, var(--gold) 0%, var(--cognac) 100%);
+    }
+    .disc-eye {
+      font-family: 'Jost', sans-serif; font-size: 9.5px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--wine);
+      margin-bottom: 5px;
+    }
+    .disc-title {
+      font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;
+      color: var(--ink); margin-bottom: 14px; line-height: 1.3;
+    }
+    .disc-timer-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+    }
+    .disc-timer-label {
+      font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
+      color: var(--ink-soft); letter-spacing: 1.2px; text-transform: uppercase;
+    }
+    .disc-timer-value {
+      font-family: 'Jost', sans-serif; font-size: 36px; font-weight: 700;
+      color: var(--wine); letter-spacing: 3px;
+      font-variant-numeric: tabular-nums; line-height: 1.1;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .disc-timer-hint {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 13px; color: var(--ink-soft); margin-top: 5px;
+    }
+    .disc-code-wrap { display: none; }
+    .disc-code-wrap.revealed {
+      animation: codeReveal 0.6s cubic-bezier(.22,.68,0,1.2) forwards;
+    }
+    .disc-code-box {
+      background: var(--white); border: 2px dashed var(--gold); border-radius: 8px;
+      padding: 11px 14px;
+      font-family: 'Jost', sans-serif; font-size: 22px; font-weight: 700;
+      letter-spacing: 5px; color: var(--wine-dark); margin-bottom: 8px;
+    }
+    .disc-code-note {
+      font-family: 'Jost', sans-serif; font-size: 11px;
+      color: var(--green); font-weight: 600; letter-spacing: 0.3px;
+    }
+    .disc-code-copy {
+      display: inline-block; margin-top: 8px; padding: 5px 14px;
+      background: var(--wine-dark); color: var(--gold-pale);
+      font-family: 'Jost', sans-serif; font-size: 9.5px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      border-radius: 4px; cursor: pointer; border: none;
+      transition: background .2s;
+    }
+    .disc-code-copy:hover { background: var(--wine); }
 
     /* ── AD ROWS ── */
     .ad-row { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 6px 0 32px; }
@@ -379,10 +465,14 @@
       .bundle-img { aspect-ratio: 16/7; }
       .bundle-body { padding: 20px 22px; }
     }
+    @media (max-width: 600px) {
+      .discount-sections-wrap { grid-template-columns: 1fr; gap: 12px; }
+      .disc-timer-value { font-size: 30px; }
+    }
     @media (max-width: 560px) {
       .books-grid { grid-template-columns: 1fr; }
       .hd-name { font-size: 15px; letter-spacing: 2px; }
-      .editorial { padding: 20px 18px; }
+      .editorial { padding: 14px 15px 18px; }
       .ed-head { flex-direction: column; align-items: flex-start; }
     }
   </style>
@@ -412,7 +502,7 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-eye fu d1">Complete 3-Book Collection</div>
+    <div class="hero-eye fu d1">🎉 Author's Gift: Check below Read More Button for 50% OFF Single Books &amp; 70% OFF the Mega Bundle</div>
     <h1 class="hero-h1 fu d2"><em>The Complete</em><br>Relationship Bundle</h1>
     <p class="hero-sub fu d3">Love, Partner &amp; Marriage — The Full Guide</p>
     <div class="ornament fu d4"><span class="orn-l"></span><span class="orn-g">❧</span><span class="orn-r"></span></div>
@@ -464,7 +554,7 @@
 
   </div><!-- /books-grid -->
 
-  <!-- BUNDLE (Book 4) -->
+  <!-- BUNDLE -->
   <div class="bundle-card fu d5">
     <div class="bundle-img">
       <img src="https://i.postimg.cc/MTMSf93V/file-00000000152471fabd8cc73e4162b655.png" alt="Complete Relationship Bundle" loading="lazy">
@@ -479,7 +569,7 @@
     </div>
   </div>
 
-  <!-- AD 2 (468×60) — below bundle -->
+  <!-- AD 2 (468×60) -->
   <div class="ad-row" style="padding-top:12px; padding-bottom:12px;">
     <div class="ad-wrap ad-468">
       <script>atOptions={'key':'4707bf1d7ec88584e4933d1fa9159f4b','format':'iframe','height':60,'width':468,'params':{}};</script>
@@ -505,26 +595,92 @@
     </div>
     <div class="ed-body">
       <div class="ed-hl">Save Yours Before It's Too Late</div>
-      <p class="lead">If the person sleeping right next to you died tonight, would your first core emotion be crushing grief — or a sudden, terrifying sense of relief? If that question made your stomach drop, you are already living in a psychological ghost town, and it's time to wake up.</p>
-      <p>Every single day, millions of people across the US and Europe walk into pristine, expensive therapy rooms, paying $250 an hour just to ask: <em>"How did we go from sharing everything to becoming absolute strangers sharing a mortgage?"</em></p>
-      <p>The brutal reality of the 21st century is that modern love is no longer a safe haven. It is a high-stakes psychological battlefield — and most people are quietly losing.</p>
 
+      <p class="lead">If the person sleeping right next to you died tonight, would your first core emotion be crushing grief — or a sudden, terrifying sense of relief? If that question made your stomach drop, you are already living in a psychological ghost town, and it's time to wake up.</p>
+
+      <!-- EXPANDED CONTENT (hidden until Read More click) -->
       <div id="moreContent" class="more-content">
+
+        <p>Every single day, millions of people across the US and Europe walk into pristine, expensive therapy rooms, paying $250 an hour just to ask: <em>"How did we go from sharing everything to becoming absolute strangers sharing a mortgage?"</em></p>
+        <p>The brutal reality of the 21st century is that modern love is no longer a safe haven. It is a high-stakes psychological battlefield — and most people are quietly losing.</p>
+
+        <!-- STATS BLOCK -->
         <div class="stats-blk">
+          <p><strong>The Cold, Hard Facts of Western Relationships</strong></p>
           <p><strong>The 50% Trap:</strong> Nearly 50% of all marriages in the United States end in divorce, with European nations like France and Germany trailing closely behind.</p>
-          <p><strong>The "Grey Divorce" Boom:</strong> Think your relationship is safe because you've been together for years? Divorce rates among people over 50 have doubled. Look at Bill and Melinda Gates or Jeff Bezos — if unlimited wealth, elite status, and 25+ years of shared history cannot stop a bond from rotting from the inside out, your relationship is not automatically safe either.</p>
+          <p><strong>The "Grey Divorce" Boom:</strong> Think your relationship is safe because you've been together for years? Divorce rates among people over 50 have doubled. Look at Bill and Melinda Gates or Jeff Bezos and MacKenzie — if unlimited wealth, elite status, and 25+ years of shared history cannot stop a bond from rotting from the inside out, your relationship is not automatically safe either.</p>
           <p><strong>The Loneliness Epidemic:</strong> A Pew Research Center report exposed a terrifying reality — millions of Westerners are trapped in toxic, emotionally dead relationships simply because they are terrified of aging alone and dying in an empty apartment.</p>
         </div>
-        <p>Pain is non-negotiable. You either choose the discipline of mastering relationship psychology today — or you choose the crushing, irreversible pain of regret tomorrow. But it does not have to be your story.</p>
-        <p>You can rewrite your future. Heal your bond. And finally experience the secure, passionate, lasting love you have always deserved — not the hollow version most people settle for.</p>
+
+        <div class="ed-sub-hl">How This 3-in-1 Master Blueprint Protects You</div>
+
+        <div class="stats-blk">
+          <p><strong>1. The Single &amp; Trapped — The Perfect Partner</strong></p>
+          <p><em>The Illusion:</em> Dating apps like Tinder and Bumble have infected your mind with the Paradox of Choice. You keep swiping, convinced a better option is one scroll away — while your prime years quietly disappear.</p>
+          <p><em>The Truth:</em> You are not always choosing. You are often being chosen by the wrong people for the wrong reasons. This book uses behavioral pattern recognition to help you develop an unshakeable emotional intelligence. Learn to decode red flags and identify narcissists or commitment-phobes within the first three dates. Stop being the prey. Start being the one who sees clearly.</p>
+        </div>
+
+        <div class="stats-blk">
+          <p><strong>2. The Roommate Syndrome — Relationships Maintenance</strong></p>
+          <p><em>The Illusion:</em> You think your relationship is healthy because you don't fight anymore.</p>
+          <p><em>The Truth:</em> Silence is the loudest sign of a dying relationship. When deep communication stops, emotional drifting begins — and with it, the slow, invisible death of everything you built together. This book teaches you how to reverse-engineer resentment, rebuild genuine emotional intimacy, and create the kind of unbreakable loyalty that most couples spend their entire lives searching for.</p>
+        </div>
+
+        <div class="stats-blk">
+          <p><strong>3. The Threat of Total Ruin — Marriage Help Guide</strong></p>
+          <p><em>The Illusion:</em> "If it doesn't work out, we can just split up."</p>
+          <p><em>The Truth:</em> In the West, a divorce is a financial and emotional bloodbath. It destroys your financial stability, drowns you in legal costs, drains your life savings, and tears your children in half.</p>
+          <p>Drawing directly from Dr. John Gottman's landmark research — the same science used by leading relationship therapists across the US and Europe — this guide reveals the exact behavioral warning signs that predict relationship breakdown years before it happens. Identify the poison early. Stop it before it stops you.</p>
+        </div>
+
+        <div class="ed-sub-hl">The Ultimate Truth</div>
+        <p>Pain is non-negotiable. You either choose the discipline of mastering relationship psychology today — or you choose the crushing, irreversible pain of regret tomorrow.</p>
+        <p>But it does not have to be your story. You can rewrite your future. Heal your bond. And finally experience the secure, passionate, lasting love you have always deserved — not the hollow version most people settle for.</p>
         <p><strong>Do not let your relationship become another quiet tragedy on a divorce statistic.</strong></p>
-      </div>
+
+        <!-- ── DISCOUNT TIMER SECTIONS ── -->
+        <div class="discount-sections-wrap">
+
+          <!-- 50% Single Books -->
+          <div class="disc-section single">
+            <div class="disc-eye">🏷 Author's Exclusive Gift</div>
+            <div class="disc-title">50% OFF — Single Books</div>
+            <div class="disc-timer-wrap" id="timerWrap1">
+              <div class="disc-timer-label">Your code reveals in</div>
+              <div class="disc-timer-value" id="timer1">03:00</div>
+              <div class="disc-timer-hint">Stay on this page…</div>
+            </div>
+            <div class="disc-code-wrap" id="code1">
+              <div class="disc-code-box">SINGLE50</div>
+              <div class="disc-code-note">✓ 50% OFF on any single book</div>
+              <button class="disc-code-copy" onclick="copyCode('SINGLE50', this)">Copy Code</button>
+            </div>
+          </div>
+
+          <!-- 70% Mega Bundle -->
+          <div class="disc-section bundle-disc">
+            <div class="disc-eye">🔥 Best Value Deal</div>
+            <div class="disc-title">70% OFF — Mega Bundle</div>
+            <div class="disc-timer-wrap" id="timerWrap2">
+              <div class="disc-timer-label">Your code reveals in</div>
+              <div class="disc-timer-value" id="timer2">03:00</div>
+              <div class="disc-timer-hint">Stay on this page…</div>
+            </div>
+            <div class="disc-code-wrap" id="code2">
+              <div class="disc-code-box">BUNDLE70</div>
+              <div class="disc-code-note">✓ 70% OFF on the Complete Bundle</div>
+              <button class="disc-code-copy" onclick="copyCode('BUNDLE70', this)">Copy Code</button>
+            </div>
+          </div>
+
+        </div><!-- /discount-sections-wrap -->
+      </div><!-- /moreContent -->
 
       <button class="btn-more" id="moreBtn" onclick="toggleMore()">Read More ↓</button>
     </div>
   </div>
 
-  <!-- AD 3 (300×250) — below editorial -->
+  <!-- AD 3 (300×250) -->
   <div class="ad-row">
     <div class="ad-wrap ad-300">
       <script>atOptions={'key':'c82e7e10f5f797dd4c60337bfe675325','format':'iframe','height':250,'width':300,'params':{}};</script>
@@ -557,11 +713,119 @@
 </div>
 
 <script>
+  /* ══════════════════════════════════════════════
+     PERSISTENT COUNTDOWN TIMER
+     Uses localStorage so reload won't reset it.
+  ══════════════════════════════════════════════ */
+  var TIMER_KEY = 'xb_disc_timer_start';
+  var TIMER_DUR = 180; // 3 minutes in seconds
+  var _ti = null;      // setInterval handle
+
+  function _elapsed() {
+    var s = localStorage.getItem(TIMER_KEY);
+    if (!s) return null;
+    return Math.floor((Date.now() - parseInt(s, 10)) / 1000);
+  }
+
+  function _fmt(secs) {
+    var m = Math.floor(secs / 60);
+    var s = secs % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  function _revealCodes() {
+    if (_ti) { clearInterval(_ti); _ti = null; }
+
+    // Hide both timer sections
+    var w1 = document.getElementById('timerWrap1');
+    var w2 = document.getElementById('timerWrap2');
+    if (w1) w1.style.display = 'none';
+    if (w2) w2.style.display = 'none';
+
+    // Reveal code boxes (idempotent)
+    var c1 = document.getElementById('code1');
+    var c2 = document.getElementById('code2');
+    if (c1 && c1.style.display !== 'block') {
+      c1.style.display = 'block';
+      c1.classList.add('revealed');
+    }
+    if (c2 && c2.style.display !== 'block') {
+      c2.style.display = 'block';
+      c2.classList.add('revealed');
+    }
+  }
+
+  function _tick() {
+    var elapsed = _elapsed();
+    if (elapsed === null) return;
+    var rem = Math.max(0, TIMER_DUR - elapsed);
+    var t1 = document.getElementById('timer1');
+    var t2 = document.getElementById('timer2');
+    if (t1) t1.textContent = _fmt(rem);
+    if (t2) t2.textContent = _fmt(rem);
+    if (rem === 0) _revealCodes();
+  }
+
+  function _startTimer() {
+    // Begin the timer (only sets start time once)
+    if (!localStorage.getItem(TIMER_KEY)) {
+      localStorage.setItem(TIMER_KEY, String(Date.now()));
+    }
+    var elapsed = _elapsed();
+    if (elapsed >= TIMER_DUR) {
+      _revealCodes();
+      return;
+    }
+    _tick();
+    if (!_ti) _ti = setInterval(_tick, 1000);
+  }
+
+  // On every page load: if timer was already started, continue it
+  document.addEventListener('DOMContentLoaded', function () {
+    var elapsed = _elapsed();
+    if (elapsed === null) return; // Not started yet
+
+    if (elapsed >= TIMER_DUR) {
+      _revealCodes(); // Already expired — show codes immediately
+    } else {
+      _tick();
+      _ti = setInterval(_tick, 1000);
+    }
+  });
+
+  /* ══════════════════════════════════════════════
+     READ MORE TOGGLE
+  ══════════════════════════════════════════════ */
   function toggleMore() {
-    const c = document.getElementById('moreContent');
-    const b = document.getElementById('moreBtn');
+    var c = document.getElementById('moreContent');
+    var b = document.getElementById('moreBtn');
     c.classList.toggle('open');
     b.textContent = c.classList.contains('open') ? 'Read Less ↑' : 'Read More ↓';
+
+    // Start (or continue) the timer whenever content is expanded
+    if (c.classList.contains('open')) {
+      _startTimer();
+    }
+  }
+
+  /* ══════════════════════════════════════════════
+     COPY CODE HELPER
+  ══════════════════════════════════════════════ */
+  function copyCode(code, btn) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(function () {
+        btn.textContent = 'Copied ✓';
+        setTimeout(function () { btn.textContent = 'Copy Code'; }, 2000);
+      });
+    } else {
+      // Fallback for older browsers
+      var el = document.createElement('textarea');
+      el.value = code; document.body.appendChild(el);
+      el.select(); document.execCommand('copy');
+      document.body.removeChild(el);
+      btn.textContent = 'Copied ✓';
+      setTimeout(function () { btn.textContent = 'Copy Code'; }, 2000);
+    }
   }
 </script>
 
