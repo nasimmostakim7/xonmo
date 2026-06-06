@@ -41,7 +41,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -116,34 +115,35 @@
       background: var(--cream-dark); border: 1px dashed #C4A870;
       border-radius: 5px; overflow: hidden;
     }
-    .ad-leader { margin: 14px auto; max-width: 970px; height: 90px; width: 100%; }
+    .ad-leader { margin: 6px auto; max-width: 970px; height: 90px; width: 100%;
+                 background: transparent !important; border: none !important; }
     .ad-468    { margin: 0 auto; max-width: 468px; height: 60px; width: 100%; }
     .ad-300    { margin: 0 auto; width: 300px; height: 250px; }
 
     /* ── HERO ── */
     .hero {
-      text-align: center; padding: 32px 24px 28px;
+      text-align: center; padding: 16px 24px 10px;
       background: linear-gradient(180deg, rgba(107,26,42,.06) 0%, rgba(107,26,42,.01) 100%);
       border-bottom: 1px solid rgba(196,151,58,.2);
-      margin-bottom: 32px;
+      margin-bottom: 20px;
     }
     .hero-eye {
       font-family: 'Jost', sans-serif; font-size: 12.5px; font-weight: 700;
       letter-spacing: 1.5px; color: var(--gold);
-      margin: 0 auto 13px; line-height: 1.55;
+      margin: 0 auto 7px; line-height: 1.55;
       max-width: 640px;
     }
     .hero-h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(28px, 5vw, 50px); font-weight: 700;
-      color: var(--wine-dark); line-height: 1.1; margin-bottom: 10px;
+      color: var(--wine-dark); line-height: 1.1; margin-bottom: 4px;
     }
     .hero-h1 em { font-style: italic; color: var(--wine); }
     .hero-sub {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(15px, 2.2vw, 20px); color: var(--ink-mid); margin-bottom: 16px;
+      font-size: clamp(15px, 2.2vw, 20px); color: var(--ink-mid); margin-bottom: 6px;
     }
-    .ornament { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 12px auto; }
+    .ornament { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 4px auto; }
     .orn-l { height: 1px; width: 80px; background: linear-gradient(to right, transparent, var(--gold)); }
     .orn-r { height: 1px; width: 80px; background: linear-gradient(to left, transparent, var(--gold)); }
     .orn-g { color: var(--gold); font-size: 15px; }
@@ -156,7 +156,7 @@
     .sec-label {
       font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 700;
       letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
-      margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
     }
     .sec-label::after {
       content: ''; flex: 1; height: 1px;
@@ -166,7 +166,7 @@
     /* ── 3-BOOK GRID ── */
     .books-grid {
       display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 20px; margin-bottom: 20px;
+      gap: 12px; margin-bottom: 12px;
     }
 
     .book-card {
@@ -177,7 +177,7 @@
     .book-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); }
 
     .card-img {
-      height: 210px; background: var(--cream-mid);
+      height: 175px; background: var(--cream-mid);
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
     }
@@ -190,19 +190,19 @@
     }
     .book-card:hover .card-img img { transform: scale(1.04); }
 
-    .card-body { padding: 14px 16px 18px; }
+    .card-body { padding: 9px 14px 14px; }
 
     .card-name {
       font-family: 'Playfair Display', serif;
       font-style: italic; font-size: 12.5px; font-weight: 400;
-      color: var(--cognac); margin-bottom: 5px;
+      color: var(--cognac); margin-bottom: 4px;
     }
     .card-title {
       font-family: 'Playfair Display', serif;
       font-size: 16px; font-weight: 700;
-      color: var(--cognac); line-height: 1.28; margin-bottom: 11px;
+      color: var(--cognac); line-height: 1.28; margin-bottom: 9px;
     }
-    .card-stars { display: flex; align-items: center; gap: 7px; margin-bottom: 14px; }
+    .card-stars { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; }
     .stars { color: #F5A623; font-size: 12.5px; letter-spacing: 1.5px; }
     .star-ct { font-family: 'Jost', sans-serif; font-size: 11.5px; color: var(--ink-soft); }
 
@@ -227,7 +227,7 @@
       background: linear-gradient(125deg, var(--wine-dark) 0%, #58111E 45%, var(--wine) 100%);
       border: 1px solid rgba(196,151,58,.28);
       box-shadow: 0 8px 44px rgba(61,10,21,.26);
-      margin-bottom: 24px;
+      margin-bottom: 12px;
     }
     .bundle-img { position: relative; overflow: hidden; }
     .bundle-img img {
@@ -240,8 +240,8 @@
       background: linear-gradient(to right, transparent 55%, rgba(61,10,21,.55));
     }
     .bundle-body {
-      padding: 24px 32px; display: flex; flex-direction: column;
-      justify-content: center; gap: 10px;
+      padding: 16px 22px; display: flex; flex-direction: column;
+      justify-content: center; gap: 5px;
     }
     .bundle-eye {
       font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 700;
@@ -271,36 +271,16 @@
       transform: translateY(-2px); box-shadow: 0 6px 24px rgba(196,151,58,.38);
     }
 
-    /* ── DISCOUNT ROW ── */
-    .discount-row {
-      display: flex; align-items: center; justify-content: center;
-      padding: 18px 0 20px;
-    }
-    .btn-coupon {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 32px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-      color: var(--wine-dark); border: none; cursor: pointer;
-      font-family: 'Jost', sans-serif; font-size: 12.5px; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase;
-      border-radius: 8px; transition: all .22s;
-      box-shadow: 0 4px 20px rgba(196,151,58,.3);
-    }
-    .btn-coupon:hover {
-      transform: translateY(-2px); box-shadow: 0 7px 28px rgba(196,151,58,.42);
-      background: linear-gradient(135deg, var(--gold-light) 0%, #E8C468 100%);
-    }
-
     /* ── EDITORIAL ── */
     .editorial {
       background: var(--white); border-radius: var(--radius);
       border: 1px solid rgba(196,151,58,.15); border-left: 4px solid var(--wine);
-      padding: 16px 30px 22px; margin-bottom: 26px;
+      padding: 12px 22px 16px; margin-bottom: 14px;
       box-shadow: var(--shadow-card);
     }
     .ed-head {
       display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px; margin-bottom: 16px;
+      flex-wrap: wrap; gap: 10px; margin-bottom: 10px;
     }
     .ed-head-left { display: flex; align-items: center; gap: 11px; }
     .ed-bar {
@@ -326,15 +306,15 @@
     .ed-sub-hl {
       font-family: 'Playfair Display', serif; font-size: 17.5px;
       font-weight: 700; color: var(--wine-dark);
-      margin: 20px 0 10px; line-height: 1.3;
+      margin: 10px 0 5px; line-height: 1.3;
       border-bottom: 1px solid rgba(196,151,58,.25); padding-bottom: 6px;
     }
     .stats-blk {
       background: linear-gradient(135deg, var(--cream-mid), var(--cream-dark));
-      border-radius: 8px; padding: 15px 18px; margin: 13px 0;
+      border-radius: 8px; padding: 10px 14px; margin: 8px 0;
       border-left: 3px solid var(--gold);
     }
-    .stats-blk p { margin-bottom: 9px; font-size: 17px; }
+    .stats-blk p { margin-bottom: 6px; font-size: 17px; }
     .stats-blk p:last-child { margin-bottom: 0; }
     .more-content { display: none; }
     .more-content.open { display: block; }
@@ -351,11 +331,11 @@
     /* ── DISCOUNT TIMER SECTIONS ── */
     .discount-sections-wrap {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 14px; margin-top: 26px;
+      gap: 10px; margin-top: 12px;
     }
     .disc-section {
       background: linear-gradient(160deg, var(--cream-mid) 0%, var(--cream-dark) 100%);
-      border-radius: 11px; padding: 20px 16px 18px; text-align: center;
+      border-radius: 11px; padding: 12px 14px 12px; text-align: center;
       border: 1px solid rgba(196,151,58,.32);
       position: relative; overflow: hidden;
     }
@@ -375,7 +355,7 @@
     }
     .disc-title {
       font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;
-      color: var(--ink); margin-bottom: 14px; line-height: 1.3;
+      color: var(--ink); margin-bottom: 12px; line-height: 1.3;
     }
     .disc-timer-wrap {
       display: flex; flex-direction: column; align-items: center; gap: 4px;
@@ -419,7 +399,7 @@
     .disc-code-copy:hover { background: var(--wine); }
 
     /* ── AD ROWS ── */
-    .ad-row { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 6px 0 32px; }
+    .ad-row { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 4px 0 16px; }
 
     /* ── FOOTER ── */
     footer { background: var(--wine-dark); padding: 24px; text-align: center; }
@@ -458,21 +438,45 @@
     }
     .modal-note { font-family: 'Jost', sans-serif; font-size: 11px; color: var(--ink-soft); }
 
+    /* ── PARTIAL STARS ── */
+    .star-wrap { position: relative; display: inline-block; font-size: 12.5px; letter-spacing: 1.5px; line-height: 1; vertical-align: middle; }
+    .star-wrap .s-bg { color: #d4c0a4; }
+    .star-wrap .s-fill { position: absolute; left: 0; top: 0; overflow: hidden; white-space: nowrap; color: #F5A623; }
+
+    /* ── TOOLTIPS ── */
+    .has-tip { position: relative; cursor: default; }
+    .has-tip .tip {
+      visibility: hidden; opacity: 0;
+      background: var(--ink); color: #f5ede0;
+      font-family: 'Jost', sans-serif; font-size: 10px; line-height: 1.55;
+      padding: 7px 11px; border-radius: 5px;
+      position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+      width: max-content; max-width: 210px; white-space: normal; text-align: center;
+      z-index: 1000; pointer-events: none;
+      transition: opacity .2s ease;
+      box-shadow: 0 4px 14px rgba(0,0,0,.4);
+    }
+    .has-tip .tip::after {
+      content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      border: 5px solid transparent; border-top-color: var(--ink);
+    }
+    .has-tip:hover .tip { visibility: visible; opacity: 1; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
       .books-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
       .bundle-card { grid-template-columns: 1fr; }
       .bundle-img { aspect-ratio: 16/7; }
-      .bundle-body { padding: 20px 22px; }
+      .bundle-body { padding: 16px 18px; }
     }
     @media (max-width: 600px) {
-      .discount-sections-wrap { grid-template-columns: 1fr; gap: 12px; }
+      .discount-sections-wrap { grid-template-columns: 1fr; gap: 10px; }
       .disc-timer-value { font-size: 30px; }
     }
     @media (max-width: 560px) {
       .books-grid { grid-template-columns: 1fr; }
       .hd-name { font-size: 15px; letter-spacing: 2px; }
-      .editorial { padding: 14px 15px 18px; }
+      .editorial { padding: 12px 13px 14px; }
       .ed-head { flex-direction: column; align-items: flex-start; }
     }
   </style>
@@ -495,7 +499,7 @@
 <div class="page">
 
   <!-- AD 1 -->
-  <div class="ad-wrap ad-leader">
+  <div class="ad-leader">
     <script>atOptions={'key':'f31bcfe0ee80fa89b456a483874725dd','format':'iframe','height':90,'width':728,'params':{}};</script>
     <script src="https://www.highperformanceformat.com/f31bcfe0ee80fa89b456a483874725dd/invoke.js"></script>
   </div>
@@ -521,7 +525,10 @@
       <div class="card-body">
         <div class="card-name">Marriage Help Guide</div>
         <div class="card-title">Fix Your Marriage Before It's Too Late</div>
-        <div class="card-stars"><span class="stars">★★★★★</span><span class="star-ct">(542 reviews)</span></div>
+        <div class="card-stars">
+          <div class="star-wrap"><span class="s-fill" style="width:92%">★★★★★</span><span class="s-bg">★★★★★</span></div>
+          <span class="star-ct">4.6 (542 reviews)</span>
+        </div>
         <a href="https://buy.polar.sh/polar_cl_ru3uLP3mpTpHz2GQxDuAyEHAvH2X1Td0lZpIW1JeQJh" class="btn-buy" target="_blank" rel="noopener noreferrer">Buy Now — $9.99</a>
       </div>
     </div>
@@ -534,7 +541,10 @@
       <div class="card-body">
         <div class="card-name">The Perfect Partner</div>
         <div class="card-title">The Partner You Deserve</div>
-        <div class="card-stars"><span class="stars">★★★★★</span><span class="star-ct">(1.2k reviews)</span></div>
+        <div class="card-stars">
+          <div class="star-wrap"><span class="s-fill" style="width:96%">★★★★★</span><span class="s-bg">★★★★★</span></div>
+          <span class="star-ct">4.8 (1.2k reviews)</span>
+        </div>
         <a href="https://buy.polar.sh/polar_cl_2XQ7nEjTqq5hQ6Xhk87xAh4dFo1t7A8V4eiEu35bFpR" class="btn-buy" target="_blank" rel="noopener noreferrer">Buy Now — $9.99</a>
       </div>
     </div>
@@ -547,7 +557,10 @@
       <div class="card-body">
         <div class="card-name">Relationships Maintenance</div>
         <div class="card-title">Keep the Love Alive</div>
-        <div class="card-stars"><span class="stars">★★★★★</span><span class="star-ct">(852 reviews)</span></div>
+        <div class="card-stars">
+          <div class="star-wrap"><span class="s-fill" style="width:94%">★★★★★</span><span class="s-bg">★★★★★</span></div>
+          <span class="star-ct">4.7 (852 reviews)</span>
+        </div>
         <a href="https://buy.polar.sh/polar_cl_rZJPAtwcLlUN1LWBnrcjzMEYJRfCTuZWZc52K3gnzGS" class="btn-buy" target="_blank" rel="noopener noreferrer">Buy Now — $9.99</a>
       </div>
     </div>
@@ -564,24 +577,20 @@
       <div class="bundle-title">Love, Partner &amp; Marriage —<br>The Full Guide</div>
       <div class="bundle-sub">The Complete Relationship Bundle</div>
       <div class="bundle-inc">Books 1 · 2 · 3 in one complete package</div>
-      <div class="bundle-stars"><span class="stars">★★★★★</span><span class="star-ct">(797 reviews)</span></div>
+      <div class="bundle-stars">
+        <div class="star-wrap" style="font-size:14px;letter-spacing:2px;"><span class="s-fill" style="width:98%">★★★★★</span><span class="s-bg">★★★★★</span></div>
+        <span class="star-ct">4.9 (797 reviews)</span>
+      </div>
       <a href="https://buy.polar.sh/polar_cl_YsK6bbcBaH3tetwuSNmpQwz9CIo1Kp2NP0Fgj2Njr3u" class="btn-bundle" target="_blank" rel="noopener noreferrer">🔥 Get the Bundle — $29.99</a>
     </div>
   </div>
 
   <!-- AD 2 (468×60) -->
-  <div class="ad-row" style="padding-top:12px; padding-bottom:12px;">
+  <div class="ad-row" style="padding-top:8px; padding-bottom:8px;">
     <div class="ad-wrap ad-468">
       <script>atOptions={'key':'4707bf1d7ec88584e4933d1fa9159f4b','format':'iframe','height':60,'width':468,'params':{}};</script>
       <script src="https://www.highperformanceformat.com/4707bf1d7ec88584e4933d1fa9159f4b/invoke.js"></script>
     </div>
-  </div>
-
-  <!-- GET DISCOUNT CODE -->
-  <div class="discount-row fu d1">
-    <button class="btn-coupon" onclick="document.getElementById('couponModal').classList.add('open')">
-      🏷&nbsp; Get Discount Code
-    </button>
   </div>
 
   <!-- EDITORIAL -->
@@ -598,13 +607,11 @@
 
       <p class="lead">If the person sleeping right next to you died tonight, would your first core emotion be crushing grief — or a sudden, terrifying sense of relief? If that question made your stomach drop, you are already living in a psychological ghost town, and it's time to wake up.</p>
 
-      <!-- EXPANDED CONTENT (hidden until Read More click) -->
       <div id="moreContent" class="more-content">
 
         <p>Every single day, millions of people across the US and Europe walk into pristine, expensive therapy rooms, paying $250 an hour just to ask: <em>"How did we go from sharing everything to becoming absolute strangers sharing a mortgage?"</em></p>
         <p>The brutal reality of the 21st century is that modern love is no longer a safe haven. It is a high-stakes psychological battlefield — and most people are quietly losing.</p>
 
-        <!-- STATS BLOCK -->
         <div class="stats-blk">
           <p><strong>The Cold, Hard Facts of Western Relationships</strong></p>
           <p><strong>The 50% Trap:</strong> Nearly 50% of all marriages in the United States end in divorce, with European nations like France and Germany trailing closely behind.</p>
@@ -638,10 +645,9 @@
         <p>But it does not have to be your story. You can rewrite your future. Heal your bond. And finally experience the secure, passionate, lasting love you have always deserved — not the hollow version most people settle for.</p>
         <p><strong>Do not let your relationship become another quiet tragedy on a divorce statistic.</strong></p>
 
-        <!-- ── DISCOUNT TIMER SECTIONS ── -->
+        <!-- DISCOUNT TIMER SECTIONS -->
         <div class="discount-sections-wrap">
 
-          <!-- 50% Single Books -->
           <div class="disc-section single">
             <div class="disc-eye">🏷 Author's Exclusive Gift</div>
             <div class="disc-title">50% OFF — Single Books</div>
@@ -653,11 +659,10 @@
             <div class="disc-code-wrap" id="code1">
               <div class="disc-code-box">R29SSP27</div>
               <div class="disc-code-note">✓ 50% OFF on any single book</div>
-              <button class="disc-code-copy" onclick="copyCode('SINGLE50', this)">Copy Code</button>
+              <button class="disc-code-copy" onclick="copyCode('R29SSP27', this)">Copy Code</button>
             </div>
           </div>
 
-          <!-- 70% Mega Bundle -->
           <div class="disc-section bundle-disc">
             <div class="disc-eye">🔥 Best Value Deal</div>
             <div class="disc-title">70% OFF — Mega Bundle</div>
@@ -669,11 +674,11 @@
             <div class="disc-code-wrap" id="code2">
               <div class="disc-code-box">FRABWI4Z</div>
               <div class="disc-code-note">✓ 70% OFF on the Complete Bundle</div>
-              <button class="disc-code-copy" onclick="copyCode('BUNDLE70', this)">Copy Code</button>
+              <button class="disc-code-copy" onclick="copyCode('FRABWI4Z', this)">Copy Code</button>
             </div>
           </div>
 
-        </div><!-- /discount-sections-wrap -->
+        </div>
       </div><!-- /moreContent -->
 
       <button class="btn-more" id="moreBtn" onclick="toggleMore()">Read More ↓</button>
@@ -695,9 +700,9 @@
   <div class="ft-name">XONOMO BOOKS</div>
   <div class="ft-links">
     © 2025 All Rights Reserved
-    <a href="#">Privacy Policy</a>
-    <a href="#">Terms of Service</a>
-    <a href="#">Contact</a>
+    <a href="#" class="has-tip">Privacy Policy<span class="tip">We collect your name and email solely to process your order. We never sell or share your personal data with third parties. All information is securely stored and used only for order fulfillment.</span></a>
+    <a href="#" class="has-tip">Terms of Service<span class="tip">By purchasing, you agree to our terms. All digital product sales are final. Products are for personal, non-commercial use only. We reserve the right to update these terms without prior notice.</span></a>
+    <a href="#" class="has-tip">Contact<span class="tip">+16093577974</span></a>
   </div>
 </footer>
 
@@ -713,13 +718,9 @@
 </div>
 
 <script>
-  /* ══════════════════════════════════════════════
-     PERSISTENT COUNTDOWN TIMER
-     Uses localStorage so reload won't reset it.
-  ══════════════════════════════════════════════ */
   var TIMER_KEY = 'xb_disc_timer_start';
-  var TIMER_DUR = 180; // 3 minutes in seconds
-  var _ti = null;      // setInterval handle
+  var TIMER_DUR = 180;
+  var _ti = null;
 
   function _elapsed() {
     var s = localStorage.getItem(TIMER_KEY);
@@ -735,14 +736,10 @@
 
   function _revealCodes() {
     if (_ti) { clearInterval(_ti); _ti = null; }
-
-    // Hide both timer sections
     var w1 = document.getElementById('timerWrap1');
     var w2 = document.getElementById('timerWrap2');
     if (w1) w1.style.display = 'none';
     if (w2) w2.style.display = 'none';
-
-    // Reveal code boxes (idempotent)
     var c1 = document.getElementById('code1');
     var c2 = document.getElementById('code2');
     if (c1 && c1.style.display !== 'block') {
@@ -767,7 +764,6 @@
   }
 
   function _startTimer() {
-    // Begin the timer (only sets start time once)
     if (!localStorage.getItem(TIMER_KEY)) {
       localStorage.setItem(TIMER_KEY, String(Date.now()));
     }
@@ -780,37 +776,27 @@
     if (!_ti) _ti = setInterval(_tick, 1000);
   }
 
-  // On every page load: if timer was already started, continue it
   document.addEventListener('DOMContentLoaded', function () {
     var elapsed = _elapsed();
-    if (elapsed === null) return; // Not started yet
-
+    if (elapsed === null) return;
     if (elapsed >= TIMER_DUR) {
-      _revealCodes(); // Already expired — show codes immediately
+      _revealCodes();
     } else {
       _tick();
       _ti = setInterval(_tick, 1000);
     }
   });
 
-  /* ══════════════════════════════════════════════
-     READ MORE TOGGLE
-  ══════════════════════════════════════════════ */
   function toggleMore() {
     var c = document.getElementById('moreContent');
     var b = document.getElementById('moreBtn');
     c.classList.toggle('open');
     b.textContent = c.classList.contains('open') ? 'Read Less ↑' : 'Read More ↓';
-
-    // Start (or continue) the timer whenever content is expanded
     if (c.classList.contains('open')) {
       _startTimer();
     }
   }
 
-  /* ══════════════════════════════════════════════
-     COPY CODE HELPER
-  ══════════════════════════════════════════════ */
   function copyCode(code, btn) {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(code).then(function () {
@@ -818,7 +804,6 @@
         setTimeout(function () { btn.textContent = 'Copy Code'; }, 2000);
       });
     } else {
-      // Fallback for older browsers
       var el = document.createElement('textarea');
       el.value = code; document.body.appendChild(el);
       el.select(); document.execCommand('copy');
