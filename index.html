@@ -1,3111 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>XONOMO.SITE | Premium Utility Hub</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XONOMO BOOKS — Relationship & Marriage Guides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ══════════════════════════════════════
-       ROOT & RESET
-    ══════════════════════════════════════ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
     :root {
-      --bg:        #080c18;
-      --bg2:       #0d1220;
-      --glass:     rgba(16, 24, 46, 0.78);
-      --glass2:    rgba(12, 18, 36, 0.9);
-      --border:    rgba(255,255,255,0.08);
-      --border2:   rgba(99,102,241,0.35);
-      --ind:       #6366f1;
-      --ind2:      #818cf8;
-      --pur:       #a855f7;
-      --cyn:       #22d3ee;
-      --grn:       #10b981;
-      --amb:       #f59e0b;
-      --ros:       #f43f5e;
-      --txt:       #f1f5f9;
-      --sub:       #94a3b8;
-      --dim:       #475569;
-      --r:         22px;
-      --ri:        12px;
-      --blur:      blur(28px);
-      --t:         0.3s cubic-bezier(0.4,0,0.2,1);
+      --wine:         #6B1A2A;
+      --wine-dark:    #3D0A15;
+      --wine-mid:     #541520;
+      --cream:        #FDF6ED;
+      --cream-mid:    #F7EDDC;
+      --cream-dark:   #EFE0C8;
+      --gold:         #C4973A;
+      --gold-light:   #D8AC52;
+      --gold-pale:    #F0D898;
+      --cognac:       #8B3A18;
+      --ink:          #1A080D;
+      --ink-mid:      #4A2530;
+      --ink-soft:     #7A5560;
+      --green:        #1F6B31;
+      --green-hover:  #175525;
+      --white:        #FFFFFF;
+      --shadow-card:  0 3px 22px rgba(61,10,21,0.09);
+      --shadow-lift:  0 14px 44px rgba(61,10,21,0.19);
+      --radius:       11px;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--txt);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    a { text-decoration: none; }
-    button { font-family: inherit; }
-
-    /* ══════════════════════════════════════
-       ANIMATED BG
-    ══════════════════════════════════════ */
-    #scene {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-    }
-    .orb {
-      position: absolute; border-radius: 50%;
-      filter: blur(80px); opacity: 0.45;
-      animation: orbFloat 22s ease-in-out infinite alternate;
-    }
-    .orb1 { width: 52vw; height: 52vw; top: -18%; left: -12%;
-      background: radial-gradient(circle, #3730a3 0%, transparent 70%);
-      animation-duration: 20s; }
-    .orb2 { width: 46vw; height: 46vw; bottom: -15%; right: -10%;
-      background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
-      animation-duration: 26s; animation-direction: alternate-reverse; }
-    .orb3 { width: 32vw; height: 32vw; top: 35%; left: 50%;
-      background: radial-gradient(circle, #0891b2 0%, transparent 70%);
-      animation-duration: 18s; opacity: 0.25; }
-    @keyframes orbFloat {
-      from { transform: translate(0,0) scale(1); }
-      to   { transform: translate(4vw, 5vh) scale(1.12); }
+      background: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--ink);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* subtle grid overlay */
-    #scene::after {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(99,102,241,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(99,102,241,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    /* ══════════════════════════════════════
-       LAYOUT WRAPPER
-    ══════════════════════════════════════ */
-    .wrap { position: relative; z-index: 1; }
-
-    /* ══════════════════════════════════════
-       HOME PAGE
-    ══════════════════════════════════════ */
-    #home {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
-    }
-
-    /* HEADER */
-    .site-header {
-      text-align: center;
-      padding: 18px 0 10px;
-    }
-    .header-kicker {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--ind); background: rgba(99,102,241,0.1);
-      border: 1px solid rgba(99,102,241,0.25); border-radius: 30px;
-      padding: 5px 14px; margin-bottom: 22px;
-    }
-    .header-kicker::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--ind); animation: pkPulse 2s infinite;
-    }
-    @keyframes pkPulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.5); }
-      50%      { box-shadow: 0 0 0 5px transparent; }
-    }
-    .site-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(3rem, 8vw, 5.5rem);
-      font-weight: 800; letter-spacing: -0.04em; line-height: 1;
-      margin-bottom: 18px;
-    }
-    .site-title .t1 {
-      background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 30%, #c084fc 65%, #f0abfc 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .site-title .t2 { color: rgba(255,255,255,0.18); }
-    .site-tagline {
-      font-size: 1rem; color: var(--sub); max-width: 420px;
-      margin: 0 auto 0; line-height: 1.7;
-    }
-
-    /* CARD GRID */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 18px;
-      margin-top: 12px;
-    }
-
-    /* HOME CARD */
-    .hcard {
-      background: var(--glass);
-      backdrop-filter: var(--blur);
-      -webkit-backdrop-filter: var(--blur);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 18px 20px;
-      height: 125px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      cursor: pointer;
-      transition: var(--t);
-      position: relative;
-      overflow: hidden;
-      user-select: none;
-    }
-    .hcard::before {
-      content: ''; position: absolute;
-      inset: 0; border-radius: inherit;
-      background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    /* Accent bar on left */
-    .hcard::after {
-      content: ''; position: absolute;
-      left: 0; top: 20%; bottom: 20%;
-      width: 3px; border-radius: 0 3px 3px 0;
-      background: linear-gradient(180deg, var(--card-color,#6366f1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .hcard:hover {
-      transform: translateY(-6px);
-      border-color: var(--border2);
-      box-shadow: 0 24px 56px rgba(0,0,0,0.45), 0 0 0 1px rgba(99,102,241,0.1);
-    }
-    .hcard:hover::after { opacity: 1; }
-    .hcard:active { transform: translateY(-2px); }
-
-    .hcard-icon {
-      width: 52px; height: 52px;
-      border-radius: 16px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.45rem;
-      margin-bottom: 20px;
-      position: relative;
-    }
-    .hcard-icon.c1 { background: linear-gradient(135deg,#4338ca,#6366f1); --card-color:#6366f1; }
-    .hcard-icon.c2 { background: linear-gradient(135deg,#0e7490,#22d3ee); --card-color:#22d3ee; }
-    .hcard-icon.c3 { background: linear-gradient(135deg,#065f46,#10b981); --card-color:#10b981; }
-    .hcard-icon.c4 { background: linear-gradient(135deg,#9d174d,#f43f5e); --card-color:#f43f5e; }
-    .hcard-icon.c5 { background: linear-gradient(135deg,#78350f,#f59e0b); --card-color:#f59e0b; }
-    .hcard-icon.c6 { background: linear-gradient(135deg,#1e1b4b,#4f46e5); --card-color:#818cf8; }
-
-    .hcard[data-color="ind"]  { --card-color: #6366f1; }
-    .hcard[data-color="cyn"]  { --card-color: #22d3ee; }
-    .hcard[data-color="grn"]  { --card-color: #10b981; }
-    .hcard[data-color="ros"]  { --card-color: #f43f5e; }
-    .hcard[data-color="amb"]  { --card-color: #f59e0b; }
-
-    .hcard-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      border-radius: 20px; padding: 3px 9px; margin-bottom: 14px;
-    }
-    .hcard-badge.live {
-      color: var(--grn); background: rgba(16,185,129,0.1);
-      border: 1px solid rgba(16,185,129,0.22);
-    }
-    .hcard-badge.live::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--grn); animation: pkPulse 2s infinite;
-    }
-    .hcard-badge.soon {
-      color: var(--amb); background: rgba(245,158,11,0.1);
-      border: 1px solid rgba(245,158,11,0.2);
-    }
-
-    .hcard-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; color: var(--txt);
-    }
-    .hcard-desc { display: none; }
-
-    .hcard.locked { opacity: 0.45; cursor: not-allowed; }
-    .hcard.locked:hover { transform: none; border-color: var(--border); box-shadow: none; }
-
-    /* ══════════════════════════════════════
-       TOOL PANEL (FULL SCREEN OVERLAY)
-    ══════════════════════════════════════ */
-    .panel {
-      display: none;
-      position: fixed; inset: 0;
-      background: var(--bg);
-      z-index: 999;
-      overflow-y: auto;
-      padding: 32px 20px 60px;
-      animation: panelIn 0.35s cubic-bezier(0.4,0,0.2,1) both;
-    }
-    .panel.active { display: block; }
-    @keyframes panelIn {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .panel-inner {
-      max-width: 720px;
-      margin: 0 auto;
-    }
-
-    /* Back button */
-    .back-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--sub); border-radius: 10px;
-      padding: 9px 16px; font-size: 0.85rem; font-weight: 600;
-      cursor: pointer; transition: var(--t);
-      margin-bottom: 0;
-    }
-    .back-btn:hover { background: rgba(255,255,255,0.09); color: var(--txt); border-color: var(--ind); }
-
-    /* Panel Card */
-    .pcard {
-      background: var(--glass);
-      backdrop-filter: var(--blur);
-      -webkit-backdrop-filter: var(--blur);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 22px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-    .pcard::before {
-      content: ''; position: absolute; inset: 0; border-radius: inherit;
-      background: linear-gradient(140deg, rgba(255,255,255,0.03) 0%, transparent 55%);
-      pointer-events: none;
-    }
-
-    /* Panel Header */
-    .phead {
-      display: flex; align-items: flex-start; gap: 14px;
-      margin-bottom: 18px; padding-bottom: 16px;
-      border-bottom: 1px solid var(--border);
-    }
-    .phead-icon {
-      width: 50px; height: 50px; border-radius: 15px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem; flex-shrink: 0;
-    }
-    .phead-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.35rem; font-weight: 700; line-height: 1.2;
-    }
-    .phead-sub { display: none; }
-
-    /* Live indicator in panel */
-    .panel-live {
-      margin-left: auto; flex-shrink: 0;
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 0.63rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--grn); background: rgba(16,185,129,0.1);
-      border: 1px solid rgba(16,185,129,0.22); border-radius: 20px;
-      padding: 3px 9px;
-    }
-    .panel-live::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--grn); animation: pkPulse 2s infinite;
-    }
-    .panel-live.err { color: var(--ros); background: rgba(244,63,94,0.1); border-color: rgba(244,63,94,0.22); }
-    .panel-live.err::before { background: var(--ros); animation: none; }
-
-    /* ══════════════════════════════════════
-       FORM ELEMENTS
-    ══════════════════════════════════════ */
-    .field { margin-bottom: 16px; }
-    .lbl {
-      display: block; font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.07em; text-transform: uppercase;
-      color: var(--sub); margin-bottom: 7px;
-    }
-    input[type=number], input[type=url], input[type=text] {
-      width: 100%;
-      background: rgba(8,12,28,0.7);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: var(--ri);
-      color: var(--txt); padding: 13px 15px;
-      font-family: inherit; font-size: 0.93rem;
-      transition: var(--t); outline: none;
-    }
-    input:focus {
-      border-color: var(--ind);
-      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
-      background: rgba(8,12,28,0.95);
-    }
-    input::placeholder { color: var(--dim); }
-
-    /* Grid for 2-col inputs */
-    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .row3 { display: grid; grid-template-columns: 160px 1fr; gap: 12px; }
-
-    /* ══════════════════════════════════════
-       SELECT2 DARK THEME
-    ══════════════════════════════════════ */
-    .select2-container { width: 100% !important; }
-    .select2-container--default .select2-selection--single {
-      background: rgba(8,12,28,0.7) !important;
-      border: 1px solid rgba(255,255,255,0.1) !important;
-      border-radius: var(--ri) !important;
-      height: 48px !important;
-      display: flex; align-items: center;
-      transition: var(--t);
-    }
-    .select2-container--default.select2-container--focus .select2-selection--single,
-    .select2-container--default.select2-container--open .select2-selection--single {
-      border-color: var(--ind) !important;
-      box-shadow: 0 0 0 3px rgba(99,102,241,0.15) !important;
-      outline: none !important;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-      color: var(--txt) !important; padding-left: 14px !important;
-      line-height: 48px !important; font-family: 'DM Sans', sans-serif !important;
-      font-size: 0.9rem;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__placeholder { color: var(--dim) !important; }
-    .select2-container--default .select2-selection--single .select2-selection__arrow { height: 46px !important; right: 10px !important; }
-    .select2-container--default .select2-selection--single .select2-selection__arrow b {
-      border-color: var(--sub) transparent transparent transparent !important;
-    }
-    .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
-      border-color: transparent transparent var(--ind) transparent !important;
-    }
-    .select2-dropdown {
-      background: rgba(8,12,28,0.98) !important;
-      border: 1px solid rgba(99,102,241,0.3) !important;
-      border-radius: 16px !important;
-      backdrop-filter: blur(24px);
-      box-shadow: 0 24px 56px rgba(0,0,0,0.6) !important;
-      overflow: hidden;
-    }
-    .select2-container--default .select2-search--dropdown .select2-search__field {
-      background: rgba(20,28,52,0.95) !important;
-      border: 1px solid rgba(255,255,255,0.1) !important;
-      border-radius: 10px !important; color: var(--txt) !important;
-      font-family: 'DM Sans', sans-serif; padding: 9px 12px;
-      margin: 8px; width: calc(100% - 16px); outline: none;
-    }
-    .select2-container--default .select2-search--dropdown .select2-search__field:focus {
-      border-color: var(--ind) !important;
-    }
-    .select2-container--default .select2-results__option {
-      color: var(--sub) !important; font-family: 'DM Sans', sans-serif;
-      font-size: 0.87rem; padding: 10px 15px !important;
-    }
-    .select2-container--default .select2-results__option--highlighted {
-      background: rgba(99,102,241,0.2) !important; color: var(--txt) !important;
-    }
-    .select2-container--default .select2-results__option[aria-selected=true] {
-      background: rgba(99,102,241,0.3) !important; color: #a5b4fc !important;
-    }
-    .select2-results__options { max-height: 240px; }
-
-    /* ══════════════════════════════════════
-       TABS (crypto mode)
-    ══════════════════════════════════════ */
-    .tabs {
-      display: flex; gap: 4px;
-      background: rgba(8,12,28,0.6);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 14px; padding: 4px;
-      margin-bottom: 0;
-    }
-    .tab-btn {
-      flex: 1; padding: 9px 6px; border-radius: 10px;
-      border: none; background: transparent;
-      color: var(--dim); font-family: inherit;
-      font-size: 0.77rem; font-weight: 600;
-      cursor: pointer; transition: var(--t); letter-spacing: 0.02em;
-    }
-    .tab-btn.on {
-      background: linear-gradient(135deg,#0e7490,#22d3ee);
-      color: #fff; box-shadow: 0 4px 14px rgba(34,211,238,0.25);
-    }
-    .tab-btn:hover:not(.on) { color: var(--sub); background: rgba(255,255,255,0.04); }
-
-    /* ══════════════════════════════════════
-       SWAP BUTTON
-    ══════════════════════════════════════ */
-    .swap-row {
-      display: flex; align-items: center;
-      justify-content: center; margin: 8px 0;
-    }
-    .swap-btn {
-      width: 38px; height: 38px; border-radius: 50%;
-      background: rgba(99,102,241,0.1);
-      border: 1px solid rgba(99,102,241,0.3);
-      color: var(--ind); cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.9rem; transition: var(--t);
-    }
-    .swap-btn:hover { background: rgba(99,102,241,0.25); transform: rotate(180deg); }
-
-    /* ══════════════════════════════════════
-       ACTION BUTTONS
-    ══════════════════════════════════════ */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      border: none; border-radius: var(--ri);
-      font-family: inherit; font-size: 0.88rem; font-weight: 700;
-      padding: 14px 22px; cursor: pointer;
-      transition: var(--t); width: 100%; margin-top: 20px;
-      letter-spacing: 0.02em;
-    }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; filter: none !important; }
-    .btn-ind {
-      background: linear-gradient(135deg, #4338ca, #6366f1, #818cf8);
-      color: #fff; box-shadow: 0 4px 20px rgba(99,102,241,0.3);
-    }
-    .btn-ind:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99,102,241,0.45); filter: brightness(1.08); }
-    .btn-cyn {
-      background: linear-gradient(135deg, #0e7490, #06b6d4, #22d3ee);
-      color: #fff; box-shadow: 0 4px 20px rgba(34,211,238,0.2);
-    }
-    .btn-cyn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(34,211,238,0.38); }
-    .btn-grn {
-      background: linear-gradient(135deg, #065f46, #059669, #10b981);
-      color: #fff; box-shadow: 0 4px 20px rgba(16,185,129,0.22);
-    }
-    .btn-grn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(16,185,129,0.4); }
-    .btn-ros {
-      background: linear-gradient(135deg, #9f1239, #e11d48, #f43f5e);
-      color: #fff; box-shadow: 0 4px 20px rgba(244,63,94,0.22);
-    }
-    .btn-ros:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(244,63,94,0.38); }
-
-    /* ══════════════════════════════════════
-       RESULT BOXES
-    ══════════════════════════════════════ */
-    .result {
-      display: none;
-      background: rgba(6,10,22,0.7);
-      border: 1px solid rgba(99,102,241,0.2);
-      border-radius: 16px; padding: 22px 20px;
-      margin-top: 18px;
-      animation: fadeUp 0.3s ease both;
-    }
-    .result.show { display: block; }
+    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .result-main {
-      font-family: 'Space Mono', monospace;
-      font-size: 1.7rem; font-weight: 700;
-      color: var(--cyn); word-break: break-all; line-height: 1.2;
-    }
-    .result-sub { font-size: 0.8rem; color: var(--sub); margin-top: 6px; }
-    .result-rate { font-family: 'Space Mono', monospace; font-size: 0.76rem; color: var(--dim); margin-top: 4px; }
+    @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.93); } to { opacity: 1; transform: scale(1); } }
 
-    /* ══════════════════════════════════════
-       ANONYMITY CHECKER
-    ══════════════════════════════════════ */
-    .anon-hero {
-      display: flex; flex-direction: column; align-items: center;
-      padding: 32px 20px 24px; text-align: center;
-    }
-    .gauge-wrap {
-      position: relative; width: 180px; height: 180px; margin-bottom: 18px;
-    }
-    .gauge-svg { width: 180px; height: 180px; transform: rotate(-90deg); }
-    .gauge-bg { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 12; }
-    .gauge-fill {
-      fill: none; stroke-width: 12; stroke-linecap: round;
-      stroke-dasharray: 502; stroke-dashoffset: 502;
-      transition: stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1), stroke 0.5s;
-    }
-    .gauge-score {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-    }
-    .gauge-number {
-      font-family: 'Syne', sans-serif; font-size: 2.6rem; font-weight: 800; line-height: 1;
-      background: linear-gradient(135deg,#818cf8,#c084fc);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .gauge-label { font-size: 0.68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--sub); margin-top: 3px; }
-    .anon-status-badge {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 6px 18px; border-radius: 30px; font-size: 0.78rem; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px;
-      border: 1px solid;
-    }
-    .badge-safe   { background: rgba(16,185,129,0.12); color: #10b981; border-color: rgba(16,185,129,0.3); }
-    .badge-warn   { background: rgba(245,158,11,0.12); color: #f59e0b; border-color: rgba(245,158,11,0.3); }
-    .badge-danger { background: rgba(244,63,94,0.12);  color: #f43f5e; border-color: rgba(244,63,94,0.3); }
-    .anon-subtitle { font-size: 0.82rem; color: var(--sub); }
+    .fu  { animation: fadeUp 0.6s cubic-bezier(.22,.68,0,1.2) both; }
+    .d1  { animation-delay: .05s; }
+    .d2  { animation-delay: .13s; }
+    .d3  { animation-delay: .21s; }
+    .d4  { animation-delay: .29s; }
+    .d5  { animation-delay: .37s; }
+    .d6  { animation-delay: .45s; }
 
-    .anon-checks {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 10px; margin: 16px 0;
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 200;
+      height: 58px;
+      background: linear-gradient(105deg, var(--wine-dark) 0%, #571020 42%, var(--wine) 100%);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
+      box-shadow: 0 2px 22px rgba(61,10,21,0.42);
     }
-    @media(max-width: 480px) { .anon-checks { grid-template-columns: 1fr; } }
-    .check-item {
-      background: rgba(12,18,36,0.7); border: 1px solid var(--border);
-      border-radius: 14px; padding: 14px 16px;
-      display: flex; align-items: flex-start; gap: 12px;
-      transition: border-color 0.3s;
+    .hd-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .hd-emblem {
+      width: 36px; height: 36px; border-radius: 7px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 15px; font-weight: 900; color: var(--wine-dark);
+      flex-shrink: 0;
     }
-    .check-item.pass  { border-color: rgba(16,185,129,0.25); }
-    .check-item.fail  { border-color: rgba(244,63,94,0.35); }
-    .check-item.warn  { border-color: rgba(245,158,11,0.3); }
-    .check-icon {
-      width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    .hd-label {
+      font-family: 'Jost', sans-serif; font-size: 9.5px;
+      font-weight: 300; letter-spacing: 3.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); line-height: 1;
     }
-    .check-item.pass .check-icon { background: rgba(16,185,129,0.15); }
-    .check-item.fail .check-icon { background: rgba(244,63,94,0.15); }
-    .check-item.warn .check-icon { background: rgba(245,158,11,0.15); }
-    .check-body { flex: 1; min-width: 0; }
-    .check-name { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--sub); margin-bottom: 3px; }
-    .check-val  { font-size: 0.88rem; font-weight: 600; color: var(--txt); word-break: break-word; line-height: 1.4; }
-    .check-val.mismatch { color: #f43f5e; }
-    .check-deduct { font-size: 0.7rem; color: var(--sub); margin-top: 2px; }
-    .check-deduct.red { color: #f43f5e; font-weight: 600; }
-    .check-deduct.grn { color: #10b981; font-weight: 600; }
-
-    .anon-details {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
-      gap: 10px; margin-top: 10px;
+    .hd-name {
+      font-family: 'Playfair Display', serif; font-size: 19px;
+      font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--white);
+      position: absolute; left: 50%; transform: translateX(-50%);
     }
-    .adet {
-      background: rgba(12,18,36,0.7); border: 1px solid var(--border);
-      border-radius: 13px; padding: 12px 14px;
-    }
-    .adet-k { font-size: 0.65rem; color: var(--dim); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
-    .adet-v { font-size: 0.85rem; font-weight: 600; word-break: break-all; color: var(--txt); }
-    .adet-v.highlight { color: var(--cyn); font-family: 'Space Mono', monospace; font-size: 0.8rem; }
-    .adet-v.warn-val { color: #f59e0b; }
-
-    .anon-section-title {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
-      color: var(--ind2); margin: 20px 0 10px; display: flex; align-items: center; gap: 8px;
-    }
-    .anon-section-title::after {
-      content: ''; flex: 1; height: 1px; background: rgba(99,102,241,0.15);
-    }
-
-    /* URL result row */
-    .url-result-row {
-      display: flex; align-items: center; gap: 10px;
-      flex-wrap: wrap;
-    }
-    .url-result-link {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.88rem; color: var(--cyn);
-      flex: 1; word-break: break-all;
-    }
-    .copy-btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-      width: auto; padding: 9px 16px; font-size: 0.8rem;
-      background: rgba(99,102,241,0.15);
-      border: 1px solid rgba(99,102,241,0.3);
-      color: var(--ind2); border-radius: 10px;
-      font-family: inherit; font-weight: 700;
-      cursor: pointer; transition: var(--t);
-      flex-shrink: 0; margin-top: 0;
-    }
-    .copy-btn:hover { background: rgba(99,102,241,0.28); }
-    .copy-btn.copied { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.3); color: var(--grn); }
-
-    /* ══════════════════════════════════════
-       MESSAGES
-    ══════════════════════════════════════ */
-    .msg {
-      display: none; border-radius: 13px;
-      padding: 12px 15px; font-size: 0.84rem; font-weight: 500;
-      margin-top: 13px; align-items: flex-start; gap: 9px;
-    }
-    .msg.show { display: flex; }
-    .msg.err { background: rgba(244,63,94,0.09); border: 1px solid rgba(244,63,94,0.22); color: #fda4af; }
-    .msg.ok  { background: rgba(16,185,129,0.09); border: 1px solid rgba(16,185,129,0.22); color: #6ee7b7; }
-    .msg-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
-
-    /* ══════════════════════════════════════
-       IP GRID
-    ══════════════════════════════════════ */
-    .ip-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px;
-    }
-    .ip-cell {
-      background: rgba(8,12,28,0.6);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 14px; padding: 13px 14px;
-    }
-    .ip-key { font-size: 0.67rem; color: var(--dim); letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 5px; }
-    .ip-val { font-size: 0.87rem; font-weight: 600; word-break: break-all; }
-
-    /* ══════════════════════════════════════
-       SPINNER
-    ══════════════════════════════════════ */
-    .spin {
-      display: inline-block;
-      width: 16px; height: 16px;
-      border: 2px solid rgba(255,255,255,0.22);
-      border-top-color: #fff; border-radius: 50%;
-      animation: doSpin 0.65s linear infinite;
-    }
-    @keyframes doSpin { to { transform: rotate(360deg); } }
-
-    /* ══════════════════════════════════════
-       TOAST
-    ══════════════════════════════════════ */
-    #toast {
-      position: fixed; bottom: 26px; left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: rgba(16,185,129,0.95); color: #fff;
-      padding: 10px 22px; border-radius: 30px;
-      font-size: 0.82rem; font-weight: 700;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-      z-index: 99999; pointer-events: none;
+    .hd-cart {
       display: flex; align-items: center; gap: 7px;
-      transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+      text-decoration: none;
+      font-family: 'Jost', sans-serif; font-size: 11.5px;
+      font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      padding: 6px 15px;
+      border: 1px solid rgba(255,255,255,0.22); border-radius: 5px;
+      transition: all .2s;
     }
-    #toast.show { transform: translateX(-50%) translateY(0); }
+    .hd-cart:hover { border-color: var(--gold); color: var(--gold-light); background: rgba(196,151,58,.08); }
+    .hd-cart svg { flex-shrink: 0; }
 
-    /* ══════════════════════════════════════
-       FOOTER
-    ══════════════════════════════════════ */
-    .site-footer {
-      text-align: center; padding: 32px 20px;
-      color: var(--dim); font-size: 0.78rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      margin-top: 48px;
-    }
+    /* ── PAGE SHELL ── */
+    .page { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
-    /* ══════════════════════════════════════
-       ANIMATIONS
-    ══════════════════════════════════════ */
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* ── AD WRAPPERS ── */
+    .ad-wrap {
+      display: flex; align-items: center; justify-content: center;
+      background: var(--cream-dark); border: 1px dashed #C4A870;
+      border-radius: 5px; overflow: hidden;
     }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-    .hcard { animation: cardIn 0.5s ease both; }
-    .hcard:nth-child(1) { animation-delay: 0.05s; }
-    .hcard:nth-child(2) { animation-delay: 0.1s; }
-    .hcard:nth-child(3) { animation-delay: 0.15s; }
-    .hcard:nth-child(4) { animation-delay: 0.2s; }
-    .hcard:nth-child(5) { animation-delay: 0.25s; }
-    .hcard:nth-child(6) { animation-delay: 0.30s; }
-    .hcard:nth-child(7) { animation-delay: 0.35s; }
+    .ad-leader { margin: 14px auto; max-width: 970px; height: 90px; width: 100%; }
+    .ad-468    { margin: 0 auto; max-width: 468px; height: 60px; width: 100%; }
+    .ad-300    { margin: 0 auto; width: 300px; height: 250px; }
 
-    .hcard[data-color="pur"]  { --card-color: #a855f7; }
-
-    /* ══════════════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════════════ */
-    @media (max-width: 600px) {
-      .pcard { padding: 22px 16px; }
-      .row2 { grid-template-columns: 1fr; }
-      .row3 { grid-template-columns: 1fr; }
-      .result-main { font-size: 1.35rem; }
-      .ip-grid { grid-template-columns: 1fr; }
-      .site-title { font-size: 2.8rem; }
+    /* ── HERO ── */
+    .hero {
+      text-align: center; padding: 32px 24px 28px;
+      background: linear-gradient(180deg, rgba(107,26,42,.06) 0%, rgba(107,26,42,.01) 100%);
+      border-bottom: 1px solid rgba(196,151,58,.2);
+      margin-bottom: 32px;
     }
-
-    /* ══════════════════════════════════════
-       TEMP EMAIL STYLES
-    ══════════════════════════════════════ */
-    .email-addr-box {
-      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-      background: rgba(12,18,36,0.85); border: 1px solid rgba(34,211,238,0.3);
-      border-radius: 14px; padding: 14px 18px; margin-bottom: 18px;
+    .hero-eye {
+      font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 11px;
     }
-    .email-addr-text {
-      font-family: 'Space Mono', monospace; font-size: 0.95rem;
-      color: var(--cyn); flex: 1; word-break: break-all; font-weight: 600;
+    .hero-h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 5vw, 50px); font-weight: 700;
+      color: var(--wine-dark); line-height: 1.1; margin-bottom: 10px;
     }
-    .inbox-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-    .inbox-item {
-      background: rgba(12,18,36,0.75); border: 1px solid var(--border);
-      border-radius: 12px; padding: 13px 16px; cursor: pointer;
-      transition: var(--t); display: flex; gap: 12px; align-items: flex-start;
+    .hero-h1 em { font-style: italic; color: var(--wine); }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(15px, 2.2vw, 20px); color: var(--ink-mid); margin-bottom: 16px;
     }
-    .inbox-item:hover { border-color: rgba(99,102,241,0.4); background: rgba(16,24,46,0.9); transform: translateX(3px); }
-    .inbox-item.unread { border-left: 3px solid var(--ind); }
-    .inbox-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ind); flex-shrink: 0; margin-top: 5px; }
-    .inbox-dot.read { background: transparent; border: 1px solid var(--dim); }
-    .inbox-meta { flex: 1; min-width: 0; }
-    .inbox-from { font-size: 0.85rem; font-weight: 700; color: var(--txt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .inbox-subj { font-size: 0.8rem; color: var(--sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .inbox-time { font-size: 0.7rem; color: var(--dim); flex-shrink: 0; margin-top: 2px; }
-    .inbox-empty { text-align: center; padding: 36px 20px; color: var(--dim); font-size: 0.85rem; }
-    .inbox-empty .ie-icon { font-size: 2.2rem; margin-bottom: 10px; }
-    .mail-modal {
-      position: fixed; inset: 0; z-index: 1100; display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); padding: 16px;
-    }
-    .mail-modal-inner {
-      background: var(--bg2); border: 1px solid var(--border2);
-      border-radius: var(--r); width: 100%; max-width: 700px;
-      max-height: 85vh; display: flex; flex-direction: column;
-      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
-    }
-    .mail-modal-head {
-      padding: 18px 22px; border-bottom: 1px solid var(--border);
-      display: flex; gap: 12px; align-items: flex-start;
-    }
-    .mail-modal-close {
-      margin-left: auto; background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border); border-radius: 8px;
-      color: var(--sub); cursor: pointer; padding: 4px 10px; font-size: 1rem;
-      flex-shrink: 0; transition: var(--t);
-    }
-    .mail-modal-close:hover { background: rgba(244,63,94,0.15); color: var(--ros); }
-    .mail-modal-body {
-      padding: 20px 22px; overflow-y: auto; flex: 1;
-      font-size: 0.85rem; line-height: 1.7; color: var(--sub);
-    }
-    .mail-modal-body iframe { width: 100%; min-height: 300px; border: none; border-radius: 10px; background: white; }
-    .email-status-bar {
-      display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
-      font-size: 0.72rem; color: var(--sub);
-    }
-    .pulse-dot {
-      width: 7px; height: 7px; border-radius: 50%; background: var(--grn);
-      animation: pkPulse 2s infinite;
+    .ornament { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 12px auto; }
+    .orn-l { height: 1px; width: 80px; background: linear-gradient(to right, transparent, var(--gold)); }
+    .orn-r { height: 1px; width: 80px; background: linear-gradient(to left, transparent, var(--gold)); }
+    .orn-g { color: var(--gold); font-size: 15px; }
+    .hero-tag {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(13px, 1.8vw, 17px); color: var(--ink-soft); max-width: 480px; margin: 0 auto;
     }
 
-    /* ══════════════════════════════════════
-       SPEED TEST STYLES
-    ══════════════════════════════════════ */
-    .speed-gauge-wrap {
-      display: flex; justify-content: center; align-items: center; gap: 32px;
-      flex-wrap: wrap; margin: 24px 0;
+    /* ── SECTION LABEL ── */
+    .sec-label {
+      font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
     }
-    .speed-dial {
-      text-align: center; position: relative;
+    .sec-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(196,151,58,.4), transparent);
     }
-    .speed-dial svg { display: block; }
-    .speed-arc-bg  { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 10; stroke-linecap: round; }
-    .speed-arc-fill { fill: none; stroke-width: 10; stroke-linecap: round;
-      stroke-dasharray: 283; stroke-dashoffset: 283;
-      transition: stroke-dashoffset 0.8s cubic-bezier(0.4,0,0.2,1), stroke 0.4s; }
-    .speed-num {
-      position: absolute; inset: 0; display: flex; flex-direction: column;
+
+    /* ── 3-BOOK GRID ── */
+    .books-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 20px; margin-bottom: 20px;
+    }
+
+    .book-card {
+      background: var(--white); border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow-card); border: 1px solid rgba(196,151,58,.13);
+      transition: transform .3s cubic-bezier(.22,.68,0,1.2), box-shadow .3s ease;
+    }
+    .book-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lift); }
+
+    /* Full image — contain within fixed height */
+    .card-img {
+      height: 210px; background: var(--cream-mid);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .card-img img {
+      max-width: 100%; max-height: 100%;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      transition: transform .4s ease;
+      padding: 4px;
+    }
+    .book-card:hover .card-img img { transform: scale(1.04); }
+
+    .card-body { padding: 14px 16px 18px; }
+
+    /* Book name — Playfair italic, same cognac color as title */
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 12.5px; font-weight: 400;
+      color: var(--cognac); margin-bottom: 5px;
+    }
+    /* Book title — Playfair bold, cognac */
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px; font-weight: 700;
+      color: var(--cognac); line-height: 1.28; margin-bottom: 11px;
+    }
+    .card-stars { display: flex; align-items: center; gap: 7px; margin-bottom: 14px; }
+    .stars { color: #F5A623; font-size: 12.5px; letter-spacing: 1.5px; }
+    .star-ct { font-family: 'Jost', sans-serif; font-size: 11.5px; color: var(--ink-soft); }
+
+    .btn-buy {
+      display: block; width: 100%; padding: 11px 16px;
+      background: linear-gradient(135deg, var(--green) 0%, #2A8840 100%);
+      color: var(--white); text-align: center; text-decoration: none;
+      font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      border-radius: 7px; border: none; cursor: pointer;
+      transition: all .22s;
+    }
+    .btn-buy:hover {
+      background: linear-gradient(135deg, var(--green-hover) 0%, var(--green) 100%);
+      transform: translateY(-1px); box-shadow: 0 4px 16px rgba(31,107,49,.28);
+    }
+
+    /* ── BUNDLE CARD ── */
+    .bundle-card {
+      display: grid; grid-template-columns: 260px 1fr;
+      border-radius: var(--radius); overflow: hidden;
+      background: linear-gradient(125deg, var(--wine-dark) 0%, #58111E 45%, var(--wine) 100%);
+      border: 1px solid rgba(196,151,58,.28);
+      box-shadow: 0 8px 44px rgba(61,10,21,.26);
+      margin-bottom: 24px;
+    }
+    .bundle-img { position: relative; overflow: hidden; }
+    .bundle-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: .84; transition: transform .45s ease, opacity .3s ease;
+    }
+    .bundle-card:hover .bundle-img img { transform: scale(1.05); opacity: .93; }
+    .bundle-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 55%, rgba(61,10,21,.55));
+    }
+    .bundle-body {
+      padding: 24px 32px; display: flex; flex-direction: column;
+      justify-content: center; gap: 10px;
+    }
+    .bundle-eye {
+      font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--gold-light);
+    }
+    .bundle-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(19px,2.8vw,28px); font-weight: 700;
+      color: var(--white); line-height: 1.18;
+    }
+    .bundle-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: rgba(255,255,255,.7); }
+    .bundle-inc { font-family: 'Jost', sans-serif; font-size: 10.5px; font-weight: 500; letter-spacing: 1.5px; color: var(--gold-pale); text-transform: uppercase; }
+    .bundle-stars { display: flex; align-items: center; gap: 8px; }
+    .bundle-stars .stars { font-size: 14px; }
+    .bundle-stars .star-ct { color: rgba(255,255,255,.55); }
+    .btn-bundle {
+      display: inline-flex; align-items: center; gap: 8px; width: fit-content;
+      padding: 12px 26px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: var(--wine-dark); text-decoration: none;
+      font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      border-radius: 7px; transition: all .22s;
+    }
+    .btn-bundle:hover {
+      background: linear-gradient(135deg, var(--gold-light) 0%, #E8C468 100%);
+      transform: translateY(-2px); box-shadow: 0 6px 24px rgba(196,151,58,.38);
+    }
+
+    /* ── DISCOUNT ROW ── */
+    .discount-row {
+      display: flex; align-items: center; justify-content: center;
+      padding: 18px 0 20px;
+    }
+    .btn-coupon {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 32px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: var(--wine-dark); border: none; cursor: pointer;
+      font-family: 'Jost', sans-serif; font-size: 12.5px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      border-radius: 8px; transition: all .22s;
+      box-shadow: 0 4px 20px rgba(196,151,58,.3);
+    }
+    .btn-coupon:hover {
+      transform: translateY(-2px); box-shadow: 0 7px 28px rgba(196,151,58,.42);
+      background: linear-gradient(135deg, var(--gold-light) 0%, #E8C468 100%);
+    }
+
+    /* ── EDITORIAL ── */
+    .editorial {
+      background: var(--white); border-radius: var(--radius);
+      border: 1px solid rgba(196,151,58,.15); border-left: 4px solid var(--wine);
+      padding: 26px 34px; margin-bottom: 26px;
+      box-shadow: var(--shadow-card);
+    }
+    .ed-head {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
+    }
+    .ed-head-left { display: flex; align-items: center; gap: 11px; }
+    .ed-bar {
+      width: 4px; height: 30px;
+      background: linear-gradient(to bottom, var(--wine), var(--gold));
+      border-radius: 2px; flex-shrink: 0;
+    }
+    .ed-ttl { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 600; color: var(--wine-dark); }
+    .ed-badge {
+      font-family: 'Jost', sans-serif; font-size: 9.5px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--ink-soft);
+      background: var(--cream-mid); padding: 3px 10px; border-radius: 20px;
+    }
+    .ed-body { font-family: 'Cormorant Garamond', serif; font-size: 18px; line-height: 1.76; color: var(--ink-mid); }
+    .ed-body .lead { font-size: 19.5px; font-weight: 500; color: var(--ink); margin-bottom: 14px; }
+    .ed-body p { margin-bottom: 13px; }
+    .ed-body strong { color: var(--wine-dark); font-weight: 600; }
+    .ed-hl { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; font-style: italic; color: var(--wine-dark); margin-bottom: 16px; line-height: 1.3; }
+    .stats-blk {
+      background: linear-gradient(135deg, var(--cream-mid), var(--cream-dark));
+      border-radius: 8px; padding: 16px 20px; margin: 16px 0;
+      border-left: 3px solid var(--gold);
+    }
+    .stats-blk p { margin-bottom: 9px; }
+    .stats-blk p:last-child { margin-bottom: 0; }
+    .more-content { display: none; }
+    .more-content.open { display: block; }
+    .btn-more {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 7px 17px; background: transparent;
+      color: var(--wine); border: 1.5px solid var(--wine); border-radius: 5px;
+      font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      cursor: pointer; margin-top: 8px; transition: all .2s;
+    }
+    .btn-more:hover { background: var(--wine); color: var(--white); }
+
+    /* ── AD ROWS ── */
+    .ad-row { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 6px 0 32px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--wine-dark); padding: 24px; text-align: center; }
+    .ft-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; letter-spacing: 2px; color: var(--gold-light); margin-bottom: 7px; }
+    .ft-links { font-family: 'Jost', sans-serif; font-size: 10.5px; color: rgba(255,255,255,.42); letter-spacing: 1px; }
+    .ft-links a { color: rgba(255,255,255,.52); text-decoration: none; margin: 0 9px; }
+    .ft-links a:hover { color: var(--gold-light); }
+
+    /* ── MODAL ── */
+    .modal-bg {
+      display: none; position: fixed; inset: 0; z-index: 300;
+      background: rgba(61,10,21,.72); backdrop-filter: blur(5px);
       align-items: center; justify-content: center;
     }
-    .speed-val { font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 800; line-height: 1; }
-    .speed-unit { font-size: 0.62rem; color: var(--sub); letter-spacing: .1em; text-transform: uppercase; }
-    .speed-label { font-size: 0.72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--sub); margin-top: 8px; }
-    .speed-stats-row {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px;
+    .modal-bg.open { display: flex; animation: fadeIn .25s ease; }
+    .modal {
+      background: var(--white); border-radius: 15px; padding: 38px 36px;
+      max-width: 400px; width: 92%; text-align: center; position: relative;
+      animation: scaleIn .3s cubic-bezier(.22,.68,0,1.2);
+      border-top: 4px solid var(--gold);
     }
-    .speed-stat {
-      background: rgba(12,18,36,0.75); border: 1px solid var(--border);
-      border-radius: 12px; padding: 12px; text-align: center;
+    .modal-x {
+      position: absolute; top: 13px; right: 15px;
+      background: none; border: none; font-size: 19px;
+      cursor: pointer; color: var(--ink-soft); transition: color .15s;
     }
-    .speed-stat-val { font-family: 'Space Mono', monospace; font-size: 1rem; font-weight: 700; color: var(--txt); }
-    .speed-stat-key { font-size: 0.65rem; color: var(--dim); letter-spacing: .1em; text-transform: uppercase; margin-top: 3px; }
-    .speed-bar-wrap { margin: 6px 0 2px; height: 4px; background: rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
-    .speed-bar { height: 100%; border-radius: 4px; width: 0; transition: width 0.6s ease; }
-    .speed-log { font-size: 0.75rem; color: var(--sub); line-height: 1.8; margin-top: 10px; font-family: 'Space Mono', monospace; }
-    .speed-test-btn {
-      background: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(168,85,247,0.3));
-      border: 1px solid rgba(129,140,248,0.4); color: #c7d2fe;
+    .modal-x:hover { color: var(--wine); }
+    .modal-ttl { font-family: 'Playfair Display', serif; font-size: 25px; font-weight: 700; color: var(--wine-dark); margin-bottom: 5px; }
+    .modal-sub { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--ink-soft); margin-bottom: 22px; }
+    .coupon-box {
+      background: linear-gradient(135deg, var(--cream-mid), var(--cream-dark));
+      border: 2px dashed var(--gold); border-radius: 9px;
+      padding: 15px 22px;
+      font-family: 'Jost', sans-serif; font-size: 24px; font-weight: 700;
+      letter-spacing: 7px; color: var(--wine-dark); margin-bottom: 13px;
     }
-    .speed-test-btn:hover { background: linear-gradient(135deg, rgba(99,102,241,0.5), rgba(168,85,247,0.5)); }
+    .modal-note { font-family: 'Jost', sans-serif; font-size: 11px; color: var(--ink-soft); }
 
-
-    /* ══════════════════════════════════════
-       PIN & SIDEBAR
-    ══════════════════════════════════════ */
-    .hcard-wrap { position: relative; }
-    .pin-btn {
-      position: absolute; top: 12px; right: 12px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 8px; color: var(--sub);
-      font-size: 0.7rem; font-weight: 700;
-      padding: 4px 10px; cursor: pointer;
-      transition: var(--t); z-index: 2;
-      font-family: inherit; letter-spacing: 0.04em;
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .books-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .bundle-card { grid-template-columns: 1fr; }
+      .bundle-img { aspect-ratio: 16/7; }
+      .bundle-body { padding: 20px 22px; }
     }
-    .pin-btn:hover { background: rgba(99,102,241,0.2); color: var(--ind2); border-color: var(--ind); }
-    .pin-btn.pinned { background: rgba(99,102,241,0.25); color: var(--ind2); border-color: var(--ind); }
-
-    /* Sidebar */
-    #sidebar {
-      position: fixed; left: 0; top: 0; bottom: 0;
-      width: 220px; background: rgba(8,12,28,0.97);
-      border-right: 1px solid rgba(99,102,241,0.2);
-      backdrop-filter: blur(20px);
-      z-index: 500; display: none;
-      flex-direction: column; padding: 0;
-      transform: translateX(-100%);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    @media (max-width: 560px) {
+      .books-grid { grid-template-columns: 1fr; }
+      .hd-name { font-size: 15px; letter-spacing: 2px; }
+      .editorial { padding: 20px 18px; }
+      .ed-head { flex-direction: column; align-items: flex-start; }
     }
-    #sidebar.open { display: flex; transform: translateX(0); }
-    /* Desktop: sidebar visible by default in pinned mode */
-    @media (min-width: 641px) {
-      body.pinned-mode #sidebar { display: flex; transform: translateX(0); }
-      body.pinned-mode .panel { padding-left: 240px; transition: padding-left 0.3s; }
-      body.pinned-mode.sidebar-closed #sidebar { display: none !important; }
-      body.pinned-mode.sidebar-closed .panel { padding-left: 20px; }
-    }
-    /* Mobile: sidebar always hidden until toggled */
-    @media (max-width: 640px) {
-      #sidebar { display: none !important; }
-      #sidebar.open { display: flex !important; }
-      body.pinned-mode #sidebar:not(.open) { display: none !important; }
-    }
-    .sidebar-header {
-      padding: 18px 16px 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .sidebar-title {
-      font-family: 'Syne', sans-serif; font-size: 0.85rem;
-      font-weight: 700; color: var(--ind2); letter-spacing: 0.05em;
-    }
-    .sidebar-close {
-      background: none; border: none; color: var(--sub);
-      cursor: pointer; font-size: 1rem; padding: 4px;
-      transition: color 0.2s;
-    }
-    .sidebar-close:hover { color: var(--ros); }
-    .sidebar-links { padding: 12px 8px; flex: 1; overflow-y: auto; }
-    .sidebar-link {
-      display: block; width: 100%;
-      padding: 10px 12px; border-radius: 10px;
-      font-size: 0.83rem; font-weight: 600;
-      color: var(--sub); background: none; border: none;
-      cursor: pointer; text-align: left; transition: var(--t);
-      font-family: inherit; letter-spacing: 0.02em;
-    }
-    .sidebar-link:hover { background: rgba(99,102,241,0.15); color: var(--txt); }
-    .sidebar-link.active-link { color: var(--ind2); background: rgba(99,102,241,0.12); }
-
-    /* Pinned mode */
-    body.pinned-mode #home { display: none !important; }
-    body.pinned-mode .panel.pinned-panel { display: block !important; }
-
-    /* Sidebar toggle button (top-left when pinned) */
-    #sidebar-toggle {
-      display: none; position: fixed; top: 14px; left: 14px;
-      z-index: 600; background: rgba(8,12,28,0.92);
-      border: 1px solid rgba(99,102,241,0.3); border-radius: 10px;
-      color: var(--ind2); padding: 8px 12px; cursor: pointer;
-      font-size: 0.8rem; font-weight: 700; font-family: inherit;
-      backdrop-filter: blur(10px); transition: var(--t);
-    }
-    #sidebar-toggle:hover { background: rgba(99,102,241,0.2); }
-    body.pinned-mode #sidebar-toggle { display: block; }
-    body.pinned-mode .back-btn { display: none !important; }
-
-
-    /* ══════════════════════════════════════
-       AD SYSTEM — Responsive
-    ══════════════════════════════════════ */
-
-    /* Home ad slots */
-    .home-ad-slot {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .ad-desktop-home { display: block; }
-    .ad-mobile-home  { display: none;  }
-
-    /* Panel side ads wrap */
-    .panel-ads-wrap {
-      display: flex;
-      align-items: flex-start;
-      gap: 20px;
-      min-height: 100%;
-    }
-    .panel-inner-wrap {
-      flex: 1;
-      min-width: 0;
-      max-width: 720px;
-      margin: 0 auto;
-    }
-    .panel-ad-left,
-    .panel-ad-right {
-      flex-shrink: 0;
-      width: 160px;
-      position: sticky;
-      top: 20px;
-    }
-    .ad-desktop-side { display: block; }
-    .ad-mobile-top   { display: none; margin-bottom: 12px; overflow:hidden; }
-    .ad-mobile-bottom{ display: none; margin-top: 12px; overflow:hidden; }
-
-    /* Desktop: cards 300×250 */
-    @media (min-width: 641px) {
-      .hcard { height: 250px !important; }
-      .home-ad-slot {
-        height: 250px;
-        width: 300px;
-      }
-      .ad-desktop-home { display: block; }
-      .ad-mobile-home  { display: none;  }
-      .ad-desktop-side { display: block; }
-      .ad-mobile-top,
-      .ad-mobile-bottom { display: none; }
-      /* Anon card stays auto height */
-      .hcard[style*="grid-column"] { height: auto !important; }
-    }
-
-    /* Mobile: cards 320×100 */
-    @media (max-width: 640px) {
-      .hcard { height: 100px !important; }
-      .hcard[style*="grid-column"] { height: auto !important; }
-      .home-ad-slot {
-        width: 100%;
-        justify-content: center;
-      }
-      .ad-desktop-home { display: none; }
-      .ad-mobile-home  { display: block; }
-
-      /* Panel: hide side ads, show top/bottom */
-      .panel-ad-left,
-      .panel-ad-right { display: none; }
-      .ad-desktop-side { display: none; }
-      .ad-mobile-top,
-      .ad-mobile-bottom { display: block; }
-
-      /* Panel wrap becomes column */
-      .panel-ads-wrap { flex-direction: column; }
-      .panel-inner-wrap { max-width: 100%; width: 100%; }
-    }
-
-    /* When panel is narrow (browser resized): side ads drop below */
-    @media (max-width: 1060px) and (min-width: 641px) {
-      .panel-ads-wrap { flex-wrap: wrap; }
-      .panel-ad-left  { order: 3; width: 100%; display: flex; justify-content: center; }
-      .panel-ad-right { order: 4; width: 100%; display: flex; justify-content: center; }
-      .panel-inner-wrap { order: 1; width: 100%; max-width: 100%; }
-    }
-
   </style>
 </head>
 <body>
 
-<div id="scene">
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
+<!-- HEADER -->
+<header>
+  <a href="#" class="hd-brand">
+    <div class="hd-emblem">XB</div>
+    <span class="hd-label">Est. 2025</span>
+  </a>
+  <div class="hd-name">XONOMO BOOKS</div>
+  <a href="#" class="hd-cart">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    Cart
+  </a>
+</header>
+
+<div class="page">
+
+  <!-- AD 1 -->
+  <div class="ad-wrap ad-leader">
+    <script>atOptions={'key':'f31bcfe0ee80fa89b456a483874725dd','format':'iframe','height':90,'width':728,'params':{}};</script>
+    <script src="https://www.highperformanceformat.com/f31bcfe0ee80fa89b456a483874725dd/invoke.js"></script>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eye fu d1">Complete 3-Book Collection</div>
+    <h1 class="hero-h1 fu d2"><em>The Complete</em><br>Relationship Bundle</h1>
+    <p class="hero-sub fu d3">Love, Partner &amp; Marriage — The Full Guide</p>
+    <div class="ornament fu d4"><span class="orn-l"></span><span class="orn-g">❧</span><span class="orn-r"></span></div>
+    <p class="hero-tag fu d5">"Find Right. Build Real. Make It Last."<br><em>Because love alone was never enough.</em></p>
+  </section>
+
+  <!-- 3 BOOKS -->
+  <div class="sec-label fu d1">Individual Books</div>
+  <div class="books-grid">
+
+    <!-- Book 1 -->
+    <div class="book-card fu d2">
+      <div class="card-img">
+        <img src="https://i.postimg.cc/3NZyDfVF/Gemini-Generated-Image-93lqh693lqh693lq.png" alt="Marriage Help Guide" loading="lazy">
+      </div>
+      <div class="card-body">
+        <div class="card-name">Marriage Help Guide</div>
+        <div class="card-title">Fix Your Marriage Before It's Too Late</div>
+        <div class="card-stars"><span class="stars">★★★★★</span><span class="star-ct">(112 reviews)</span></div>
+        <a href="https://buy.polar.sh/polar_cl_ru3uLP3mpTpHz2GQxDuAyEHAvH2X1Td0lZpIW1JeQJh" class="btn-buy" target="_blank" rel="noopener noreferrer">Buy Now — $10</a>
+      </div>
+    </div>
+
+    <!-- Book 2 -->
+    <div class="book-card fu d3">
+      <div class="card-img">
+        <img src="https://i.postimg.cc/vT477s70/Screenshot-9.jpg" alt="The Perfect Partner" loading="lazy">
+      </div>
+      <div class="card-body">
+        <div class="card-name">The Perfect Partner</div>
+        <div class="card-title">The Partner You Deserve</div>
+        <div class="card-stars"><span class="stars">★★★★★</span><span class="star-ct">(200 reviews)</span></div>
+        <a href="https://buy.polar.sh/polar_cl_2XQ7nEjTqq5hQ6Xhk87xAh4dFo1t7A8V4eiEu35bFpR" class="btn-buy" target="_blank" rel="noopener noreferrer">Buy Now — $10</a>
+      </div>
+    </div>
+
+    <!-- Book 3 -->
+    <div class="book-card fu d4">
+      <div class="card-img">
+        <img src="https://i.postimg.cc/3RTJCCgF/Gemini-Generated-Image-7fqmom7fqmom7fqm.png" alt="Relationships Maintenance" loading="lazy">
+      </div>
+      <div class="card-body">
+        <div class="card-name">Relationships Maintenance</div>
+        <div class="card-title">Keep the Love Alive</div>
+        <div class="card-stars"><span class="stars">★★★★★</span><span class="star-ct">(150 reviews)</span></div>
+        <a href="https://buy.polar.sh/polar_cl_rZJPAtwcLlUN1LWBnrcjzMEYJRfCTuZWZc52K3gnzGS" class="btn-buy" target="_blank" rel="noopener noreferrer">Buy Now — $10</a>
+      </div>
+    </div>
+
+  </div><!-- /books-grid -->
+
+  <!-- BUNDLE (Book 4) -->
+  <div class="bundle-card fu d5">
+    <div class="bundle-img">
+      <img src="https://i.postimg.cc/MTMSf93V/file-00000000152471fabd8cc73e4162b655.png" alt="Complete Relationship Bundle" loading="lazy">
+    </div>
+    <div class="bundle-body">
+      <div class="bundle-eye">⭐ Best Value — All 3 Books Included</div>
+      <div class="bundle-title">Love, Partner &amp; Marriage —<br>The Full Guide</div>
+      <div class="bundle-sub">The Complete Relationship Bundle</div>
+      <div class="bundle-inc">Books 1 · 2 · 3 in one complete package</div>
+      <div class="bundle-stars"><span class="stars">★★★★★</span><span class="star-ct">(300 reviews)</span></div>
+      <a href="https://buy.polar.sh/polar_cl_YsK6bbcBaH3tetwuSNmpQwz9CIo1Kp2NP0Fgj2Njr3u" class="btn-bundle" target="_blank" rel="noopener noreferrer">🔥 Get the Bundle — $10</a>
+    </div>
+  </div>
+
+  <!-- AD 2 (468×60) — below bundle -->
+  <div class="ad-row" style="padding-top:12px; padding-bottom:12px;">
+    <div class="ad-wrap ad-468">
+      <script>atOptions={'key':'4707bf1d7ec88584e4933d1fa9159f4b','format':'iframe','height':60,'width':468,'params':{}};</script>
+      <script src="https://www.highperformanceformat.com/4707bf1d7ec88584e4933d1fa9159f4b/invoke.js"></script>
+    </div>
+  </div>
+
+  <!-- GET DISCOUNT CODE -->
+  <div class="discount-row fu d1">
+    <button class="btn-coupon" onclick="document.getElementById('couponModal').classList.add('open')">
+      🏷&nbsp; Get Discount Code
+    </button>
+  </div>
+
+  <!-- EDITORIAL -->
+  <div class="editorial fu d2">
+    <div class="ed-head">
+      <div class="ed-head-left">
+        <div class="ed-bar"></div>
+        <span class="ed-ttl">Why You Should Read This</span>
+        <span class="ed-badge">3 min read</span>
+      </div>
+    </div>
+    <div class="ed-body">
+      <div class="ed-hl">Save Yours Before It's Too Late</div>
+      <p class="lead">If the person sleeping right next to you died tonight, would your first core emotion be crushing grief — or a sudden, terrifying sense of relief? If that question made your stomach drop, you are already living in a psychological ghost town, and it's time to wake up.</p>
+      <p>Every single day, millions of people across the US and Europe walk into pristine, expensive therapy rooms, paying $250 an hour just to ask: <em>"How did we go from sharing everything to becoming absolute strangers sharing a mortgage?"</em></p>
+      <p>The brutal reality of the 21st century is that modern love is no longer a safe haven. It is a high-stakes psychological battlefield — and most people are quietly losing.</p>
+
+      <div id="moreContent" class="more-content">
+        <div class="stats-blk">
+          <p><strong>The 50% Trap:</strong> Nearly 50% of all marriages in the United States end in divorce, with European nations like France and Germany trailing closely behind.</p>
+          <p><strong>The "Grey Divorce" Boom:</strong> Think your relationship is safe because you've been together for years? Divorce rates among people over 50 have doubled. Look at Bill and Melinda Gates or Jeff Bezos — if unlimited wealth, elite status, and 25+ years of shared history cannot stop a bond from rotting from the inside out, your relationship is not automatically safe either.</p>
+          <p><strong>The Loneliness Epidemic:</strong> A Pew Research Center report exposed a terrifying reality — millions of Westerners are trapped in toxic, emotionally dead relationships simply because they are terrified of aging alone and dying in an empty apartment.</p>
+        </div>
+        <p>Pain is non-negotiable. You either choose the discipline of mastering relationship psychology today — or you choose the crushing, irreversible pain of regret tomorrow. But it does not have to be your story.</p>
+        <p>You can rewrite your future. Heal your bond. And finally experience the secure, passionate, lasting love you have always deserved — not the hollow version most people settle for.</p>
+        <p><strong>Do not let your relationship become another quiet tragedy on a divorce statistic.</strong></p>
+      </div>
+
+      <button class="btn-more" id="moreBtn" onclick="toggleMore()">Read More ↓</button>
+    </div>
+  </div>
+
+  <!-- AD 3 (300×250) — below editorial -->
+  <div class="ad-row">
+    <div class="ad-wrap ad-300">
+      <script>atOptions={'key':'c82e7e10f5f797dd4c60337bfe675325','format':'iframe','height':250,'width':300,'params':{}};</script>
+      <script src="https://www.highperformanceformat.com/c82e7e10f5f797dd4c60337bfe675325/invoke.js"></script>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-name">XONOMO BOOKS</div>
+  <div class="ft-links">
+    © 2025 All Rights Reserved
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<!-- DISCOUNT MODAL -->
+<div class="modal-bg" id="couponModal" onclick="this.classList.remove('open')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-x" onclick="document.getElementById('couponModal').classList.remove('open')">✕</button>
+    <div class="modal-ttl">Your Discount Code</div>
+    <div class="modal-sub">Apply this at checkout to save</div>
+    <div class="coupon-box">LOVE20</div>
+    <p class="modal-note">Limited time. Enter code at checkout. One use per customer.</p>
+  </div>
 </div>
 
-
-<!-- Sidebar toggle button -->
-<button id="sidebar-toggle" onclick="toggleSidebar()">☰ Menu</button>
-
-<!-- Sidebar -->
-<div id="sidebar">
-  <div class="sidebar-header">
-    <span class="sidebar-title"></span>
-    <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
-  </div>
-  <div class="sidebar-links" id="sidebar-links">
-    <!-- filled by JS -->
-  </div>
-</div>
-
-<!-- Toast -->
-<div id="toast">✓ Copied!</div>
-
-<div class="wrap">
-
-  <!-- HOME PAGE -->
-  <div id="home">
-    <header class="site-header">
-      <div style="font-size:1.8rem;line-height:1;margin-bottom:6px;text-align:center;position:relative;display:inline-block;"><span style="display:block;font-size:1rem;position:relative;top:6px;">🛠️</span><span style="display:block;">🔺</span></div>
-      <div class="header-kicker">Premium Utility Hub</div>
-    </header>
-
-    <div class="card-grid">
-
-      <!-- 1. Anonymity Checker — full width -->
-      <div class="hcard" onclick="openPanel('p-anon')" data-color="ind" style="--card-color:#818cf8; grid-column: 1 / -1; position:relative; height:auto !important;">
-        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-anon')" title="Pin this service">📌 Pin</button>
-        <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
-          <div class="hcard-icon c6" style="flex-shrink:0;">🕵️</div>
-          <div style="flex:1;min-width:200px;">
-            <div class="hcard-badge live" style="background:rgba(129,140,248,0.15);color:#818cf8;border-color:rgba(129,140,248,0.3);">New · Live Check</div>
-            <div class="hcard-title" style="font-size:1.15rem;">Anonymity & IP Checker</div>
-            <div class="hcard-desc">Whoer-style anonymity score — detects VPN/proxy, Tor, timezone mismatch, blacklist status & browser fingerprint. Get your privacy score out of 100%.</div>
-          </div>
-          <div style="text-align:center;flex-shrink:0;">
-            <div style="font-family:'Space Mono',monospace;font-size:2rem;font-weight:700;background:linear-gradient(135deg,#818cf8,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">100%</div>
-            <div style="font-size:0.7rem;color:var(--sub);letter-spacing:.1em;text-transform:uppercase;">Max Score</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Ad Slot 1 -->
-      <div class="home-ad-slot">
-        <div class="ad-desktop-home" style="width:300px;height:250px;overflow:hidden;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-        <div class="ad-mobile-home" style="text-align:center;"><script async="async" data-cfasync="false" src="https://pl29181347.profitablecpmratenetwork.com/5908ec96aa54be50c0c1dd55c1d01340/invoke.js"></script><div id="container-5908ec96aa54be50c0c1dd55c1d01340"></div></div>
-      </div>
-
-      <!-- 2. Temp Email -->
-      <div class="hcard" onclick="openPanel('p-email')" data-color="cyn" style="position:relative;">
-        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-email')">📌 Pin</button>
-        <div style="display:flex;align-items:center;gap:14px;height:100%;">
-          <div class="hcard-icon c2" style="flex-shrink:0;">📧</div>
-          <div>
-            <div class="hcard-badge live">Mail.tm Powered</div>
-            <div class="hcard-title">Temporary Email</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Ad Slot 2 -->
-      <div class="home-ad-slot">
-        <div class="ad-desktop-home" style="width:300px;height:250px;overflow:hidden;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-        <div class="ad-mobile-home" style="width:300px;height:250px;overflow:hidden;margin:0 auto;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-      </div>
-
-      <!-- Ad Slot 3 -->
-      <div class="home-ad-slot">
-        <div class="ad-desktop-home" style="width:300px;height:250px;overflow:hidden;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-        <div class="ad-mobile-home" style="width:300px;height:250px;overflow:hidden;margin:0 auto;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-      </div>
-
-      <!-- 6. Image to PDF -->
-      <div class="hcard" onclick="openPanel('p-img2pdf')" data-color="pur" style="position:relative;">
-        <button class="pin-btn" onclick="event.stopPropagation();pinService('p-img2pdf')">📌 Pin</button>
-        <div style="display:flex;align-items:center;gap:14px;height:100%;">
-          <div class="hcard-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7);flex-shrink:0;">🖼️</div>
-          <div>
-            <div class="hcard-badge live" style="background:rgba(168,85,247,0.15);color:#c084fc;border-color:rgba(168,85,247,0.3);">Image → PDF / Text</div>
-            <div class="hcard-title">Image to PDF & Image to Text</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Ad Slot 4 -->
-      <div class="home-ad-slot">
-        <div class="ad-desktop-home" style="width:300px;height:250px;overflow:hidden;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-        <div class="ad-mobile-home" style="width:300px;height:250px;overflow:hidden;margin:0 auto;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-      </div>
-
-    </div>
-
-
-  </div>
-
-  <div id="p-anon" class="panel">
-    <div class="panel-ads-wrap">
-      <div class="panel-ad-left" style="width:160px;height:600px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'971a0305a399e3efffac96030d3e371f','format':'iframe','height':600,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/971a0305a399e3efffac96030d3e371f/invoke.js"></script></div>
-      <div class="panel-inner-wrap">
-        <div class="ad-mobile-top" style="width:300px;height:250px;overflow:hidden;margin:0 auto 12px;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-        <div class="panel-inner-content">
-      <button class="back-btn" onclick="closePanel('p-anon')">← Dashboard</button>
-      <div class="pcard">
-        <button class="pin-btn" onclick="pinService('p-anon')" style="position:absolute;top:14px;right:14px;z-index:3;">📌 Pin</button>
-        <div class="phead">
-          <div class="phead-icon" style="background:linear-gradient(135deg,#1e1b4b,#4f46e5)">🕵️</div>
-          <div>
-            <div class="phead-title">Anonymity Checker</div>
-            <div class="phead-sub">Privacy Score · VPN · Tor · Timezone · Fingerprint</div>
-          </div>
-        </div>
-
-        <p style="font-size:.85rem;color:var(--sub);line-height:1.65;margin-bottom:22px;">
-          Analyze your connection's anonymity level. Checks for VPN/proxy, Tor exit nodes, timezone mismatches, language inconsistencies, and blacklist status.
-        </p>
-
-        <button class="btn" id="anon-scan-btn" style="background:linear-gradient(135deg,rgba(79,70,229,0.3),rgba(168,85,247,0.3));border:1px solid rgba(129,140,248,0.4);color:#c7d2fe;">🔍 Analyze My Anonymity</button>
-
-        <div id="anon-loading" style="display:none;text-align:center;padding:30px 0;color:var(--sub);font-size:.85rem;">
-          <div style="font-size:1.5rem;margin-bottom:8px;animation:spin 1s linear infinite;display:inline-block;">⚙️</div><br>Analyzing your connection…
-        </div>
-
-        <div id="anon-result" style="display:none;">
-          <!-- Gauge -->
-          <div class="anon-hero">
-            <div class="gauge-wrap">
-              <svg class="gauge-svg" viewBox="0 0 180 180">
-                <circle class="gauge-bg" cx="90" cy="90" r="80"/>
-                <circle class="gauge-fill" id="gauge-circle" cx="90" cy="90" r="80"/>
-              </svg>
-              <div class="gauge-score">
-                <div class="gauge-number" id="gauge-num">0%</div>
-                <div class="gauge-label">Anonymity</div>
-              </div>
-            </div>
-            <div class="anon-status-badge" id="anon-badge">—</div>
-            <div class="anon-subtitle" id="anon-subtitle">Scanning…</div>
-          </div>
-
-          <!-- Check Cards -->
-          <div class="anon-section-title">Security Checks</div>
-          <div class="anon-checks">
-            <div class="check-item" id="chk-vpn">
-              <div class="check-icon">🔒</div>
-              <div class="check-body">
-                <div class="check-name">VPN / Proxy / Hosting</div>
-                <div class="check-val" id="chk-vpn-val">—</div>
-                <div class="check-deduct" id="chk-vpn-pts">−50% if detected</div>
-              </div>
-            </div>
-            <div class="check-item" id="chk-tor">
-              <div class="check-icon">🧅</div>
-              <div class="check-body">
-                <div class="check-name">Tor / Blacklist</div>
-                <div class="check-val" id="chk-tor-val">—</div>
-                <div class="check-deduct" id="chk-tor-pts">−30% if detected</div>
-              </div>
-            </div>
-            <div class="check-item" id="chk-tz">
-              <div class="check-icon">🕐</div>
-              <div class="check-body">
-                <div class="check-name">Timezone Match</div>
-                <div class="check-val" id="chk-tz-val">—</div>
-                <div class="check-deduct" id="chk-tz-pts">−10% if mismatch</div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Details -->
-          <div class="anon-section-title">Connection Details</div>
-          <div class="anon-details" id="anon-details"></div>
-
-          <!-- Browser Info -->
-          <div class="anon-section-title">Browser Fingerprint</div>
-          <div class="anon-details" id="anon-browser"></div>
-        </div>
-
-        <div class="msg err" id="anon-err"><span class="msg-icon">⚠</span><span id="anon-err-txt">Could not fetch IP data.</span></div>
-      </div>
-        </div>
-        <div class="ad-mobile-bottom" style="width:300px;height:250px;overflow:hidden;margin:12px auto 0;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-      </div>
-      <div class="panel-ad-right" style="width:160px;min-height:300px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'20bd3e6cc57f5be2dd5f249505901f21','format':'iframe','height':300,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/20bd3e6cc57f5be2dd5f249505901f21/invoke.js"></script></div>
-    </div>
-  </div>
-
-
-  <!-- ═══════════════════════════════════ -->
-  <!-- PANEL: TEMPORARY EMAIL             -->
-  <!-- ═══════════════════════════════════ -->
-  <div id="p-email" class="panel">
-    <div class="panel-ads-wrap">
-      <div class="panel-ad-left" style="width:160px;height:600px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'971a0305a399e3efffac96030d3e371f','format':'iframe','height':600,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/971a0305a399e3efffac96030d3e371f/invoke.js"></script></div>
-      <div class="panel-inner-wrap">
-        <div class="ad-mobile-top" style="width:300px;height:250px;overflow:hidden;margin:0 auto 12px;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-        <div class="panel-inner-content">
-      <button class="back-btn" onclick="closePanel('p-email')">← Dashboard</button>
-      <div class="pcard">
-        <button class="pin-btn" onclick="pinService('p-email')" style="position:absolute;top:14px;right:14px;z-index:3;">📌 Pin</button>
-        <div class="phead">
-          <div class="phead-icon" style="background:linear-gradient(135deg,#0e7490,#22d3ee)">📧</div>
-          <div>
-            <div class="phead-title">Temporary Email</div>
-            <div class="phead-sub">Mail.tm · Auto-Generated · Real-time Inbox</div>
-          </div>
-        </div>
-
-
-
-        <!-- Email Address Box -->
-        <div id="email-loading" style="text-align:center;padding:22px 0;color:var(--sub);font-size:.85rem;">
-          <div style="font-size:1.5rem;margin-bottom:8px;display:inline-block;animation:doSpin 1s linear infinite;">⚙️</div><br>
-          Creating your temporary address…
-        </div>
-
-        <div id="email-ready" style="display:none;">
-          <div class="email-status-bar">
-            <span class="pulse-dot"></span>
-            <span id="email-status-txt">Inbox active — polling every 8s</span>
-            <span style="margin-left:auto;font-family:'Space Mono',monospace;" id="email-poll-timer">—</span>
-          </div>
-
-          <div class="email-addr-box">
-            <span class="email-addr-text" id="email-address">—</span>
-            <button class="copy-btn" id="email-copy-btn">📋 Copy</button>
-            <button class="copy-btn" id="email-refresh-btn" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3);color:var(--grn);">🔄 New</button>
-          </div>
-
-          <!-- Inbox -->
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-            <div style="font-size:0.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ind2);">
-              📬 Inbox <span id="email-count" style="background:rgba(99,102,241,0.2);border-radius:20px;padding:1px 8px;margin-left:4px;">0</span>
-            </div>
-<button id="email-inbox-refresh-btn" style="font-size:0.72rem;color:var(--sub);background:none;border:none;cursor:pointer;padding:4px 8px;">↻ Refresh</button>
-          </div>
-
-          <div class="inbox-list" id="email-inbox">
-            <div class="inbox-empty">
-              <div class="ie-icon">📭</div>
-              <div>Waiting for emails…</div>
-              <div style="font-size:0.72rem;margin-top:4px;color:var(--dim);">Send something to your address above</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="msg err" id="email-err"><span class="msg-icon">⚠</span><span id="email-err-txt">Error.</span></div>
-      </div>
-        </div>
-        <div class="ad-mobile-bottom" style="width:300px;height:250px;overflow:hidden;margin:12px auto 0;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-      </div>
-      <div class="panel-ad-right" style="width:160px;min-height:300px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'20bd3e6cc57f5be2dd5f249505901f21','format':'iframe','height':300,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/20bd3e6cc57f5be2dd5f249505901f21/invoke.js"></script></div>
-    </div>
-  </div>
-
-  <!-- Mail View Modal -->
-  <div class="mail-modal" id="mail-modal" style="display:none;" onclick="if(event.target===this)closeMail()">
-    <div class="mail-modal-inner">
-      <div class="mail-modal-head">
-        <div style="flex:1;min-width:0;">
-          <div style="font-size:0.75rem;color:var(--sub);margin-bottom:2px;" id="modal-from">From: —</div>
-          <div style="font-size:0.95rem;font-weight:700;color:var(--txt);" id="modal-subject">—</div>
-          <div style="font-size:0.7rem;color:var(--dim);margin-top:2px;" id="modal-date">—</div>
-        </div>
-        <button class="mail-modal-close" onclick="closeMail()">✕</button>
-      </div>
-      <div class="mail-modal-body" id="modal-body">Loading…</div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════ -->
-  <!-- PANEL: INTERNET SPEED TEST         -->
-  <!-- ═══════════════════════════════════ -->
-  <div id="p-speed" class="panel">
-    <div class="panel-ads-wrap">
-      <div class="panel-ad-left" style="width:160px;height:600px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'971a0305a399e3efffac96030d3e371f','format':'iframe','height':600,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/971a0305a399e3efffac96030d3e371f/invoke.js"></script></div>
-      <div class="panel-inner-wrap">
-        <div class="ad-mobile-top" style="width:300px;height:250px;overflow:hidden;margin:0 auto 12px;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-        <div class="panel-inner-content">
-      <button class="back-btn" onclick="closePanel('p-speed')">← Dashboard</button>
-      <div class="pcard">
-        <button class="pin-btn" onclick="pinService('p-speed')" style="position:absolute;top:14px;right:14px;z-index:3;">📌 Pin</button>
-        <div class="phead">
-          <div class="phead-icon" style="background:linear-gradient(135deg,#065f46,#10b981)">⚡</div>
-          <div>
-            <div class="phead-title">Internet Speed Test</div>
-            <div class="phead-sub">Download · Upload · Ping · Jitter</div>
-          </div>
-        </div>
-
-
-
-        <button class="btn speed-test-btn" id="speed-btn">▶ Start Speed Test</button>
-
-        <div id="speed-result" style="display:none;margin-top:20px;">
-          <!-- Gauges -->
-          <div class="speed-gauge-wrap">
-            <!-- Download gauge -->
-            <div class="speed-dial">
-              <svg width="130" height="130" viewBox="0 0 100 100" style="transform:rotate(-225deg);">
-                <circle class="speed-arc-bg" cx="50" cy="50" r="45" stroke-dasharray="212" stroke-dashoffset="0"/>
-                <circle class="speed-arc-fill" id="dl-arc" cx="50" cy="50" r="45" stroke="#22d3ee" stroke-dasharray="212" stroke-dashoffset="212"/>
-              </svg>
-              <div class="speed-num">
-                <span class="speed-val" id="dl-val" style="color:#22d3ee;">—</span>
-                <span class="speed-unit">Mbps</span>
-              </div>
-              <div class="speed-label">Download</div>
-            </div>
-            <!-- Upload gauge -->
-            <div class="speed-dial">
-              <svg width="130" height="130" viewBox="0 0 100 100" style="transform:rotate(-225deg);">
-                <circle class="speed-arc-bg" cx="50" cy="50" r="45" stroke-dasharray="212" stroke-dashoffset="0"/>
-                <circle class="speed-arc-fill" id="ul-arc" cx="50" cy="50" r="45" stroke="#10b981" stroke-dasharray="212" stroke-dashoffset="212"/>
-              </svg>
-              <div class="speed-num">
-                <span class="speed-val" id="ul-val" style="color:#10b981;">—</span>
-                <span class="speed-unit">Mbps</span>
-              </div>
-              <div class="speed-label">Upload</div>
-            </div>
-          </div>
-
-          <!-- Stats row -->
-          <div class="speed-stats-row">
-            <div class="speed-stat">
-              <div class="speed-stat-val" id="ping-val">—</div>
-              <div class="speed-stat-key">Ping (ms)</div>
-            </div>
-            <div class="speed-stat">
-              <div class="speed-stat-val" id="jitter-val">—</div>
-              <div class="speed-stat-key">Jitter (ms)</div>
-            </div>
-            <div class="speed-stat">
-              <div class="speed-stat-val" id="server-val">—</div>
-              <div class="speed-stat-key">Server</div>
-            </div>
-          </div>
-
-          <!-- Progress bars -->
-          <div style="margin-top:16px;">
-            <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--sub);margin-bottom:4px;">
-              <span>Download progress</span><span id="dl-pct">0%</span>
-            </div>
-            <div class="speed-bar-wrap"><div class="speed-bar" id="dl-bar" style="background:var(--cyn);"></div></div>
-            <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--sub);margin-bottom:4px;margin-top:10px;">
-              <span>Upload progress</span><span id="ul-pct">0%</span>
-            </div>
-            <div class="speed-bar-wrap"><div class="speed-bar" id="ul-bar" style="background:var(--grn);"></div></div>
-          </div>
-
-          <!-- Live log -->
-          <div class="speed-log" id="speed-log"></div>
-        </div>
-
-        <div class="msg err" id="speed-err"><span class="msg-icon">⚠</span><span id="speed-err-txt">Test failed.</span></div>
-      </div>
-        </div>
-        <div class="ad-mobile-bottom" style="width:300px;height:250px;overflow:hidden;margin:12px auto 0;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-      </div>
-      <div class="panel-ad-right" style="width:160px;min-height:300px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'20bd3e6cc57f5be2dd5f249505901f21','format':'iframe','height':300,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/20bd3e6cc57f5be2dd5f249505901f21/invoke.js"></script></div>
-    </div>
-  </div>
-
-  <div id="p-url" class="panel">
-    <div class="panel-ads-wrap">
-      <div class="panel-ad-left" style="width:160px;height:600px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'971a0305a399e3efffac96030d3e371f','format':'iframe','height':600,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/971a0305a399e3efffac96030d3e371f/invoke.js"></script></div>
-      <div class="panel-inner-wrap">
-        <div class="ad-mobile-top" style="width:300px;height:250px;overflow:hidden;margin:0 auto 12px;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-        <div class="panel-inner-content">
-      <button class="back-btn" onclick="closePanel('p-url')">← Dashboard</button>
-      <div class="pcard">
-        <button class="pin-btn" onclick="pinService('p-url')" style="position:absolute;top:14px;right:14px;z-index:3;">📌 Pin</button>
-        <div class="phead">
-          <div class="phead-icon" style="background:linear-gradient(135deg,#9d174d,#f43f5e)">🔗</div>
-          <div>
-            <div class="phead-title">XONOMO Link Shortener</div>
-
-          </div>
-        </div>
-
-
-
-        <!-- Input -->
-        <div class="field">
-          <label class="lbl">Long URL</label>
-          <input type="url" id="url-input" placeholder="https://your-very-long-url.com/path?query=…" />
-        </div>
-
-        <button class="btn btn-ros" id="url-btn">✂ Shorten URL</button>
-
-        <!-- Result Box -->
-        <div id="url-result" class="result" style="display:none;">
-          <div style="font-size:0.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin-bottom:8px;font-weight:700;">✅ Shortened Link Ready</div>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-            <a id="url-short-text" href="#" target="_blank" rel="noopener"
-               style="font-family:'Space Mono',monospace;font-size:0.9rem;color:var(--cyn);
-                      flex:1;word-break:break-all;text-decoration:none;
-                      padding:10px 14px;background:rgba(34,211,238,0.07);
-                      border:1px solid rgba(34,211,238,0.2);border-radius:10px;">—</a>
-            <button class="copy-btn" id="url-copy-btn">📋 Copy</button>
-          </div>
-          <div style="margin-top:10px;font-size:0.75rem;color:var(--dim);">
-            Powered by <a href="https://tinyurl.com" target="_blank" style="color:var(--ind2);text-decoration:none;">TinyURL</a> &amp; is.gd · No server needed
-          </div>
-        </div>
-
-        <!-- Error -->
-        <div class="msg err" id="url-err"><span class="msg-icon">⚠</span><span id="url-err-txt">Error.</span></div>
-
-      </div>
-        </div>
-        <div class="ad-mobile-bottom" style="width:300px;height:250px;overflow:hidden;margin:12px auto 0;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-      </div>
-      <div class="panel-ad-right" style="width:160px;min-height:300px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'20bd3e6cc57f5be2dd5f249505901f21','format':'iframe','height':300,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/20bd3e6cc57f5be2dd5f249505901f21/invoke.js"></script></div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════ -->
-
-  <!-- ═══════════════════════════════════ -->
-  <!-- PANEL: IMAGE TO PDF                -->
-  <!-- ═══════════════════════════════════ -->
-  <div id="p-img2pdf" class="panel">
-    <div class="panel-ads-wrap">
-      <div class="panel-ad-left" style="width:160px;height:600px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'971a0305a399e3efffac96030d3e371f','format':'iframe','height':600,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/971a0305a399e3efffac96030d3e371f/invoke.js"></script></div>
-      <div class="panel-inner-wrap">
-        <div class="ad-mobile-top" style="width:300px;height:250px;overflow:hidden;margin:0 auto 12px;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-        <div class="panel-inner-content">
-      <button class="back-btn" onclick="closePanel('p-img2pdf')">← Dashboard</button>
-      <div class="pcard">
-        <button class="pin-btn" onclick="pinService('p-img2pdf')" style="position:absolute;top:14px;right:14px;z-index:3;">📌 Pin</button>
-        <div class="phead">
-          <div class="phead-icon" style="background:linear-gradient(135deg,#6b21a8,#a855f7)">🖼️</div>
-          <div><div class="phead-title">Image to PDF & Image to Text</div></div>
-        </div>
-
-        <!-- Tabs -->
-        <div class="tabs" style="margin-bottom:20px;">
-          <button class="tab-btn on" id="tab-pdf-btn" onclick="switchImgTab('pdf')">Image to PDF</button>
-          <button class="tab-btn" id="tab-ocr-btn" onclick="switchImgTab('ocr')">Image to Text</button>
-        </div>
-
-        <!-- PDF TAB -->
-        <div id="tab-pdf-content">
-
-                <!-- Drop Zone -->
-        <div id="pdf-dropzone"
-             style="border:2px dashed rgba(168,85,247,0.4);border-radius:18px;
-                    padding:36px 20px;text-align:center;cursor:pointer;
-                    background:rgba(168,85,247,0.04);transition:all 0.25s;margin-bottom:18px;"
-             onclick="document.getElementById('pdf-file-input').click()"
-             ondragover="pdfDragOver(event)" ondragleave="pdfDragLeave(event)" ondrop="pdfDrop(event)">
-          <div style="font-size:2.4rem;margin-bottom:10px;">📂</div>
-          <div style="font-size:0.92rem;font-weight:700;color:var(--txt);margin-bottom:5px;">Select or drag images here</div>
-          <div style="font-size:0.75rem;color:var(--sub);">JPG · PNG · WebP · GIF — multiple files supported</div>
-          <input type="file" id="pdf-file-input" accept="image/*" multiple style="display:none">
-        </div>
-
-        <!-- Options Row -->
-        <div class="row2" style="margin-bottom:16px;">
-          <div class="field" style="margin-bottom:0;">
-            <label class="lbl">Page Size</label>
-            <select id="pdf-pagesize" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:11px 14px;font-family:inherit;font-size:0.9rem;outline:none;appearance:none;cursor:pointer;transition:var(--t);">
-              <option value="a4">A4 (210×297 mm)</option>
-              <option value="letter">Letter (8.5×11 in)</option>
-              <option value="a3">A3 (297×420 mm)</option>
-              <option value="fit">Image Size (fit)</option>
-            </select>
-          </div>
-          <div class="field" style="margin-bottom:0;">
-            <label class="lbl">Orientation</label>
-            <select id="pdf-orient" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:11px 14px;font-family:inherit;font-size:0.9rem;outline:none;appearance:none;cursor:pointer;transition:var(--t);">
-              <option value="auto">Auto (detect)</option>
-              <option value="portrait">Portrait</option>
-              <option value="landscape">Landscape</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Margin & Quality -->
-        <div class="row2" style="margin-bottom:16px;">
-          <div class="field" style="margin-bottom:0;">
-            <label class="lbl">Margin (mm)</label>
-            <input type="number" id="pdf-margin" value="10" min="0" max="50" style="padding:11px 14px;">
-          </div>
-          <div class="field" style="margin-bottom:0;">
-            <label class="lbl">Image Quality</label>
-            <select id="pdf-quality" style="width:100%;background:rgba(8,12,28,0.7);border:1px solid rgba(255,255,255,0.1);border-radius:var(--ri);color:var(--txt);padding:11px 14px;font-family:inherit;font-size:0.9rem;outline:none;appearance:none;cursor:pointer;transition:var(--t);">
-              <option value="0.98">High (98%)</option>
-              <option value="0.85" selected>Medium (85%)</option>
-              <option value="0.65">Low (65%) — smaller file</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Preview Grid -->
-        <div id="pdf-preview-wrap" style="display:none;margin-bottom:18px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-            <div style="font-size:0.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ind2);">
-              🖼 Selected Images <span id="pdf-count" style="background:rgba(99,102,241,0.2);border-radius:20px;padding:1px 8px;margin-left:4px;">0</span>
-            </div>
-            <button onclick="pdfClearAll()" style="font-size:0.72rem;color:var(--ros);background:none;border:none;cursor:pointer;padding:4px 8px;">✕ Clear All</button>
-          </div>
-          <div id="pdf-preview-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;max-height:280px;overflow-y:auto;padding:4px;"></div>
-          <p style="font-size:0.72rem;color:var(--dim);margin-top:8px;">💡 Drag thumbnails to reorder</p>
-        </div>
-
-        <!-- Generate Button -->
-        <button class="btn" id="pdf-btn" disabled
-                style="background:linear-gradient(135deg,#6b21a8,#9333ea,#a855f7);color:#fff;
-                       box-shadow:0 4px 20px rgba(168,85,247,0.3);opacity:0.5;">
-          📄 Generate PDF
-        </button>
-
-        <!-- Progress -->
-        <div id="pdf-progress" style="display:none;margin-top:16px;">
-          <div style="font-size:0.78rem;color:var(--sub);margin-bottom:8px;" id="pdf-progress-txt">Processing…</div>
-          <div style="height:6px;background:rgba(255,255,255,0.07);border-radius:6px;overflow:hidden;">
-            <div id="pdf-progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#7c3aed,#a855f7);border-radius:6px;transition:width 0.3s ease;"></div>
-          </div>
-        </div>
-
-        <!-- Success -->
-        <div id="pdf-success" style="display:none;margin-top:16px;background:rgba(16,185,129,0.09);
-             border:1px solid rgba(16,185,129,0.25);border-radius:14px;padding:16px 18px;text-align:center;">
-          <div style="font-size:1.6rem;margin-bottom:6px;">✅</div>
-          <div style="font-size:0.9rem;font-weight:700;color:#6ee7b7;margin-bottom:4px;">PDF created successfully!</div>
-          <div style="font-size:0.75rem;color:var(--sub);" id="pdf-success-info">—</div>
-        </div>
-
-        <!-- Error -->
-        <div class="msg err" id="pdf-err"><span class="msg-icon">⚠</span><span id="pdf-err-txt">Error.</span></div>
-
-
-        </div><!-- /tab-pdf-content -->
-
-        <!-- OCR TAB -->
-        <div id="tab-ocr-content" style="display:none;">
-
-          <!-- OCR Drop Zone -->
-          <div id="ocr-dropzone"
-               style="border:2px dashed rgba(168,85,247,0.4);border-radius:18px;
-                      padding:36px 20px;text-align:center;cursor:pointer;
-                      background:rgba(168,85,247,0.04);transition:all 0.25s;margin-bottom:18px;"
-               onclick="document.getElementById('ocr-file-input').click()"
-               ondragover="ocrDragOver(event)" ondragleave="ocrDragLeave(event)" ondrop="ocrDrop(event)">
-            <div style="font-size:2.4rem;margin-bottom:10px;">🔍</div>
-            <div style="font-size:0.92rem;font-weight:700;color:var(--txt);margin-bottom:5px;">Extract text from image</div>
-            <div style="font-size:0.75rem;color:var(--sub);">JPG · PNG · WebP — select an image</div>
-            <input type="file" id="ocr-file-input" accept="image/*" style="display:none">
-          </div>
-
-
-
-          <!-- OCR Preview -->
-          <div id="ocr-preview-wrap" style="display:none;margin-bottom:16px;text-align:center;">
-            <img id="ocr-preview-img" src="" alt="preview"
-                 style="max-width:100%;max-height:220px;border-radius:12px;
-                        border:1px solid rgba(168,85,247,0.3);object-fit:contain;">
-            <div id="ocr-file-name" style="font-size:0.72rem;color:var(--sub);margin-top:6px;"></div>
-          </div>
-
-          <!-- OCR Button -->
-          <button class="btn" id="ocr-btn" disabled
-                  style="background:linear-gradient(135deg,#6b21a8,#9333ea,#a855f7);color:#fff;
-                         box-shadow:0 4px 20px rgba(168,85,247,0.3);opacity:0.5;">
-            🔍 Extract Text
-          </button>
-
-          <!-- OCR Progress -->
-          <div id="ocr-progress" style="display:none;margin-top:16px;">
-            <div style="font-size:0.78rem;color:var(--sub);margin-bottom:8px;" id="ocr-progress-txt">Processing…</div>
-            <div style="height:6px;background:rgba(255,255,255,0.07);border-radius:6px;overflow:hidden;">
-              <div id="ocr-progress-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#7c3aed,#a855f7);border-radius:6px;transition:width 0.3s ease;"></div>
-            </div>
-          </div>
-
-          <!-- OCR Result -->
-          <div id="ocr-result" style="display:none;margin-top:16px;">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-              <div style="font-size:0.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);">✅ Extracted Text</div>
-              <button onclick="ocrCopyText()" id="ocr-copy-btn"
-                      style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;
-                             background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);
-                             color:var(--ind2);border-radius:9px;padding:6px 14px;cursor:pointer;
-                             font-family:inherit;font-weight:700;transition:var(--t);">
-                📋 Copy
-              </button>
-            </div>
-            <textarea id="ocr-text-output" readonly
-                      style="width:100%;min-height:180px;background:rgba(8,12,28,0.8);
-                             border:1px solid rgba(168,85,247,0.25);border-radius:12px;
-                             color:var(--txt);padding:14px;font-family:'DM Sans',sans-serif;
-                             font-size:0.88rem;line-height:1.7;resize:vertical;outline:none;">
-            </textarea>
-          </div>
-
-          <!-- OCR Error -->
-          <div class="msg err" id="ocr-err"><span class="msg-icon">⚠</span><span id="ocr-err-txt">Error.</span></div>
-
-        </div><!-- /tab-ocr-content -->
-
-      </div>
-        </div>
-        <div class="ad-mobile-bottom" style="width:300px;height:250px;overflow:hidden;margin:12px auto 0;"><script>atOptions={'key':'daf93270b1837947ba0489cf5f8cb026','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/daf93270b1837947ba0489cf5f8cb026/invoke.js"></script></div>
-      </div>
-      <div class="panel-ad-right" style="width:160px;min-height:300px;overflow:hidden;flex-shrink:0;"><script>atOptions={'key':'20bd3e6cc57f5be2dd5f249505901f21','format':'iframe','height':300,'width':160,'params':{}};</script><script src="https://www.highperformanceformat.com/20bd3e6cc57f5be2dd5f249505901f21/invoke.js"></script></div>
-    </div>
-  </div>
-
-</div><!-- /wrap -->
-
-<!-- SCRIPTS -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-/* ══════════════════════════════════════════════
-   CORE UTILITIES
-══════════════════════════════════════════════ */
-const toast = document.getElementById('toast');
-function copyText(t) {
-  navigator.clipboard.writeText(t).then(() => {
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2000);
-  }).catch(() => {
-    const el = document.createElement('textarea');
-    el.value = t; document.body.appendChild(el);
-    el.select(); document.execCommand('copy');
-    document.body.removeChild(el);
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2000);
-  });
-}
-
-function openPanel(id) {
-  document.getElementById('home').style.display = 'none';
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
-  if (id === 'p-email') emailInit();
-}
-function closePanel(id) {
-  document.getElementById(id).classList.remove('active');
-  document.getElementById('home').style.display = 'block';
-  if (id === 'p-email') emailDestroy();
-}
-
-function loading(btn, on) {
-  if (on) { btn.dataset.orig = btn.textContent; btn.textContent = '⏳ Loading…'; btn.disabled = true; }
-  else     { btn.textContent = btn.dataset.orig || btn.textContent; btn.disabled = false; }
-}
-function hideMsg(el) { el.style.display = 'none'; }
-function showMsg(el, type, txt) {
-  const span = el.querySelector('span:last-child');
-  if (span) span.textContent = txt;
-  el.style.display = 'flex';
-}
-
-/* ══════════════════════════════════════════════
-   MODULE 0 — ANONYMITY CHECKER
-   Scoring: VPN/Hosting(50) + Tor/Blacklist(30)
-           + Timezone(10) + Language(10) = 100
-══════════════════════════════════════════════ */
-
-// Known datacenter/hosting ASN keywords
-const DATACENTER_KEYWORDS = [
-  'amazon','aws','digitalocean','linode','vultr','ovh','hetzner','m247',
-  'leaseweb','choopa','psychz','zenlayer','frantech','serverius','hostinger',
-  'contabo','cloudflare','google cloud','microsoft azure','alibaba','tencent',
-  'rackspace','softlayer','quadranet','tzulo','sharktech','path network',
-  'colocrossing','nexeon','dacentec','fibernet','hostwinds','racknerd',
-  'buyvm','incero','krypt','multacom','reliablesite','steadfast','liquidweb',
-  'fastly','akamai','incapsula','sucuri','voxility','mevspace','combahton'
-];
-
-function isDatacenter(org) {
-  if (!org) return false;
-  const low = org.toLowerCase();
-  return DATACENTER_KEYWORDS.some(k => low.includes(k));
-}
-
-// Language → country mapping (common cases)
-const LANG_COUNTRY = {
-  'en': ['US','GB','CA','AU','NZ','IE','ZA','IN','SG','PH','NG','GH','KE','UG','TZ'],
-  'es': ['ES','MX','CO','AR','PE','VE','CL','EC','BO','PY','UY','CR','PA','DO','GT','HN','SV','NI','CU','PR'],
-  'fr': ['FR','BE','CH','CA','LU','MC','SN','CI','CM','MG','ML','BF','NE','TG','BJ','GA','CG','CD'],
-  'de': ['DE','AT','CH','LI','LU','BE'],
-  'pt': ['PT','BR','AO','MZ','CV','GW','ST','TL'],
-  'zh': ['CN','TW','HK','SG'],
-  'ar': ['SA','AE','EG','IQ','SY','JO','LB','KW','QA','BH','OM','YE','LY','TN','DZ','MA','SD'],
-  'ru': ['RU','BY','KZ','KG','TJ','TM','UZ','UA','MD','AZ','AM','GE'],
-  'ja': ['JP'],
-  'ko': ['KR','KP'],
-  'hi': ['IN'],
-  'bn': ['BD','IN'],
-  'tr': ['TR'],
-  'vi': ['VN'],
-  'th': ['TH'],
-  'id': ['ID'],
-  'ms': ['MY','SG','BN'],
-  'nl': ['NL','BE','SR'],
-  'pl': ['PL'],
-  'uk': ['UA'],
-  'it': ['IT','CH','SM','VA'],
-  'fa': ['IR','AF'],
-  'ur': ['PK','IN'],
-  'sw': ['TZ','KE','UG'],
-  'he': ['IL'],
-  'el': ['GR','CY'],
-  'cs': ['CZ'],
-  'sk': ['SK'],
-  'ro': ['RO','MD'],
-  'hu': ['HU'],
-  'bg': ['BG'],
-  'hr': ['HR'],
-  'sr': ['RS'],
-  'fi': ['FI'],
-  'sv': ['SE'],
-  'da': ['DK'],
-  'nb': ['NO'], 'nn': ['NO'],
-  'lt': ['LT'],
-  'lv': ['LV'],
-  'et': ['EE'],
-};
-
-function checkLanguageMatch(browserLang, countryCode) {
-  if (!browserLang || !countryCode) return { match: true, reason: 'Unable to verify' };
-  const base = browserLang.split('-')[0].toLowerCase();
-  const cc = countryCode.toUpperCase();
-  const allowed = LANG_COUNTRY[base];
-  if (!allowed) return { match: true, reason: `Lang "${base}" not in DB` };
-  return {
-    match: allowed.includes(cc),
-    reason: allowed.includes(cc)
-      ? `${base.toUpperCase()} ✓ matches ${cc}`
-      : `${base.toUpperCase()} ✗ doesn't match ${cc}`
-  };
-}
-
-function setCheckState(id, state, val, pts) {
-  const el = document.getElementById(id);
-  const valEl = document.getElementById(id + '-val');
-  const ptsEl = document.getElementById(id + '-pts');
-  el.className = 'check-item ' + state;
-  if (val !== undefined) {
-    valEl.textContent = val;
-    valEl.className = 'check-val' + (state === 'fail' ? ' mismatch' : '');
+  function toggleMore() {
+    const c = document.getElementById('moreContent');
+    const b = document.getElementById('moreBtn');
+    c.classList.toggle('open');
+    b.textContent = c.classList.contains('open') ? 'Read Less ↑' : 'Read More ↓';
   }
-  if (pts !== undefined) {
-    ptsEl.textContent = pts;
-    ptsEl.className = 'check-deduct ' + (state === 'pass' ? 'grn' : state === 'fail' ? 'red' : '');
-  }
-}
-
-function animateGauge(score) {
-  const circle = document.getElementById('gauge-circle');
-  const numEl   = document.getElementById('gauge-num');
-  const circumference = 2 * Math.PI * 80; // ~502.65
-  const offset = circumference - (score / 100) * circumference;
-
-  // Color by score
-  let color;
-  if (score >= 80)      color = '#10b981';
-  else if (score >= 50) color = '#f59e0b';
-  else                  color = '#f43f5e';
-
-  circle.style.stroke = color;
-  circle.style.strokeDashoffset = offset;
-
-  // Animate number
-  let cur = 0;
-  const step = score / 60;
-  const timer = setInterval(() => {
-    cur = Math.min(cur + step, score);
-    numEl.textContent = Math.round(cur) + '%';
-    if (cur >= score) clearInterval(timer);
-  }, 16);
-}
-
-function setBadge(score) {
-  const badge = document.getElementById('anon-badge');
-  const sub   = document.getElementById('anon-subtitle');
-  badge.className = 'anon-status-badge';
-  if (score === 100) {
-    badge.classList.add('badge-safe');
-    badge.textContent = '✅ Fully Anonymous';
-    sub.textContent = 'No leaks detected. Your connection appears clean.';
-  } else if (score >= 70) {
-    badge.classList.add('badge-safe');
-    badge.textContent = '🟢 Mostly Anonymous';
-    sub.textContent = 'Minor inconsistencies found. Generally safe.';
-  } else if (score >= 40) {
-    badge.classList.add('badge-warn');
-    badge.textContent = '🟡 Partial Anonymity';
-    sub.textContent = 'Some leaks detected. Your identity may be exposed.';
-  } else {
-    badge.classList.add('badge-danger');
-    badge.textContent = '🔴 Low Anonymity';
-    sub.textContent = 'Significant leaks detected. You are likely identifiable.';
-  }
-}
-
-function renderDetails(fields, containerId) {
-  document.getElementById(containerId).innerHTML = fields.map(f =>
-    `<div class="adet">
-      <div class="adet-k">${f.k}</div>
-      <div class="adet-v ${f.cls||''}">${f.v || '—'}</div>
-    </div>`
-  ).join('');
-}
-
-document.getElementById('anon-scan-btn').addEventListener('click', async function() {
-  const btn     = this;
-  const errEl   = document.getElementById('anon-err');
-  const loadEl  = document.getElementById('anon-loading');
-  const resEl   = document.getElementById('anon-result');
-
-  hideMsg(errEl);
-  resEl.style.display = 'none';
-  loadEl.style.display = 'block';
-  loading(btn, true);
-
-  // Browser-side data (collected immediately)
-  const browserTZ   = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const browserLang = navigator.language || navigator.languages?.[0] || '';
-  const ua          = navigator.userAgent;
-  const platform    = navigator.platform || 'Unknown';
-  const cookieOk    = navigator.cookieEnabled;
-  const doNotTrack  = navigator.doNotTrack;
-  const screen_res  = `${window.screen.width}×${window.screen.height}`;
-  const colorDepth  = window.screen.colorDepth + '-bit';
-
-  try {
-    // Cloudflare built-in endpoints — no external API, no function file needed
-    async function fetchIPData() {
-
-      // Step 1: Get IP + basic info from Cloudflare's own /cdn-cgi/trace
-      // This endpoint exists on EVERY Cloudflare-proxied site automatically
-      const traceR = await fetch('/cdn-cgi/trace', { signal: AbortSignal.timeout(6000) });
-      if (!traceR.ok) throw new Error('Cloudflare trace failed');
-      const traceText = await traceR.text();
-
-      // Parse the key=value text format
-      const cf = {};
-      traceText.trim().split('\n').forEach(line => {
-        const [k, ...v] = line.split('=');
-        cf[k.trim()] = v.join('=').trim();
-      });
-      // cf now has: ip, loc (country), colo, uag, ts, etc.
-
-      const ip          = cf.ip    || '';
-      const countryCode = cf.loc   || '';
-
-      // Step 2: Get timezone from browser's own Intl (accurate for the user)
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-      // Step 3: Get city/region/org from a lightweight HTTPS geo API
-      // ipinfo.io free tier: 50k/month, no key needed for basic fields
-      let org = '', asn = '', region = '', city = '', lat = 0, lon = 0;
-      try {
-        const geoR = await fetch(`https://ipinfo.io/${ip}/json`, { signal: AbortSignal.timeout(5000) });
-        if (geoR.ok) {
-          const g = await geoR.json();
-          org    = g.org    || '';
-          asn    = g.org?.split(' ')[0] || '';
-          region = g.region || '';
-          city   = g.city   || '';
-          const [la, lo] = (g.loc || ',').split(',');
-          lat = parseFloat(la) || 0;
-          lon = parseFloat(lo) || 0;
-        }
-      } catch { /* city/org optional — IP still works */ }
-
-      return {
-        ip, org, asn,
-        country_name: countryCode,
-        country_code: countryCode,
-        region, city, timezone,
-        utc_offset: '', languages: '', currency: '', currency_name: '',
-        latitude: lat, longitude: lon,
-        _proxy: false, _hosting: isDatacenter(org),
-      };
-    }
-
-    const d = await fetchIPData();
-
-    loadEl.style.display = 'none';
-    resEl.style.display  = 'block';
-
-    let score = 100;
-    let deductions = [];
-
-    // ── CHECK 1: VPN / Proxy / Hosting (−50) ──
-    const org = d.org || '';
-    const asn = d.asn || '';
-    const vpnDetected = d._proxy || d._hosting || isDatacenter(org) || isDatacenter(asn);
-    if (vpnDetected) {
-      score -= 50;
-      deductions.push('VPN/Hosting detected');
-      setCheckState('chk-vpn', 'fail', `${org || asn}`, '−50% Deducted');
-    } else {
-      setCheckState('chk-vpn', 'pass', org || 'Residential ISP', '✓ No deduction');
-    }
-
-    // ── CHECK 2: Tor / Blacklist (−30) ──
-    // Check using Tor DNS: <reversed-ip>.dnsel.torproject.org
-    let torDetected = false;
-    const ip = d.ip || '';
-    try {
-      // We can't do actual DNS in browser, so we use a known Tor check API
-      const torR = await fetch(`https://check.torproject.org/api/ip`, { signal: AbortSignal.timeout(4000) });
-      if (torR.ok) {
-        const torD = await torR.json();
-        torDetected = torD.IsTor === true;
-      }
-    } catch { /* Tor check failed — assume not Tor */ }
-
-    if (torDetected) {
-      score -= 30;
-      deductions.push('Tor exit node detected');
-      setCheckState('chk-tor', 'fail', 'Tor Exit Node Detected', '−30% Deducted');
-    } else {
-      setCheckState('chk-tor', 'pass', 'Not a Tor/Blacklisted IP', '✓ No deduction');
-    }
-
-    // ── CHECK 3: Timezone Mismatch (−10) ──
-    const ipTZ = d.timezone || '';
-    const tzMatch = browserTZ === ipTZ;
-    if (!tzMatch && ipTZ) {
-      score -= 10;
-      deductions.push('Timezone mismatch');
-      setCheckState('chk-tz', 'fail',
-        `Browser: ${browserTZ}\nIP: ${ipTZ}`,
-        '−10% Deducted'
-      );
-      // Show both values with mismatch styling
-      document.getElementById('chk-tz-val').innerHTML =
-        `<span style="color:#f43f5e">Browser: ${browserTZ}</span><br>
-         <span style="color:#94a3b8">IP: ${ipTZ}</span>`;
-    } else {
-      setCheckState('chk-tz', 'pass',
-        ipTZ ? `✓ ${browserTZ}` : `Browser: ${browserTZ}`,
-        '✓ No deduction'
-      );
-    }
-
-    // Language Match check removed — no deduction
-    const cc = d.country_code || '';
-
-    score = Math.max(0, score);
-
-    // Animate gauge
-    animateGauge(score);
-    setBadge(score);
-
-    // Connection details
-    renderDetails([
-      { k: 'IP Address',  v: d.ip,            cls: 'highlight' },
-      { k: 'ISP / Org',   v: d.org            },
-      { k: 'ASN',         v: d.asn            },
-      { k: 'Country',     v: `${d.country_name||''} (${d.country_code||''})` },
-      { k: 'Region',      v: d.region         },
-      { k: 'City',        v: d.city           },
-      { k: 'IP Timezone', v: d.timezone,      cls: !tzMatch ? 'warn-val' : '' },
-      { k: 'UTC Offset',  v: d.utc_offset     },
-      { k: 'Languages',   v: d.languages      },
-      { k: 'Currency',    v: `${d.currency||''} ${d.currency_name||''}` },
-      { k: 'Latitude',    v: d.latitude       },
-      { k: 'Longitude',   v: d.longitude      },
-    ], 'anon-details');
-
-    // Browser fingerprint
-    renderDetails([
-      { k: 'Browser TZ',    v: browserTZ,    cls: !tzMatch ? 'warn-val' : '' },
-      { k: 'Language',      v: browserLang   },
-      { k: 'Platform',      v: platform      },
-      { k: 'Screen',        v: screen_res    },
-      { k: 'Color Depth',   v: colorDepth    },
-      { k: 'Cookies',       v: cookieOk ? 'Enabled' : 'Disabled' },
-      { k: 'Do Not Track',  v: doNotTrack === '1' ? 'Enabled' : doNotTrack === '0' ? 'Disabled' : 'Not Set' },
-      { k: 'User Agent',    v: ua.substring(0, 60) + (ua.length > 60 ? '…' : '') },
-    ], 'anon-browser');
-
-  } catch(e) {
-    loadEl.style.display = 'none';
-    showMsg(document.getElementById('anon-err'), 'err',
-      'Failed to fetch IP data. Check connection and try again.');
-  }
-
-  loading(btn, false);
-});
-/* ══════════════════════════════════════════════
-   TEMPORARY EMAIL MODULE — Mail.tm API
-   Cloudflare Worker proxy: POST /mail-proxy
-   Direct fallback: api.mail.tm (CORS allowed)
-══════════════════════════════════════════════ */
-const MAILTM = 'https://api.mail.tm';
-const EMAIL_STORAGE_KEY = 'xonomo_email';
-const EMAIL_TTL = 10 * 24 * 60 * 60 * 1000; // 10 days
-
-let emailToken  = null;
-let emailAddr   = null;
-let emailPass   = null;
-let emailMsgIds = new Set();
-let emailPollInterval  = null;
-let emailCountdownTimer = null;
-let emailNewCooldown   = 0;   // seconds remaining on New btn cooldown
-let emailNewCooldownTimer = null;
-
-function emailRandStr(len) {
-  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-  return Array.from({length: len}, () => chars[Math.floor(Math.random()*chars.length)]).join('');
-}
-
-// Save email credentials to localStorage with timestamp
-function emailSaveToStorage(address, password) {
-  localStorage.setItem(EMAIL_STORAGE_KEY, JSON.stringify({
-    address, password, savedAt: Date.now()
-  }));
-}
-
-// Load saved email if within 10 days
-function emailLoadFromStorage() {
-  try {
-    const raw = localStorage.getItem(EMAIL_STORAGE_KEY);
-    if (!raw) return null;
-    const d = JSON.parse(raw);
-    if (Date.now() - d.savedAt > EMAIL_TTL) {
-      localStorage.removeItem(EMAIL_STORAGE_KEY);
-      return null;
-    }
-    return d;
-  } catch { return null; }
-}
-
-async function emailInit(forceNew = false) {
-  const loadEl = document.getElementById('email-loading');
-  const readyEl = document.getElementById('email-ready');
-  const errEl   = document.getElementById('email-err');
-  loadEl.style.display = 'block';
-  readyEl.style.display = 'none';
-  hideMsg(errEl);
-  emailDestroy();
-
-  // Try restoring saved email first (unless forceNew)
-  if (!forceNew) {
-    const saved = emailLoadFromStorage();
-    if (saved) {
-      try {
-        const tokR = await fetch(`${MAILTM}/token`, {
-          method: 'POST',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify({address: saved.address, password: saved.password})
-        });
-        if (tokR.ok) {
-          const tokD = await tokR.json();
-          emailToken = tokD.token;
-          emailAddr  = saved.address;
-          emailPass  = saved.password;
-          emailSaveToStorage(emailAddr, emailPass); // refresh TTL
-          emailShowReady();
-          return;
-        }
-      } catch {}
-      // Saved credentials failed — create new
-    }
-  }
-
-  try {
-    // Step 1: Get available domains
-    const domR = await fetch(`${MAILTM}/domains?page=1`);
-    if (!domR.ok) throw new Error('Cannot reach Mail.tm');
-    const domD = await domR.json();
-    const domains = (domD['hydra:member'] || domD.hydra?.member || []);
-    if (!domains.length) throw new Error('No Mail.tm domains available');
-    const domain = domains[0].domain;
-
-    // Step 2: Create account
-    const user = emailRandStr(10);
-    const pass = emailRandStr(12) + 'X1!';
-    const address = `${user}@${domain}`;
-
-    const accR = await fetch(`${MAILTM}/accounts`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({address, password: pass})
-    });
-    if (!accR.ok) {
-      const e = await accR.json().catch(()=>({}));
-      throw new Error(e['hydra:description'] || e.detail || 'Account creation failed');
-    }
-
-    // Step 3: Get JWT token
-    const tokR = await fetch(`${MAILTM}/token`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({address, password: pass})
-    });
-    if (!tokR.ok) throw new Error('Auth failed');
-    const tokD = await tokR.json();
-    emailToken = tokD.token;
-    emailAddr  = address;
-    emailPass  = pass;
-    emailSaveToStorage(emailAddr, emailPass);
-    emailShowReady();
-
-  } catch(e) {
-    loadEl.style.display = 'none';
-    showMsg(document.getElementById('email-err'), 'err', '⚠ ' + e.message + '. Mail.tm may be temporarily down — try again in a moment.');
-  }
-}
-
-function emailShowReady() {
-  document.getElementById('email-loading').style.display = 'none';
-  document.getElementById('email-ready').style.display = 'block';
-  document.getElementById('email-address').textContent = emailAddr;
-
-  // Copy button
-  document.getElementById('email-copy-btn').onclick = () => {
-    copyText(emailAddr);
-    const b = document.getElementById('email-copy-btn');
-    b.textContent = '✓ Copied!'; b.classList.add('copied');
-    setTimeout(() => { b.textContent = '📋 Copy'; b.classList.remove('copied'); }, 2000);
-  };
-
-  // New Email button — click করলেই নতুন ইমেইল
-  const newBtn = document.getElementById('email-refresh-btn');
-  newBtn.onclick = () => emailInit(true);
-
-  // Refresh inbox button
-  document.getElementById('email-inbox-refresh-btn').onclick = () => emailPollInbox();
-
-  // Start polling
-  emailPollInbox();
-  emailStartPolling();
-}
-
-function emailDestroy() {
-  if (emailPollInterval)    { clearInterval(emailPollInterval);    emailPollInterval = null; }
-  if (emailCountdownTimer)  { clearInterval(emailCountdownTimer);  emailCountdownTimer = null; }
-  if (emailNewCooldownTimer){ clearInterval(emailNewCooldownTimer);emailNewCooldownTimer = null; }
-  emailToken = null;
-  emailAddr  = null;
-  emailPass  = null;
-  emailMsgIds = new Set();
-}
-
-function emailStartPolling() {
-  let countdown = 8;
-  emailPollInterval   = setInterval(emailPollInbox, 8000);
-  emailCountdownTimer = setInterval(() => {
-    countdown--;
-    const el = document.getElementById('email-poll-timer');
-    if (el) el.textContent = `Next check: ${countdown}s`;
-    if (countdown <= 0) countdown = 8;
-  }, 1000);
-}
-
-async function emailPollInbox() {
-  if (!emailToken) return;
-  try {
-    const r = await fetch(`${MAILTM}/messages?page=1`, {
-      headers: { Authorization: `Bearer ${emailToken}` }
-    });
-    if (!r.ok) return;
-    const data = await r.json();
-    const msgs = data['hydra:member'] || [];
-    const countEl = document.getElementById('email-count');
-    if (countEl) countEl.textContent = msgs.length;
-    renderInbox(msgs);
-  } catch { /* silently ignore poll errors */ }
-}
-
-function renderInbox(msgs) {
-  const inbox = document.getElementById('email-inbox');
-  if (!inbox) return;
-  if (!msgs.length) {
-    inbox.innerHTML = `<div class="inbox-empty"><div class="ie-icon">📭</div><div>Waiting for emails…</div><div style="font-size:0.72rem;margin-top:4px;color:var(--dim);">Send something to your address above</div></div>`;
-    return;
-  }
-  inbox.innerHTML = msgs.map(m => {
-    if (!emailMsgIds.has(m.id)) emailMsgIds.add(m.id);
-    const from = m.from?.address || m.from?.name || 'Unknown';
-    const subj = m.subject || '(No Subject)';
-    const date = m.createdAt ? new Date(m.createdAt).toLocaleTimeString() : '';
-    return `<div class="inbox-item ${m.seen?'':'unread'}" style="cursor:pointer;" onclick="emailOpenMsg('${m.id}')">
-      <div class="inbox-dot ${m.seen?'read':''}"></div>
-      <div class="inbox-meta">
-        <div class="inbox-from">${escHtml(from)}</div>
-        <div class="inbox-subj">${escHtml(subj)}</div>
-      </div>
-      <div class="inbox-time">${date}</div>
-    </div>`;
-  }).join('');
-}
-
-async function emailOpenMsg(id) {
-  if (!emailToken) return;
-  const modal = document.getElementById('mail-modal');
-  const bodyEl = document.getElementById('modal-body');
-  const fromEl = document.getElementById('modal-from');
-  const subjEl = document.getElementById('modal-subject');
-  const dateEl = document.getElementById('modal-date');
-  modal.style.display = 'flex';
-  bodyEl.innerHTML = '<div style="text-align:center;padding:30px;color:var(--sub);">Loading message…</div>';
-
-  try {
-    const r = await fetch(`${MAILTM}/messages/${id}`, {
-      headers: { Authorization: `Bearer ${emailToken}` }
-    });
-    if (!r.ok) throw new Error('Failed to load message');
-    const m = await r.json();
-    fromEl.textContent = `From: ${m.from?.address || m.from?.name || '—'}`;
-    subjEl.textContent = m.subject || '(No Subject)';
-    dateEl.textContent = m.createdAt ? new Date(m.createdAt).toLocaleString() : '';
-
-    if (m.html && m.html.length) {
-      const blob = new Blob([Array.isArray(m.html) ? m.html[0] : m.html], {type:'text/html'});
-      const url  = URL.createObjectURL(blob);
-      bodyEl.innerHTML = `<iframe src="${url}" sandbox="allow-same-origin allow-popups" style="width:100%;min-height:300px;border:none;border-radius:10px;background:white;" onload="try{this.style.height=this.contentDocument.body.scrollHeight+40+'px'}catch(e){}"></iframe>`;
-    } else {
-      const txt = (m.text || m.intro || '(Empty message)').replace(/\n/g,'<br>');
-      bodyEl.innerHTML = `<div style="color:var(--txt);white-space:pre-wrap;line-height:1.7;">${txt}</div>`;
-    }
-    emailPollInbox();
-  } catch(e) {
-    bodyEl.innerHTML = `<div style="color:var(--ros);padding:20px;">⚠ ${e.message}</div>`;
-  }
-}
-
-function closeMail() {
-  document.getElementById('mail-modal').style.display = 'none';
-}
-
-function escHtml(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-
-/* ══════════════════════════════════════════════
-   INTERNET SPEED TEST MODULE
-   Method: fetch() timing against public CDN
-   endpoints to measure download/upload throughput
-   and ping/jitter via multiple samples.
-══════════════════════════════════════════════ */
-
-// Download test files — public CDN assets (various sizes)
-const DL_ENDPOINTS = [
-  { url: 'https://speed.cloudflare.com/__down?bytes=10000000', size: 10_000_000, label: 'Cloudflare 10MB' },
-  { url: 'https://speed.cloudflare.com/__down?bytes=25000000', size: 25_000_000, label: 'Cloudflare 25MB' },
-];
-
-// Upload test: POST to httpbin (measures upload throughput)
-const UL_ENDPOINT = 'https://speed.cloudflare.com/__up';
-
-let speedRunning = false;
-
-function speedLog(msg) {
-  const el = document.getElementById('speed-log');
-  if (!el) return;
-  el.innerHTML += (el.innerHTML ? '<br>' : '') + `<span style="color:var(--dim);">${new Date().toLocaleTimeString()}</span> ${msg}`;
-  el.scrollTop = el.scrollHeight;
-}
-
-function speedSetArc(id, pct, maxMbps) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  // Arc: full = dasharray 212 (3/4 circle), empty = dashoffset 212
-  const fill = 212 * Math.min(pct, 1);
-  el.style.strokeDashoffset = 212 - fill;
-}
-
-function speedSetVal(id, val) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = val !== null ? val : '—';
-}
-
-function speedSetBar(barId, pctId, pct) {
-  const bar = document.getElementById(barId);
-  const lbl = document.getElementById(pctId);
-  if (bar) bar.style.width = Math.min(pct * 100, 100) + '%';
-  if (lbl) lbl.textContent = Math.round(pct * 100) + '%';
-}
-
-async function measurePing(url, samples = 5) {
-  const times = [];
-  for (let i = 0; i < samples; i++) {
-    const t0 = performance.now();
-    try {
-      await fetch(url + (url.includes('?') ? '&' : '?') + 'ping=' + i + '&bytes=0', {
-        method: 'GET', cache: 'no-store',
-        signal: AbortSignal.timeout(4000)
-      });
-    } catch { /* ignore */ }
-    times.push(performance.now() - t0);
-    await new Promise(r => setTimeout(r, 80));
-  }
-  times.sort((a,b) => a - b);
-  const valid = times.slice(1, -1); // drop min/max
-  const avg   = valid.reduce((a,b) => a+b, 0) / valid.length;
-  const jitter = Math.max(...valid) - Math.min(...valid);
-  return { ping: Math.round(avg), jitter: Math.round(jitter) };
-}
-
-async function measureDownload() {
-  const ep = DL_ENDPOINTS[0];
-  const t0 = performance.now();
-  try {
-    const r = await fetch(ep.url + '&nocache=' + Date.now(), {
-      cache: 'no-store',
-      signal: AbortSignal.timeout(30000)
-    });
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-
-    const reader = r.body.getReader();
-    let loaded = 0;
-    const start = performance.now();
-
-    while (true) {
-      const {done, value} = await reader.read();
-      if (done) break;
-      loaded += value.byteLength;
-      const elapsed = (performance.now() - start) / 1000;
-      const mbps    = (loaded * 8) / (elapsed * 1_000_000);
-      const pct     = loaded / ep.size;
-      speedSetVal('dl-val', mbps.toFixed(1));
-      speedSetArc('dl-arc', pct, 1000);
-      speedSetBar('dl-bar', 'dl-pct', pct);
-    }
-
-    const elapsed = (performance.now() - t0) / 1000;
-    const mbps    = (ep.size * 8) / (elapsed * 1_000_000);
-    return mbps;
-  } catch(e) {
-    speedLog('⚠ Download test error: ' + e.message);
-    return null;
-  }
-}
-
-async function measureUpload() {
-  // Build a 5MB buffer to upload
-  const SIZE = 5 * 1024 * 1024;
-  const buf  = new Uint8Array(SIZE);
-  crypto.getRandomValues(buf.slice(0, 1024)); // only fill small part for speed
-
-  const t0 = performance.now();
-  try {
-    const r = await fetch(UL_ENDPOINT + '?nocache=' + Date.now(), {
-      method: 'POST',
-      body: buf,
-      cache: 'no-store',
-      signal: AbortSignal.timeout(30000)
-    });
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    await r.text();
-    const elapsed = (performance.now() - t0) / 1000;
-    const mbps    = (SIZE * 8) / (elapsed * 1_000_000);
-
-    // Animate upload gauge
-    speedSetVal('ul-val', mbps.toFixed(1));
-    speedSetArc('ul-arc', mbps / 200, 1000);
-    speedSetBar('ul-bar', 'ul-pct', 1);
-    return mbps;
-  } catch(e) {
-    speedLog('⚠ Upload test error: ' + e.message);
-    return null;
-  }
-}
-
-document.getElementById('speed-btn').addEventListener('click', async function() {
-  if (speedRunning) return;
-  speedRunning = true;
-  const btn    = this;
-  const resEl  = document.getElementById('speed-result');
-  const errEl  = document.getElementById('speed-err');
-  const logEl  = document.getElementById('speed-log');
-  hideMsg(errEl);
-  resEl.style.display = 'block';
-  if (logEl) logEl.innerHTML = '';
-
-  // Reset gauges
-  speedSetVal('dl-val', '…');
-  speedSetVal('ul-val', '…');
-  speedSetVal('ping-val', '…');
-  speedSetVal('jitter-val', '…');
-  speedSetVal('server-val', 'CF');
-  speedSetArc('dl-arc', 0, 1000);
-  speedSetArc('ul-arc', 0, 1000);
-  speedSetBar('dl-bar', 'dl-pct', 0);
-  speedSetBar('ul-bar', 'ul-pct', 0);
-
-  btn.textContent = '⏳ Testing…';
-  btn.disabled    = true;
-
-  try {
-    // Phase 1: Ping
-    speedLog('📡 Measuring ping & jitter…');
-    const { ping, jitter } = await measurePing('https://speed.cloudflare.com/__down');
-    speedSetVal('ping-val',   ping   !== null ? ping   : '—');
-    speedSetVal('jitter-val', jitter !== null ? jitter : '—');
-    speedLog(`✅ Ping: ${ping}ms · Jitter: ${jitter}ms`);
-
-    // Phase 2: Download
-    speedLog('⬇ Testing download speed…');
-    const dlMbps = await measureDownload();
-    if (dlMbps !== null) {
-      speedSetVal('dl-val', dlMbps.toFixed(1));
-      speedSetArc('dl-arc', dlMbps / 500, 1000);
-      speedSetBar('dl-bar', 'dl-pct', 1);
-      speedLog(`✅ Download: ${dlMbps.toFixed(2)} Mbps`);
-    } else {
-      speedSetVal('dl-val', 'ERR');
-    }
-
-    // Phase 3: Upload
-    speedLog('⬆ Testing upload speed…');
-    const ulMbps = await measureUpload();
-    if (ulMbps !== null) {
-      speedLog(`✅ Upload: ${ulMbps.toFixed(2)} Mbps`);
-    } else {
-      speedSetVal('ul-val', 'ERR');
-    }
-
-    speedLog('🏁 Test complete!');
-    speedSetVal('server-val', 'Cloudflare');
-
-  } catch(e) {
-    showMsg(errEl, 'err', 'Speed test failed: ' + e.message);
-  }
-
-  btn.textContent = '↻ Re-run Test';
-  btn.disabled    = false;
-  speedRunning    = false;
-});
-
-
-
-/* ══════════════════════════════════════════════
-   MODULE 4 — XONOMO LINK SHORTENER
-   Backend: CleanURI API via Cloudflare Worker
-   Worker endpoint: /shorten (POST proxy)
-   Fallback: direct CleanURI POST (CORS allowed on some hosts)
-══════════════════════════════════════════════ */
-
-// Cloudflare Worker index.js source (shown in UI)
-const WORKER_CODE = `// ╔══════════════════════════════════════════╗
-// ║   XONOMO Link Shortener — Cloudflare     ║
-// ║   Worker index.js                        ║
-// ║   Deploy at: workers.cloudflare.com      ║
-// ╚══════════════════════════════════════════╝
-
-const BRAND     = 'XONOMO';
-const BRAND_URL = 'https://xonomo.site';
-
-// ── CORS headers ──────────────────────────
-const CORS = {
-  'Access-Control-Allow-Origin' : '*',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-};
-
-// ── Main handler ──────────────────────────
-export default {
-  async fetch(request) {
-    const url = new URL(request.url);
-
-    // Pre-flight
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { status: 204, headers: CORS });
-    }
-
-    // POST /shorten  — proxy to CleanURI
-    if (request.method === 'POST' && url.pathname === '/shorten') {
-      return handleShorten(request);
-    }
-
-    // GET /  — serve the HTML dashboard
-    return new Response(getHTML(), {
-      headers: { 'Content-Type': 'text/html;charset=UTF-8' }
-    });
-  }
-};
-
-// ── Shorten handler ───────────────────────
-async function handleShorten(request) {
-  let body;
-  try { body = await request.json(); } catch {
-    return jsonErr(400, 'Invalid JSON body');
-  }
-
-  const longUrl = (body.url || '').trim();
-  if (!longUrl) return jsonErr(400, 'Missing "url" field');
-
-  // Validate URL format
-  try { new URL(longUrl); } catch {
-    return jsonErr(422, 'Invalid URL format — must start with http:// or https://');
-  }
-
-  // Call CleanURI API
-  const form = new URLSearchParams();
-  form.set('url', longUrl);
-
-  let upstream;
-  try {
-    upstream = await fetch('https://cleanuri.com/api/v1/shorten', {
-      method : 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body   : form.toString(),
-    });
-  } catch (e) {
-    return jsonErr(502, 'CleanURI upstream unreachable: ' + e.message);
-  }
-
-  const data = await upstream.json().catch(() => ({}));
-
-  if (!upstream.ok || data.error) {
-    const msg = data.error || \`CleanURI returned HTTP \${upstream.status}\`;
-    return jsonErr(upstream.status || 502, msg);
-  }
-
-  if (!data.result_url) {
-    return jsonErr(502, 'CleanURI returned no shortened URL');
-  }
-
-  return new Response(
-    JSON.stringify({ short_url: data.result_url, original: longUrl }),
-    { status: 200, headers: { ...CORS, 'Content-Type': 'application/json' } }
-  );
-}
-
-// ── Helpers ───────────────────────────────
-function jsonErr(status, message) {
-  return new Response(
-    JSON.stringify({ error: message }),
-    { status, headers: { ...CORS, 'Content-Type': 'application/json' } }
-  );
-}`;
-
-// Inject worker code into the pre element
-(function() {
-  const pre = document.getElementById('worker-code-pre');
-  if (pre) pre.textContent = WORKER_CODE;
-
-  const copyBtn = document.getElementById('worker-copy-btn');
-  if (copyBtn) {
-    copyBtn.onclick = () => {
-      navigator.clipboard.writeText(WORKER_CODE).then(() => {
-        copyBtn.textContent = '✓ Copied!';
-        copyBtn.classList.add('copied');
-        setTimeout(() => {
-          copyBtn.textContent = '📋 Copy Worker Code';
-          copyBtn.classList.remove('copied');
-        }, 2500);
-      });
-    };
-  }
-})();
-
-// ── Frontend shorten button ───────────────
-document.getElementById('url-btn').addEventListener('click', async function() {
-  const btn    = this;
-  const raw    = document.getElementById('url-input').value.trim();
-  const resEl  = document.getElementById('url-result');
-  const errEl  = document.getElementById('url-err');
-  const linkEl = document.getElementById('url-short-text');
-
-  hideMsg(errEl);
-  resEl.style.display = 'none';
-
-  if (!raw) { showMsg(errEl, 'err', 'Please enter a URL.'); return; }
-  try { new URL(raw); } catch {
-    showMsg(errEl, 'err', 'Invalid URL — must start with https:// or http://'); return;
-  }
-
-  loading(btn, true);
-
-  try {
-    let shortened = null;
-    let lastErr   = '';
-
-    // Cloudflare Pages Function proxy — /api/shorten
-    try {
-      const r = await fetch('/api/shorten', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: raw }),
-        signal: AbortSignal.timeout(10000)
-      });
-      const d = await r.json();
-      if (d.result_url) shortened = d.result_url;
-      else if (d.error) lastErr = d.error;
-    } catch(e) { lastErr = e.message; }
-
-    if (shortened) {
-      linkEl.href        = shortened;
-      linkEl.textContent = shortened;
-      resEl.style.display = 'block';
-
-      const copyBtn = document.getElementById('url-copy-btn');
-      copyBtn.onclick = () => {
-        navigator.clipboard.writeText(shortened).then(() => {
-          copyBtn.classList.add('copied');
-          copyBtn.textContent = '✓ Copied!';
-          setTimeout(() => {
-            copyBtn.classList.remove('copied');
-            copyBtn.textContent = '📋 Copy';
-          }, 2000);
-        }).catch(() => copyText(shortened));
-      };
-    } else {
-      showMsg(errEl, 'err', lastErr || 'URL shortening failed. Please try again.');
-    }
-  } catch(e) {
-    showMsg(errEl, 'err', 'Unexpected error: ' + e.message);
-  }
-
-  loading(btn, false);
-});
-
-document.getElementById('url-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') document.getElementById('url-btn').click();
-});
-
-
-
-/* ══════════════════════════════════════════════
-   MODULE 5 — IMAGE TO PDF
-   Library: jsPDF (CDN loaded on demand)
-══════════════════════════════════════════════ */
-
-let pdfFiles = [];   // { file, dataUrl, name }
-let pdfDragging = null;
-
-// Load jsPDF on first use
-function loadJsPDF() {
-  return new Promise((resolve, reject) => {
-    if (window.jspdf) { resolve(window.jspdf.jsPDF); return; }
-    const s = document.createElement('script');
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-    s.onload  = () => resolve(window.jspdf.jsPDF);
-    s.onerror = () => reject(new Error('Failed to load jsPDF. Check your internet connection.'));
-    document.head.appendChild(s);
-  });
-}
-
-// File input change
-document.getElementById('pdf-file-input').addEventListener('change', function() {
-  pdfAddFiles(Array.from(this.files));
-  this.value = ''; // allow re-selecting same files
-});
-
-// Drag & drop
-function pdfDragOver(e) {
-  e.preventDefault();
-  document.getElementById('pdf-dropzone').style.borderColor = 'rgba(168,85,247,0.9)';
-  document.getElementById('pdf-dropzone').style.background  = 'rgba(168,85,247,0.1)';
-}
-function pdfDragLeave(e) {
-  document.getElementById('pdf-dropzone').style.borderColor = 'rgba(168,85,247,0.4)';
-  document.getElementById('pdf-dropzone').style.background  = 'rgba(168,85,247,0.04)';
-}
-function pdfDrop(e) {
-  e.preventDefault();
-  pdfDragLeave(e);
-  const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
-  pdfAddFiles(files);
-}
-
-function pdfAddFiles(files) {
-  const errEl = document.getElementById('pdf-err');
-  hideMsg(errEl);
-  let added = 0;
-  files.forEach(file => {
-    if (!file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      pdfFiles.push({ file, dataUrl: e.target.result, name: file.name });
-      pdfRenderPreview();
-    };
-    reader.readAsDataURL(file);
-    added++;
-  });
-  if (!added) showMsg(errEl, 'err', 'Only image files are supported (JPG, PNG, WebP, GIF)');
-}
-
-function pdfRenderPreview() {
-  const grid  = document.getElementById('pdf-preview-grid');
-  const wrap  = document.getElementById('pdf-preview-wrap');
-  const count = document.getElementById('pdf-count');
-  const btn   = document.getElementById('pdf-btn');
-
-  count.textContent = pdfFiles.length;
-  wrap.style.display  = pdfFiles.length ? 'block' : 'none';
-  btn.disabled        = pdfFiles.length === 0;
-  btn.style.opacity   = pdfFiles.length ? '1' : '0.5';
-
-  grid.innerHTML = '';
-  pdfFiles.forEach((item, idx) => {
-    const div = document.createElement('div');
-    div.style.cssText = 'position:relative;cursor:grab;border-radius:10px;overflow:hidden;border:2px solid rgba(168,85,247,0.3);aspect-ratio:1;background:#0a0e1a;';
-    div.draggable = true;
-    div.dataset.idx = idx;
-
-    const img = document.createElement('img');
-    img.src = item.dataUrl;
-    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
-
-    const badge = document.createElement('div');
-    badge.style.cssText = 'position:absolute;top:3px;left:4px;background:rgba(0,0,0,0.65);color:#fff;font-size:0.6rem;font-weight:700;padding:2px 6px;border-radius:6px;';
-    badge.textContent = idx + 1;
-
-    const del = document.createElement('button');
-    del.innerHTML = '✕';
-    del.style.cssText = 'position:absolute;top:3px;right:3px;background:rgba(244,63,94,0.8);border:none;color:#fff;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center;padding:0;';
-    del.onclick = (e) => { e.stopPropagation(); pdfFiles.splice(idx, 1); pdfRenderPreview(); };
-
-    div.appendChild(img); div.appendChild(badge); div.appendChild(del);
-
-    // Drag reorder
-    div.addEventListener('dragstart', () => { pdfDragging = idx; div.style.opacity = '0.4'; });
-    div.addEventListener('dragend',   () => { div.style.opacity = '1'; pdfRenderPreview(); });
-    div.addEventListener('dragover',  (e) => { e.preventDefault(); });
-    div.addEventListener('drop', (e) => {
-      e.preventDefault();
-      if (pdfDragging === null || pdfDragging === idx) return;
-      const moved = pdfFiles.splice(pdfDragging, 1)[0];
-      pdfFiles.splice(idx, 0, moved);
-      pdfDragging = null;
-      pdfRenderPreview();
-    });
-
-    grid.appendChild(div);
-  });
-}
-
-function pdfClearAll() {
-  pdfFiles = [];
-  pdfRenderPreview();
-  hideMsg(document.getElementById('pdf-err'));
-  document.getElementById('pdf-success').style.display = 'none';
-}
-
-document.getElementById('pdf-btn').addEventListener('click', async function() {
-  const btn       = this;
-  const errEl     = document.getElementById('pdf-err');
-  const progressW = document.getElementById('pdf-progress');
-  const progressB = document.getElementById('pdf-progress-bar');
-  const progressT = document.getElementById('pdf-progress-txt');
-  const successEl = document.getElementById('pdf-success');
-  const successInf= document.getElementById('pdf-success-info');
-
-  hideMsg(errEl);
-  successEl.style.display  = 'none';
-  progressW.style.display  = 'block';
-  progressB.style.width    = '0%';
-  btn.disabled = true; btn.style.opacity = '0.5';
-
-  try {
-    progressT.textContent = 'Loading jsPDF…';
-    progressB.style.width = '10%';
-    const jsPDF = await loadJsPDF();
-
-    const pageSize  = document.getElementById('pdf-pagesize').value;
-    const orient    = document.getElementById('pdf-orient').value;
-    const margin    = parseInt(document.getElementById('pdf-margin').value) || 0;
-    const quality   = parseFloat(document.getElementById('pdf-quality').value);
-
-    progressT.textContent = 'Creating PDF…';
-    progressB.style.width = '20%';
-
-    let doc = null;
-    const total = pdfFiles.length;
-
-    for (let i = 0; i < total; i++) {
-      const item = pdfFiles[i];
-      progressT.textContent = `Processing image ${i+1} / ${total}…`;
-      progressB.style.width = (20 + (i / total) * 70) + '%';
-
-      // Load image to get natural dimensions
-      await new Promise((resolve) => {
-        const tmpImg = new Image();
-        tmpImg.onload = () => {
-          const imgW = tmpImg.naturalWidth;
-          const imgH = tmpImg.naturalHeight;
-          const isLandscapeImg = imgW > imgH;
-
-          // Determine page orientation
-          let pageOrient;
-          if (orient === 'auto')      pageOrient = isLandscapeImg ? 'landscape' : 'portrait';
-          else if (orient === 'landscape') pageOrient = 'landscape';
-          else                         pageOrient = 'portrait';
-
-          // Determine page dimensions in mm
-          let pW, pH;
-          if (pageSize === 'fit') {
-            // 1px ≈ 0.264583 mm
-            pW = imgW * 0.264583;
-            pH = imgH * 0.264583;
-            pageOrient = 'portrait'; // fit mode ignores orientation
-          } else {
-            const sizes = { a4: [210,297], letter: [215.9,279.4], a3: [297,420] };
-            [pW, pH] = sizes[pageSize];
-            if (pageOrient === 'landscape') [pW, pH] = [pH, pW];
-          }
-
-          if (!doc) {
-            doc = new jsPDF({ orientation: pageOrient, unit: 'mm', format: pageSize === 'fit' ? [pW, pH] : pageSize });
-          } else {
-            doc.addPage(pageSize === 'fit' ? [pW, pH] : pageSize, pageOrient);
-          }
-
-          // Fit image into page with margin
-          const availW = pW - margin * 2;
-          const availH = pH - margin * 2;
-          const ratio  = Math.min(availW / imgW, availH / imgH);
-          const drawW  = imgW * ratio;
-          const drawH  = imgH * ratio;
-          const x = margin + (availW - drawW) / 2;
-          const y = margin + (availH - drawH) / 2;
-
-          // Detect format
-          const fmt = item.file.type === 'image/png' ? 'PNG' : 'JPEG';
-          doc.addImage(item.dataUrl, fmt, x, y, drawW, drawH, undefined, 'MEDIUM');
-          resolve();
-        };
-        tmpImg.src = item.dataUrl;
-      });
-
-      // Small delay to keep UI responsive
-      await new Promise(r => setTimeout(r, 30));
-    }
-
-    progressB.style.width = '95%';
-    progressT.textContent = 'Saving PDF…';
-    await new Promise(r => setTimeout(r, 50));
-
-    const filename = 'xonomo-images-' + Date.now() + '.pdf';
-    doc.save(filename);
-
-    progressB.style.width  = '100%';
-    progressW.style.display = 'none';
-    successInf.textContent  = `${total} image(s) · ${filename}`;
-    successEl.style.display = 'block';
-
-  } catch(e) {
-    progressW.style.display = 'none';
-    showMsg(errEl, 'err', '⚠ ' + e.message);
-  }
-
-  btn.disabled = false; btn.style.opacity = '1';
-});
-
-
-/* ══════════════════════════════════════════════
-   OCR — Image to Text (Tesseract.js)
-══════════════════════════════════════════════ */
-let ocrFile = null;
-
-function switchImgTab(tab) {
-  const isPdf = tab === 'pdf';
-  document.getElementById('tab-pdf-content').style.display = isPdf ? 'block' : 'none';
-  document.getElementById('tab-ocr-content').style.display = isPdf ? 'none'  : 'block';
-  document.getElementById('tab-pdf-btn').classList.toggle('on', isPdf);
-  document.getElementById('tab-ocr-btn').classList.toggle('on', !isPdf);
-}
-
-// OCR drag & drop
-function ocrDragOver(e) {
-  e.preventDefault();
-  document.getElementById('ocr-dropzone').style.borderColor = 'rgba(168,85,247,0.9)';
-}
-function ocrDragLeave(e) {
-  document.getElementById('ocr-dropzone').style.borderColor = 'rgba(168,85,247,0.4)';
-}
-function ocrDrop(e) {
-  e.preventDefault();
-  ocrDragLeave(e);
-  const f = e.dataTransfer.files[0];
-  if (f && f.type.startsWith('image/')) ocrSetFile(f);
-}
-
-document.getElementById('ocr-file-input').addEventListener('change', function() {
-  if (this.files[0]) ocrSetFile(this.files[0]);
-  this.value = '';
-});
-
-function ocrSetFile(file) {
-  ocrFile = file;
-  const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById('ocr-preview-img').src = e.target.result;
-    document.getElementById('ocr-preview-wrap').style.display = 'block';
-    document.getElementById('ocr-file-name').textContent = file.name;
-    document.getElementById('ocr-result').style.display = 'none';
-    hideMsg(document.getElementById('ocr-err'));
-  };
-  reader.readAsDataURL(file);
-  const btn = document.getElementById('ocr-btn');
-  btn.disabled = false; btn.style.opacity = '1';
-}
-
-document.getElementById('ocr-btn').addEventListener('click', async function() {
-  if (!ocrFile) return;
-  const btn       = this;
-  const progressW = document.getElementById('ocr-progress');
-  const progressB = document.getElementById('ocr-progress-bar');
-  const progressT = document.getElementById('ocr-progress-txt');
-  const resultEl  = document.getElementById('ocr-result');
-  const outputEl  = document.getElementById('ocr-text-output');
-  const errEl     = document.getElementById('ocr-err');
-
-  hideMsg(errEl);
-  resultEl.style.display  = 'none';
-  progressW.style.display = 'block';
-  progressB.style.width   = '0%';
-  btn.disabled = true; btn.style.opacity = '0.5';
-
-  try {
-    // Load Tesseract.js v4 (stable, CDN-friendly)
-    if (!window.Tesseract) {
-      progressT.textContent = 'Loading Tesseract…';
-      progressB.style.width = '10%';
-      await new Promise((res, rej) => {
-        const s = document.createElement('script');
-        s.src = 'https://unpkg.com/tesseract.js@4.1.4/dist/tesseract.min.js';
-        s.onload = res;
-        s.onerror = () => rej(new Error('Failed to load Tesseract. Check internet.'));
-        document.head.appendChild(s);
-      });
-    }
-
-    progressT.textContent = 'Analyzing image…';
-    progressB.style.width = '20%';
-
-    // Use Tesseract.recognize — works in v4 directly
-    const result = await window.Tesseract.recognize(
-      ocrFile,
-      'eng',
-      {
-        logger: m => {
-          if (m.status === 'recognizing text') {
-            const pct = Math.round((m.progress || 0) * 75) + 20;
-            progressB.style.width = Math.min(pct, 95) + '%';
-            progressT.textContent = `Reading text… ${Math.min(pct,95)}%`;
-          }
-        },
-        workerPath: 'https://unpkg.com/tesseract.js@4.1.4/dist/worker.min.js',
-        langPath: 'https://tessdata.projectnaptha.com/4.0.0',
-        corePath: 'https://unpkg.com/tesseract.js-core@4.0.4/tesseract-core.wasm.js',
-      }
-    );
-
-    progressB.style.width  = '100%';
-    progressW.style.display = 'none';
-
-    const text = (result.data.text || '').trim();
-    if (!text) {
-      showMsg(errEl, 'err', 'No text detected. Try a higher-resolution image with clear text.');
-    } else {
-      outputEl.value = text;
-      resultEl.style.display = 'block';
-    }
-
-  } catch(e) {
-    progressW.style.display = 'none';
-    showMsg(errEl, 'err', '⚠ ' + e.message);
-  }
-
-  btn.disabled = false; btn.style.opacity = '1';
-});
-
-function ocrCopyText() {
-  const text = document.getElementById('ocr-text-output').value;
-  if (!text) return;
-  navigator.clipboard.writeText(text).then(() => {
-    const b = document.getElementById('ocr-copy-btn');
-    const orig = b.innerHTML;
-    b.innerHTML = '✓ Copied!';
-    b.style.color = 'var(--grn)';
-    setTimeout(() => { b.innerHTML = orig; b.style.color = ''; }, 2000);
-  });
-}
-
-/* ══════════════════════════════════════════════
-   PIN SERVICE & SIDEBAR
-   Uses localStorage — persists across visits
-══════════════════════════════════════════════ */
-const SERVICE_LIST = [
-  { id: 'p-anon',       label: '🕵️ Anonymity Checker' },
-  { id: 'p-email',      label: '📧 Temporary Email' },
-  { id: 'p-speed',      label: '⚡ Speed Test' },
-  { id: 'p-url',        label: '🔗 Link Shortener', construction: true },
-  { id: 'p-img2pdf',    label: '🖼️ Image to PDF & Image to Text' },
-];
-
-let pinnedId = localStorage.getItem('xonomo_pin') || null;
-
-// Build sidebar links helper
-function buildSidebar(activePanelId) {
-  const linksEl = document.getElementById('sidebar-links');
-  linksEl.innerHTML = SERVICE_LIST.map(s => {
-    const badge = s.upcoming
-      ? '<span style="font-size:0.6rem;color:var(--amb);background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:6px;padding:1px 6px;margin-left:6px;">Soon</span>'
-      : s.construction
-      ? '<span style="font-size:0.6rem;color:var(--amb);background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);border-radius:6px;padding:1px 6px;margin-left:6px;">Beta</span>'
-      : '';
-    const disabled = s.upcoming ? 'opacity:0.55;cursor:default;pointer-events:none;' : '';
-    return `<button class="sidebar-link ${s.id === activePanelId ? 'active-link' : ''}"
-             style="${disabled}"
-             onclick="${s.upcoming ? '' : `sidebarNav('${s.id}')`}">
-       ${s.label}${badge}
-     </button>`;
-  }).join('');
-}
-
-// Activate pinned mode UI
-function activatePinnedMode(panelId) {
-  document.body.classList.add('pinned-mode');
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active', 'pinned-panel'));
-  const panel = document.getElementById(panelId);
-  if (panel) panel.classList.add('active', 'pinned-panel');
-  buildSidebar(panelId);
-  // Desktop: sidebar auto-visible via CSS; Mobile: keep closed until user clicks
-  if (window.innerWidth >= 641) {
-    document.getElementById('sidebar').classList.add('open');
-  }
-  updatePanelPinButtons(panelId);
-  window.scrollTo(0, 0);
-  if (panelId === 'p-email') emailInit();
-}
-
-// Update pin button text inside panels
-function updatePanelPinButtons(activePanelId) {
-  document.querySelectorAll('.panel .pin-btn').forEach(btn => {
-    const panelEl = btn.closest('.panel');
-    if (!panelEl) return;
-    const isPinned = activePanelId && panelEl.id === activePanelId;
-    btn.textContent = isPinned ? '📌 Unpin' : '📌 Pin';
-    btn.classList.toggle('pinned', isPinned);
-  });
-}
-
-// On page load — restore pin from localStorage
-(function initPin() {
-  if (!pinnedId) return;
-  // Slight delay so DOM is ready
-  activatePinnedMode(pinnedId);
-})();
-
-function pinService(panelId) {
-  // Unpin if same button pressed again
-  if (pinnedId === panelId) {
-    unpinService();
-    return;
-  }
-  pinnedId = panelId;
-  localStorage.setItem('xonomo_pin', panelId);
-  activatePinnedMode(panelId);
-}
-
-function unpinService() {
-  pinnedId = null;
-  localStorage.removeItem('xonomo_pin');
-  document.body.classList.remove('pinned-mode');
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active', 'pinned-panel'));
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('home').style.display = 'block';
-  updatePanelPinButtons(null);
-  window.scrollTo(0, 0);
-}
-
-function sidebarNav(panelId) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active', 'pinned-panel'));
-  const panel = document.getElementById(panelId);
-  if (panel) panel.classList.add('active', 'pinned-panel');
-  buildSidebar(panelId);
-  updatePanelPinButtons(pinnedId);
-  if (panelId === 'p-email') emailInit();
-  window.scrollTo(0, 0);
-  if (window.innerWidth < 640) document.getElementById('sidebar').classList.remove('open');
-}
-
-function toggleSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  if (window.innerWidth >= 641 && document.body.classList.contains('pinned-mode')) {
-    // Desktop pinned mode: toggle sidebar-closed on body
-    document.body.classList.toggle('sidebar-closed');
-  } else {
-    sidebar.classList.toggle('open');
-  }
-}
-
-// closePanel: if pinned mode → go back to pinned home (do nothing to home)
-//             if normal mode → show home
-const _origClosePanel = closePanel;
-window.closePanel = function(id) {
-  if (pinnedId) {
-    return;
-  }
-  _origClosePanel(id);
-};
-
-
 </script>
+
 </body>
 </html>
