@@ -464,8 +464,7 @@
 
 
     /* ── BUNDLE OUTER ── */
-    .bundle-outer { display: grid; grid-template-columns: 1fr 310px; gap: 12px; margin-bottom: 12px; align-items: stretch; }
-    .bundle-card  { margin-bottom: 0; }
+
     .bundle-side-ad { display: flex; align-items: center; justify-content: center; background: var(--cream-dark); border: 1px dashed #C4A870; border-radius: var(--radius); min-height: 260px; }
 
     /* ── REVIEWS MARQUEE ── */
@@ -484,12 +483,9 @@
     .rev-rating { font-family:'Jost',sans-serif; font-size:9.5px; color:var(--ink-soft); font-weight:600; }
     .rev-text { font-family:'Cormorant Garamond',serif; font-size:13.5px; color:var(--ink-mid); line-height:1.5; margin-bottom:7px; font-style:italic; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
     .rev-name { font-family:'Jost',sans-serif; font-size:10px; font-weight:700; color:var(--cognac); letter-spacing:0.5px; }
-
-    /* ── INLINE READ MORE ── */
-    .btn-more-inline { display:inline-flex; align-items:center; gap:4px; padding:5px 13px; background:transparent; color:var(--wine); border:1.5px solid var(--wine); border-radius:5px; font-family:'Jost',sans-serif; font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; vertical-align:middle; margin-left:9px; transition:all .2s; }
     .btn-more-inline:hover { background:var(--wine); color:var(--white); }
 
-    @media(max-width:1000px){ .bundle-outer { grid-template-columns:1fr; } .bundle-side-ad { min-height:auto; padding:10px; } }
+    
     /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
       .books-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -589,8 +585,7 @@
   </div><!-- /books-grid -->
 
   <!-- BUNDLE -->
-  <div class="bundle-outer fu d5">
-  <div class="bundle-card">
+  <div class="bundle-card fu d5">
     <div class="bundle-img">
       <img src="https://i.postimg.cc/MTMSf93V/file-00000000152471fabd8cc73e4162b655.png" alt="Complete Relationship Bundle" loading="lazy">
     </div>
@@ -618,7 +613,7 @@
     <div class="ed-body">
       <div class="ed-hl">Save Yours Before It's Too Late</div>
 
-      <p class="lead">If the person sleeping right next to you died tonight, would your first core emotion be crushing grief — or a sudden, terrifying sense of relief? If that question made your stomach drop, you are already living in a psychological ghost town, and it's time to wake up. <button class="btn-more-inline" id="moreBtn" onclick="toggleMore()">Read More ↓</button></p>
+      <p class="lead">If the person sleeping right next to you died tonight, would your first core emotion be crushing grief — or a sudden, terrifying sense of relief? If that question made your stomach drop, you are already living in a psychological ghost town, and it's time to wake up.</p>
 
       <div id="moreContent" class="more-content">
 
@@ -693,6 +688,8 @@
 
         </div>
       </div><!-- /moreContent -->
+
+      <button class="btn-more" id="moreBtn" onclick="toggleMore()">Read More ↓</button>
     </div>
   </div>
   <!-- BOTTOM AD -->
