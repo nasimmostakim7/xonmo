@@ -462,12 +462,9 @@
     }
     .has-tip:hover .tip { visibility: visible; opacity: 1; }
 
-
     /* ── BUNDLE OUTER ── */
 
-    .bundle-side-ad { display: flex; align-items: center; justify-content: center; background: var(--cream-dark); border: 1px dashed #C4A870; border-radius: var(--radius); min-height: 260px; }
-
-    /* ── REVIEWS MARQUEE ── */
+        /* ── REVIEWS MARQUEE ── */
     .reviews-section { background: var(--cream-mid); border-top: 1px solid rgba(196,151,58,.2); border-bottom: 1px solid rgba(196,151,58,.2); padding: 16px 0 14px; overflow: hidden; }
     .reviews-head { text-align: center; font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: var(--wine-dark); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 12px; padding: 0 24px; }
     .reviews-wrap { position: relative; overflow: hidden; }
@@ -485,9 +482,14 @@
     .rev-name { font-family:'Jost',sans-serif; font-size:10px; font-weight:700; color:var(--cognac); letter-spacing:0.5px; }
     .btn-more-inline:hover { background:var(--wine); color:var(--white); }
 
-    
+    /* ── BUNDLE OUTER (bundle + side ad) ── */
+    .bundle-outer { display: grid; grid-template-columns: 1fr 310px; gap: 14px; margin-bottom: 12px; align-items: stretch; }
+    .bundle-outer .bundle-card { margin-bottom: 0; }
+    .bundle-side-ad { display: flex; align-items: center; justify-content: center; background: var(--cream-dark); border: 1px dashed #C4A870; border-radius: var(--radius); padding: 6px; min-height: 260px; }
     /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
+      .bundle-outer { grid-template-columns: 1fr; }
+      .bundle-side-ad { min-height: auto; }
       .books-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
       .bundle-card { grid-template-columns: 1fr; }
       .bundle-img { aspect-ratio: 16/7; }
@@ -585,6 +587,7 @@
   </div><!-- /books-grid -->
 
   <!-- BUNDLE -->
+  <div class="bundle-outer">
   <div class="bundle-card fu d5">
     <div class="bundle-img">
       <img src="https://i.postimg.cc/MTMSf93V/file-00000000152471fabd8cc73e4162b655.png" alt="Complete Relationship Bundle" loading="lazy">
@@ -600,7 +603,12 @@
       </div>
       <a href="https://buy.polar.sh/polar_cl_YsK6bbcBaH3tetwuSNmpQwz9CIo1Kp2NP0Fgj2Njr3u" class="btn-bundle" target="_blank" rel="noopener noreferrer">🔥 Get the Bundle — $29.99</a>
     </div>
+  </div><!-- /bundle-card -->
+  <div class="bundle-side-ad">
+    <script>atOptions={'key':'c82e7e10f5f797dd4c60337bfe675325','format':'iframe','height':250,'width':300,'params':{}};</script>
+    <script src="https://www.highperformanceformat.com/c82e7e10f5f797dd4c60337bfe675325/invoke.js"></script>
   </div>
+  </div><!-- /bundle-outer -->
   <!-- EDITORIAL -->
   <div class="editorial fu d2">
     <div class="ed-head">
@@ -1059,7 +1067,6 @@
       _startTimer();
     }
   }
-
 
   // Duplicate reviews for seamless infinite scroll
   document.addEventListener('DOMContentLoaded', function(){
